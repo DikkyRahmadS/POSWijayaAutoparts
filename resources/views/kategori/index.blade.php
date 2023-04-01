@@ -57,10 +57,10 @@
                 <!--begin::Body-->
                 <!--begin::Table body-->
                 <tbody class="fw-bold text-gray-600">
-                    <?php $no = 1; ?>
+                    <?php $i = $datas->firstItem(); ?>
                     @foreach ($datas as $key => $value)
                         <tr>
-                            <td style="padding-left:20px">{{ $no }}</td>
+                            <td style="padding-left:20px">{{ $i }}</td>
                             <td>{{ $value->nama_kategori }}</td>
                             <td class="text-end">
                                 <a href="javascript:void(0)"
@@ -107,7 +107,7 @@
                             @include('kategori.edit')
                             @include('kategori.delete')
                         </tr>
-                        <?php $no++; ?>
+                        <?php $i++; ?>
                     @endforeach
                 </tbody>
                 <!--end::Table body-->
