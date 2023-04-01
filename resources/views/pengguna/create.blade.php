@@ -6,7 +6,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Tambah Kategori</h2>
+                <h2>Tambah Pengguna</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -28,15 +28,31 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                {!! Form::open(['url' => 'kategori']) !!}
+                {!! Form::open(['url' => 'pengguna']) !!}
                 <!--begin::Input group-->
                 <div class="mb-3">
-                    {!! Form::label('nama_kategori', 'Nama Kategori') !!}
-                    {!! Form::text('nama_kategori', '', [
+                    {!! Form::label('Nama', 'Nama Pengguna') !!}
+                    {!! Form::text('nama', '', [
                         'class' => 'form-control',
-                        'placeholder' => 'Masukkan Nama Kategori',
+                        'placeholder' => 'Masukkan Nama ',
                         'required',
                     ]) !!}
+                </div>
+                <div class="mb-3">
+                    {!! Form::label('pin', 'PIN') !!}
+                    {!! Form::text('pin', '', [
+                        'class' => 'form-control',
+                        'placeholder' => 'Masukkan PIN',
+                        'required',
+                    ]) !!}
+                </div>
+                <div class="mb-3">
+                    {!! Form::label('Foto', 'Foto') !!}
+                    {!! Form::file('image') !!}
+                </div>
+                <div class="mb-3">
+                    {!! Form::label('Role', 'Role') !!}
+                    {!! Form::select('size', [1 => 'Admin', '0' => 'Karyawan'], null, ['placeholder' => 'Pilih Role ...']) !!}
                 </div>
                 <!--end::Input group-->
                 <!--begin::Actions-->
@@ -51,6 +67,7 @@
                     {!! Form::close() !!}
                 </div>
                 <!--end::Actions-->
+                <!--end::Form-->
             </div>
             <!--end::Modal body-->
         </div>
