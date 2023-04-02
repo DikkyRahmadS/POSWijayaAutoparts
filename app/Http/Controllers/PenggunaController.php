@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pengguna;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
@@ -45,13 +47,26 @@ class PenggunaController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'role' => 'required',
         ]);
-        $path = $request->file('image')->store('public/images');
-        $pengguna = new Pengguna();
-        $pengguna->nama = $request->nama;
-        $pengguna->pin = $request->pin;
-        $pengguna->role = $request->role;
-        $pengguna->image = $path;
-        $pengguna->save();
+
+        $pengguna = Pengguna::create([
+            'nama' => $request->nama,
+            'pin' => $request->pin,
+            'role' => $request->role,
+        ]);
+
+
+        if ($request->hasFile('image')) {
+            $fotoExtension = $request->file('image')->extension();
+            $fotoFilename = Str::slug("$pengguna->id-$pengguna->nama") . '.' . $fotoExtension;
+
+            $fotoLocation = "uploads/pengguna/$pengguna->id/foto";
+
+            $fotoPath = $request->file('image')->storeAs($fotoLocation, $fotoFilename, 'public');
+
+            $pengguna->image = $fotoPath;
+
+            $pengguna->save();
+        }
 
         return redirect('pengguna')->with('success', 'Data Disimpan');
     }
@@ -83,23 +98,22 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama' => 'required',
-            'pin' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'role' => 'required',
-        ]);
+
         $pengguna = Pengguna::find($id);
-        if ($request->hasFile('image')) {
-            $request->validate([
-                'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            ]);
-            $path = $request->file('image')->store('public/images');
-            $pengguna->image = $path;
-        }
         $pengguna->nama = $request->nama;
         $pengguna->pin = $request->pin;
         $pengguna->role = $request->role;
+
+        if ($request->hasFile('image')) {
+            $fotoExtension = $request->file('image')->extension();
+            $fotoFilename = Str::slug("$pengguna->id-$pengguna->nama") . '.' . $fotoExtension;
+
+            $fotoLocation = "uploads/pengguna/$pengguna->id/foto";
+
+            $fotoPath = $request->file('image')->storeAs($fotoLocation, $fotoFilename, 'public');
+
+            $pengguna->image = $fotoPath;
+        }
         $pengguna->save();
 
         return redirect('pengguna')->with('success', 'Data Disimpan');
@@ -110,8 +124,10 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        $model =  Pengguna::find($id);
-        $model->delete();
+        $pengguna =  Pengguna::find($id);
+        Storage::disk('public')->deleteDirectory("uploads/pengguna/$pengguna->id");
+
+        $pengguna->delete();
         return redirect('pengguna')->with('success', 'Data Terhapus');
     }
 }

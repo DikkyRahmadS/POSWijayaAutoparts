@@ -28,45 +28,46 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                {!! Form::open(['url' => 'pengguna']) !!}
-                <!--begin::Input group-->
-                <div class="mb-3">
-                    {!! Form::label('Nama', 'Nama Pengguna') !!}
-                    {!! Form::text('nama', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan Nama ',
-                        'required',
-                    ]) !!}
-                </div>
-                <div class="mb-3">
-                    {!! Form::label('pin', 'PIN') !!}
-                    {!! Form::text('pin', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan PIN',
-                        'required',
-                    ]) !!}
-                </div>
-                <div class="mb-3">
-                    {!! Form::label('Foto', 'Foto') !!}
-                    {!! Form::file('image') !!}
-                </div>
-                <div class="mb-3">
-                    {!! Form::label('Role', 'Role') !!}
-                    {!! Form::select('size', [1 => 'Admin', '0' => 'Karyawan'], null, ['placeholder' => 'Pilih Role ...']) !!}
-                </div>
-                <!--end::Input group-->
-                <!--begin::Actions-->
-                <div class="text-center pt-15">
-                    <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
-                        data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                        <span class="indicator-label">Simpan</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    {!! Form::close() !!}
-                </div>
-                <!--end::Actions-->
+                <form action="{{ url('pengguna') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <!--begin::Input group-->
+                    <div class="mb-3">
+                        {!! Form::label('Nama', 'Nama Pengguna') !!}
+                        {!! Form::text('nama', '', [
+                            'class' => 'form-control',
+                            'placeholder' => 'Masukkan Nama ',
+                            'required',
+                        ]) !!}
+                    </div>
+                    <div class="mb-3">
+                        {!! Form::label('pin', 'PIN') !!}
+                        {!! Form::text('pin', '', [
+                            'class' => 'form-control',
+                            'placeholder' => 'Masukkan PIN',
+                            'required',
+                        ]) !!}
+                    </div>
+                    <div class="mb-3">
+                        {!! Form::label('Foto', 'Foto') !!}
+                        {!! Form::file('image') !!}
+                    </div>
+                    <div class="mb-3">
+                        {!! Form::label('Role', 'Role') !!}
+                        {!! Form::select('role', ['1' => 'Admin', '0' => 'Karyawan'], null, ['placeholder' => 'Pilih Role ...']) !!}
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center pt-15">
+                        <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
+                            <span class="indicator-label">Simpan</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
                 <!--end::Form-->
             </div>
             <!--end::Modal body-->
