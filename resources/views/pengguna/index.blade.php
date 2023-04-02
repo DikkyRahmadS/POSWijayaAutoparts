@@ -71,7 +71,12 @@
                             </td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->pin }}</td>
-                            <td>{{ $value->role }}</td>
+                            <td>
+                                <span
+                                    class="badge badge-lg {{ $value->role ? 'badge-light-danger' : 'badge-light-primary' }}">
+                                    {{ $value->role ? 'Admin' : 'Karyawan' }}
+                                </span>
+                            </td>
                             <td class="text-end">
                                 <a href="javascript:void(0)"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal"

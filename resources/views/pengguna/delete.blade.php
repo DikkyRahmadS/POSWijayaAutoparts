@@ -6,7 +6,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Hapus Kategori</h2>
+                <h2>Hapus Pengguna</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -30,8 +30,8 @@
                 <!--begin::Form-->
                 {!! Form::model($value, ['route' => ['pengguna.destroy', $value->id], 'method' => 'delete']) !!}
                 <!--begin::Input group-->
-                <h4 class="text-center">Apakah yakin menghapus kategori?</h4>
-                <h5 class="text-center">{{ $value->nama_kategori }} </h5>
+                <h4 class="text-center">Apakah yakin menghapus pengguna?</h4>
+                <h5 class="text-center">{{ $value->nama }} </h5>
                 <!--end::Input group-->
                 <!--begin::Actions-->
                 <div class="text-center pt-15">
