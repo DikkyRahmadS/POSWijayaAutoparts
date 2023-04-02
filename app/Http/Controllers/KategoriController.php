@@ -16,7 +16,7 @@ class KategoriController extends Controller
         //$datas = Kategori::all();
         $datas = Kategori::where('nama_kategori', 'Like', '%' . $keyword . '%');
 
-        $datas = $datas->orderBy('id', 'desc')->paginate(15);
+        $datas = $datas->orderBy('id', 'desc')->paginate(5);
         return view('kategori.index', compact(
             'datas',
             'keyword'
