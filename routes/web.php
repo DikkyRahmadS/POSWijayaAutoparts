@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenggunaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,9 @@ Route::get('/dashboard', function () {
 });
 
 Route::resource('kategori', KategoriController::class);
+Route::resource('pengguna', PenggunaController::class);
+
+
+// Route::group(['middleware' => ['role']], function () {
+//     Route::resource('kategori', KategoriController::class);
+// });

@@ -1,4 +1,4 @@
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -6,7 +6,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Tambah Kategori</h2>
+                <h2>Edit Kategori</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -28,29 +28,33 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                {!! Form::open(['url' => 'kategori']) !!}
-                <!--begin::Input group-->
+                {!! Form::model($value, ['route' => ['pengguna.update', $value->id], 'method' => 'put']) !!}
                 <div class="mb-3">
-                    {!! Form::label('nama_kategori', 'Nama Kategori') !!}
-                    {!! Form::text('nama_kategori', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan Nama Kategori',
-                        'required',
-                    ]) !!}
+                    {!! Form::label('nama', 'Nama Pengguna') !!}
+                    {!! Form::text('nama', $value->nama, ['class' => 'form-control']) !!}
                 </div>
-                <!--end::Input group-->
-                <!--begin::Actions-->
+                <div class="mb-3">
+                    {!! Form::label('pin', 'PIN') !!}
+                    {!! Form::text('pin', $value->pin, ['class' => 'form-control']) !!}
+                </div>
+                <div class="mb-3">
+                    {!! Form::label('Foto', 'Foto') !!}
+                    <img src="{{ Storage::url($value->image) }}" height="200" width="200" alt="" />
+                    {!! Form::file('image') !!}
+                </div>
+                <div class="mb-3">
+                    {!! Form::label('role', 'Nama Kategori') !!}
+                    {!! Form::text('role', $value->role, ['class' => 'form-control']) !!}
+                </div>
                 <div class="text-center pt-15">
-                    <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
-                        data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
                         <span class="indicator-label">Simpan</span>
                         <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
-                    {!! Form::close() !!}
                 </div>
-                <!--end::Actions-->
+                {!! Form::close() !!}
             </div>
             <!--end::Modal body-->
         </div>
