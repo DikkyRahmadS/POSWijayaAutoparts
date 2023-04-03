@@ -1,6 +1,6 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -30,8 +30,10 @@
                 <!--begin::Form-->
                 {!! Form::open(['url' => 'kategori']) !!}
                 <!--begin::Input group-->
-                <div class="mb-3">
-                    {!! Form::label('nama_kategori', 'Nama Kategori') !!}
+                <div class="d-flex flex-column mb-7 fv-row">
+                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                        <span>Nama Kategori</span>
+                    </label>
                     {!! Form::text('nama_kategori', '', [
                         'class' => 'form-control',
                         'placeholder' => 'Masukkan Nama Kategori',

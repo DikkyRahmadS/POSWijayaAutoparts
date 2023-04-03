@@ -21,7 +21,7 @@ License: For each use you must have a valid license purchased only from above li
 
 <body id="kt_body"
     class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed"
-    style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+    style="--kt-toolbar-height:10px;--kt-toolbar-height-tablet-and-mobile:10px">
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">

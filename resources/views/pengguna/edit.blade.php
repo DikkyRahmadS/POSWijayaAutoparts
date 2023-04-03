@@ -1,12 +1,12 @@
 <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Edit Kategori</h2>
+                <h2>Edit Pengguna</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -31,24 +31,44 @@
                 <form action="{{ route('pengguna.update', $value->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="mb-3">
-                        {!! Form::label('nama', 'Nama Pengguna') !!}
-                        {!! Form::text('nama', $value->nama, ['class' => 'form-control']) !!}
+                    <div class="row pb-5">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Nama Karyawan</span>
+                            </label>
+                            {!! Form::text('nama', $value->nama, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>PIN</span>
+                            </label>
+                            {!! Form::text('pin', $value->pin, ['class' => 'form-control']) !!}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {!! Form::label('pin', 'PIN') !!}
-                        {!! Form::text('pin', $value->pin, ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="mb-3">
-                        {!! Form::label('Foto', 'Foto') !!}
-                        <img src="{{ Storage::url($value->image) }}" height="200" width="200" alt="" />
-                        {!! Form::file('image') !!}
-                    </div>
-                    <div class="mb-3">
-                        {!! Form::label('role', 'Nama Kategori') !!}
-                        {!! Form::text('role', $value->role, ['class' => 'form-control']) !!}
 
+                    <div class="row">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <input type="file" class="form-control" id="image" name="image"
+                                placeholder="Masukkan file foto" value="{{ old('image') }}">
+                            <br>
+                            <img src="{{ Storage::url($value->image) }}" height="100" width="100" alt="" />
+                        </div>
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Nama Posisi</span>
+                            </label>
+                            <select name="role" class="form-control">
+                                <option value="" disabled selected>-- Pilih Posisi -- </option>
+                                <option value="1" {{ $value->role == 1 ? 'selected' : '' }}>Admin</option>
+                                <option value="0" {{ $value->role == 0 ? 'selected' : '' }}>Karyawan</option>
+                            </select>
+
+                        </div>
                     </div>
+
                     <div class="text-center pt-15">
                         <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
