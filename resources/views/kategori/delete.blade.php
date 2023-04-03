@@ -1,6 +1,6 @@
 <div class="modal fade" id="deleteModal{{ $value->id }}" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->

@@ -1,6 +1,6 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -31,30 +31,50 @@
                 <form action="{{ url('pengguna') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Input group-->
-                    <div class="mb-3">
-                        {!! Form::label('Nama', 'Nama Pengguna') !!}
-                        {!! Form::text('nama', '', [
-                            'class' => 'form-control',
-                            'placeholder' => 'Masukkan Nama ',
-                            'required',
-                        ]) !!}
+                    <div class="row">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Nama Karyawan</span>
+                            </label>
+                            {!! Form::text('nama', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Nama ',
+                                'required',
+                            ]) !!}
+                        </div>
+
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>PIN</span>
+                            </label>
+                            {!! Form::text('pin', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan PIN',
+                                'required',
+                            ]) !!}
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {!! Form::label('pin', 'PIN') !!}
-                        {!! Form::text('pin', '', [
-                            'class' => 'form-control',
-                            'placeholder' => 'Masukkan PIN',
-                            'required',
-                        ]) !!}
+
+                    <div class="row">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Nama Posisi</span>
+                            </label>
+                            <select name="role" class="form-control">
+                                <option value="" disabled selected>-- Pilih Posisi -- </option>
+                                <option value="1">Admin</option>
+                                <option value="0">Karyawan</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        {!! Form::label('Foto', 'Foto') !!}
-                        {!! Form::file('image') !!}
-                    </div>
-                    <div class="mb-3">
-                        {!! Form::label('Role', 'Role') !!}
-                        {!! Form::select('role', ['1' => 'Admin', '0' => 'Karyawan'], null, ['placeholder' => 'Pilih Role ...']) !!}
-                    </div>
+
                     <!--end::Input group-->
                     <!--begin::Actions-->
                     <div class="text-center pt-15">

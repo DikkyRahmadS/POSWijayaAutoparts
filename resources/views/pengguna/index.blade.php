@@ -34,8 +34,7 @@
             <div class="card-toolbar">
                 <!--begin::Add customer-->
                 <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addModal">Tambah
-                    Pengguna</a>
+                    data-bs-target="#addModal">Tambah Pengguna</a>
                 <!--end::Add customer-->
             </div>
             <!--end::Card toolbar-->
@@ -48,28 +47,27 @@
                 <thead>
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2 "> No </th>
-                        <th class="w-15px">Foto</th>
-                        <th class="w-15px">Nama</th>
-                        <th class="w-15px">PIN</th>
-                        <th class="w-15px">Role</th>
-                        <th class=" w-70px text-end"></th>
+                        <th class="min-w-10px"> No </th>
+                        <th class="min-w-70px"> Nama Pengguna</th>
+                        <th class="min-w-70px"> PIN</th>
+                        <th class="min-w-70px"> Posisi</th>
+                        <th class="min-w-70px"></th>
                     </tr>
                     <!--end::Table row-->
                 </thead>
                 <!--begin::Body-->
                 <!--begin::Table body-->
                 <tbody class="fw-bold text-gray-600">
-                    <?php $no = 1; ?>
+                    <?php $i = $datas->firstItem(); ?>
                     @foreach ($datas as $key => $value)
                         <tr>
-                            <td style="padding-left:20px">{{ $no }}</td>
+                            <td style="padding-left:10px">{{ $i }}</td>
                             <td>
                                 <div class="symbol symbol-45px me-5 ml-1">
                                     <img src="{{ Storage::url($value->image) }}" alt="" />
                                 </div>
+                                {{ $value->nama }}
                             </td>
-                            <td>{{ $value->nama }}</td>
                             <td>{{ $value->pin }}</td>
                             <td>
                                 <span
@@ -122,7 +120,7 @@
                             @include('pengguna.edit')
                             @include('pengguna.delete')
                         </tr>
-                        <?php $no++; ?>
+                        <?php $i++; ?>
                     @endforeach
                 </tbody>
                 <!--end::Table body-->

@@ -60,7 +60,7 @@
                     <?php $i = $datas->firstItem(); ?>
                     @foreach ($datas as $key => $value)
                         <tr>
-                            <td style="padding-left:20px">{{ $i }}</td>
+                            <td style="padding-left:10px">{{ $i }}</td>
                             <td>{{ $value->nama_kategori }}</td>
                             <td class="text-end">
                                 <a href="javascript:void(0)"

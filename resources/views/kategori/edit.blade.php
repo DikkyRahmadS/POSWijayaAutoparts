@@ -1,6 +1,6 @@
 <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -30,7 +30,9 @@
                 <!--begin::Form-->
                 {!! Form::model($value, ['route' => ['kategori.update', $value->id], 'method' => 'put']) !!}
                 <div class="mb-3">
-                    {!! Form::label('nama_kategori', 'Nama Kategori') !!}
+                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                        <span>Nama Kategori</span>
+                    </label>
                     {!! Form::text('nama_kategori', $value->nama_kategori, ['class' => 'form-control']) !!}
                 </div>
                 <div class="text-center pt-15">
