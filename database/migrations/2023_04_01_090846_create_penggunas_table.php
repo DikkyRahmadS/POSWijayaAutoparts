@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('penggunas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->integer('pin');
-            $table->string('image');
+            $table->char('pin', 6);
+            $table->string('image')->nullable();
             $table->boolean('role')->default(0);
             $table->timestamps();
         });
