@@ -95,8 +95,8 @@
                     </a>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <a href="/anggota">
-                        <span class="menu-link {{ 'anggota' == request()->path() ? 'active' : '' }}">
+                    <a href="/produk">
+                        <span class="menu-link {{ 'produk' == request()->path() ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/art/art009.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -105,7 +105,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Kelola Barang</span>
+                            <span class="menu-title">Kelola Produk</span>
                         </span>
                     </a>
                 </div>
