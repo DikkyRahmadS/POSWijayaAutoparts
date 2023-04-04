@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SupplierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,8 @@ Route::get('/dashboard', function () {
 Route::resource('kategori', KategoriController::class);
 Route::resource('pengguna', PenggunaController::class);
 Route::resource('produk', ProdukController::class);
+Route::resource('supplier', SupplierController::class);
+
 
 
 // Route::group(['middleware' => ['role']], function () {
