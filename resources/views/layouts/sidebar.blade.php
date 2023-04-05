@@ -119,7 +119,7 @@
                     </a>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <span class="menu-link  {{ 'produk' == request()->path() ? 'active' : '' }}">
+                    <span class="menu-link  {{ 'produk' == request()->path() ? 'active ' : '' }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen022.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -175,7 +175,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-title">Kelola Akun</span>
+                            <span class="menu-title">Daftar Akun</span>
                         </span>
                     </a>
                 </div>
