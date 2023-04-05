@@ -16,7 +16,8 @@ class PenggunaController extends Controller
     {
         $keyword = request()->query('keyword');
         //$datas = pengguna::all();
-        $datas = Pengguna::where('nama', 'Like', '%' . $keyword . '%');
+        $datas = Pengguna::where('nama', 'Like', '%' . $keyword . '%')
+            ->orWhere('pin', 'LIKE', "%$keyword%");
 
         $datas = $datas->orderBy('id', 'desc')->paginate(5);
         return view('pengguna.index', compact(
@@ -44,7 +45,6 @@ class PenggunaController extends Controller
         $request->validate([
             'nama' => 'required',
             'pin' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'role' => 'required',
         ]);
 

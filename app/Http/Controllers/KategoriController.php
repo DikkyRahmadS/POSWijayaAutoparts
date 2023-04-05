@@ -76,6 +76,10 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->validate($request, [
+            'nama_kategori' => 'required',
+        ]);
+
         $model = Kategori::find($id);
         $model->nama_kategori = $request->nama_kategori;
         $model->save();

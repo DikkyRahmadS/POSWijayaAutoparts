@@ -31,7 +31,7 @@
                 <form action="{{ url('pengguna') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!--begin::Input group-->
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Karyawan</span>
@@ -43,6 +43,9 @@
                             ]) !!}
                         </div>
 
+                    </div>
+
+                    <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>PIN</span>
@@ -52,18 +55,10 @@
                                 'placeholder' => 'Masukkan PIN',
                                 'required',
                             ]) !!}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span>Foto</span>
-                            </label>
-                            <input type="file" class="form-control" id="image" name="image">
+                            <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div>
                         </div>
 
-                        <div class="col">
+                        <div class="col pb-3">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Posisi</span>
                             </label>
@@ -74,10 +69,20 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <input type="file" class="form-control" id="image" name="image">
+                            <div class="text-muted fs-7 mt-2">* Hanya file gambar *.png, *.jpg dan *.jpeg yang diterima
+                            </div>
+                        </div>
+                    </div>
 
                     <!--end::Input group-->
                     <!--begin::Actions-->
-                    <div class="text-center pt-15">
+                    <div class="text-center pt-10">
                         <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
                             data-bs-dismiss="modal">Batal</button>
                         <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">

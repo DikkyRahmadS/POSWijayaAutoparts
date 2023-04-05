@@ -31,31 +31,25 @@
                 <form action="{{ route('pengguna.update', $value->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="row pb-5">
+                    <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Karyawan</span>
                             </label>
                             {!! Form::text('nama', $value->nama, ['class' => 'form-control']) !!}
                         </div>
+
+                    </div>
+
+                    <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>PIN</span>
                             </label>
                             {!! Form::text('pin', $value->pin, ['class' => 'form-control']) !!}
+                            <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span>Foto</span>
-                            </label>
-                            <input type="file" class="form-control" id="image" name="image"
-                                placeholder="Masukkan file foto" value="{{ old('image') }}">
-                            <br>
-                            <img src="{{ Storage::url($value->image) }}" height="100" width="100" alt="" />
-                        </div>
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Posisi</span>
@@ -65,11 +59,25 @@
                                 <option value="1" {{ $value->role == 1 ? 'selected' : '' }}>Admin</option>
                                 <option value="0" {{ $value->role == 0 ? 'selected' : '' }}>Karyawan</option>
                             </select>
-
                         </div>
                     </div>
 
-                    <div class="text-center pt-15">
+                    <div class="row pb-3">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <input type="file" class="form-control" id="image" name="image"
+                                placeholder="Masukkan file foto" value="{{ old('image') }}">
+                            <br>
+                            <img src="{{ Storage::url($value->image) }}" height="100" width="100" alt="" />
+                            <div class="text-muted fs-7 mt-2">* Hanya file gambar *.png, *.jpg dan *.jpeg yang diterima
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center pt-10">
                         <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
                             <span class="indicator-label">Simpan</span>
