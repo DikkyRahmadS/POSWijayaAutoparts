@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
@@ -12,7 +14,15 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view("produk.index");
+        $keyword = request()->query('keyword');
+        //$datas = pengguna::all();
+        $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
+
+        $datas = $datas->orderBy('id', 'desc')->paginate(5);
+        return view('produk.index', compact(
+            'datas',
+            'keyword'
+        ));
     }
 
     /**
@@ -25,7 +35,6 @@ class ProdukController extends Controller
         return view('produk.create', compact(
             'model'
         ));
-        return view("produk.create");
     }
 
     /**
@@ -34,15 +43,31 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
+        $request->validate([
             'nama_produk' => 'required',
-            "harga_jual" => "required"
+            'harga_jual' => 'required',
+
         ]);
 
-        $model = new Produk();
-        $model->nama_kategori = $request->nama_kategori;
-        $model->harga_jual = $request->harga_jual;
-        $model->save();
+        $produk = Produk::create([
+            'nama_produk' => $request->nama_produk,
+            'harga_jual' => $request->harga_jual,
+
+        ]);
+
+        if ($request->hasFile('image')) {
+            $fotoExtension = $request->file('image')->extension();
+            $fotoFilename = Str::slug("$produk->id-$produk->nama_produk") . '.' . $fotoExtension;
+
+            $fotoLocation = "uploads/produk/$produk->id/foto";
+
+            $fotoPath = $request->file('image')->storeAs($fotoLocation, $fotoFilename, 'public');
+
+            $produk->image = $fotoPath;
+
+            $produk->save();
+        }
+
         return redirect('produk')->with('success', 'Data Disimpan');
     }
 
@@ -52,6 +77,10 @@ class ProdukController extends Controller
     public function show(string $id)
     {
         //
+        $model = Produk::find($id);
+        return view('produk.show', compact(
+            'model'
+        ));
     }
 
     /**
@@ -60,6 +89,10 @@ class ProdukController extends Controller
     public function edit(string $id)
     {
         //
+        $model = Produk::find($id);
+        return view('produk.edit', compact(
+            'model'
+        ));
     }
 
     /**
@@ -68,6 +101,25 @@ class ProdukController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
+        $produk = Produk::find($id);
+        $produk->nama_produk = $request->nama_produk;
+        $produk->harga_jual = $request->harga_jual;
+
+
+        if ($request->hasFile('image')) {
+            $fotoExtension = $request->file('image')->extension();
+            $fotoFilename = Str::slug("$produk->id-$produk->nama_produk") . '.' . $fotoExtension;
+
+            $fotoLocation = "uploads/produk/$produk->id/foto";
+
+            $fotoPath = $request->file('image')->storeAs($fotoLocation, $fotoFilename, 'public');
+
+            $produk->image = $fotoPath;
+        }
+        $produk->save();
+
+        return redirect('produk')->with('success', 'Data Disimpan');
     }
 
     /**
@@ -76,5 +128,10 @@ class ProdukController extends Controller
     public function destroy(string $id)
     {
         //
+        $produk =  Produk::find($id);
+        Storage::disk('public')->deleteDirectory("uploads/produk/$produk->id");
+
+        $produk->delete();
+        return redirect('produk')->with('success', 'Data Terhapus');
     }
 }

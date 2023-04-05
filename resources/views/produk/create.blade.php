@@ -28,41 +28,63 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                {!! Form::open(['url' => 'produk']) !!}
-                <!--begin::Input group-->
-                <div class="d-flex flex-column mb-7 fv-row">
-                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                        <span>Nama Produk</span>
-                    </label>
-                    {!! Form::text('nama_kategori', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan Nama Produk',
-                        'required',
-                    ]) !!}
+                <form action="{{ url('produk') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <!--begin::Input group-->
+                    <div class="row pb-3">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Nama Produk</span>
+                            </label>
+                            {!! Form::text('nama_produk', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Nama Produk ',
+                                'required',
+                            ]) !!}
+                        </div>
 
-                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                        <span>Harga Produk</span>
-                    </label>
+                    </div>
 
-                    {!! Form::number('harga_jual', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan Harga Produk',
-                        'required',
-                    ]) !!}
-                </div>
-                <!--end::Input group-->
-                <!--begin::Actions-->
-                <div class="text-center pt-15">
-                    <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
-                        data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                        <span class="indicator-label">Simpan</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    {!! Form::close() !!}
-                </div>
-                <!--end::Actions-->
+                    <div class="row pb-3">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Harga Jual</span>
+                            </label>
+                            {!! Form::number('harga_jual', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Harga Jual',
+                                'required',
+                            ]) !!}
+                            {{-- <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div> --}}
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Foto</span>
+                            </label>
+                            <input type="file" class="form-control" id="image" name="image">
+                            <div class="text-muted fs-7 mt-2">* Hanya file gambar *.png, *.jpg dan *.jpeg yang diterima
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    <div class="text-center pt-10">
+                        <button type="button" id="kt_modal_new_card_cancel" class="btn btn-light me-3"
+                            data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
+                            <span class="indicator-label">Simpan</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
             </div>
             <!--end::Modal body-->
         </div>
