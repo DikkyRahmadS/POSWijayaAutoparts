@@ -118,8 +118,9 @@
                         </span>
                     </a>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <span class="menu-link  {{ 'produk' == request()->path() ? 'active ' : '' }}">
+                <div data-kt-menu-trigger="click"
+                    class="menu-item menu-accordion {{ 'produk' == request()->path() || 'pasok' == request()->path() ? 'hover show active' : '' }}">
+                    <span class="menu-link ">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen022.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -144,7 +145,8 @@
                         <span class="menu-title">Kelola Produk</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion {{ 'produk' == request()->path() ? 'show' : '' }} ">
+                    <div class="menu-sub menu-sub-accordion{{ 'produk' == request()->path() || 'pasok' == request()->path() ? ' show' : '' }}"
+                        {{ 'produk' == request()->path() || 'pasok' == request()->path() ? 'style=display: none; overflow: hidden;' : 'style=flex=0;' }}>
                         <div class="menu-item">
                             <a class="menu-link  {{ 'produk' == request()->path() ? 'active' : '' }}" href="/produk">
                                 <span class="menu-bullet">
@@ -154,8 +156,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" {{ 'laporan/peminjaman' == request()->path() ? 'active' : '' }}
-                                href="/laporan/peminjaman">
+                            <a class="menu-link {{ 'pasok' == request()->path() ? 'active' : '' }}" href="pasok">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
