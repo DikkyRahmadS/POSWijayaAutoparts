@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_kategori');
             $table->string('nama_produk');
             $table->string('image')->nullable();
             $table->integer("harga_jual");

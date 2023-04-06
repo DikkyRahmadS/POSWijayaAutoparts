@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Kategori;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,14 +15,18 @@ class ProdukController extends Controller
      */
     public function index()
     {
+
         $keyword = request()->query('keyword');
         //$datas = pengguna::all();
         $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
 
         $datas = $datas->orderBy('id', 'desc')->paginate(5);
+        $datas_kategori = Kategori::all();
         return view('produk.index', compact(
             'datas',
-            'keyword'
+            'keyword',
+            'datas_kategori'
+
         ));
     }
 
@@ -32,8 +37,10 @@ class ProdukController extends Controller
     {
         //
         $model = new Produk();
+        // $opsi_kategori = Kategori::all();
         return view('produk.create', compact(
-            'model'
+            'model',
+            'opsi_kategori'
         ));
     }
 
@@ -46,12 +53,16 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required',
             'harga_jual' => 'required',
+            'id_kategori' => "required"
+
 
         ]);
 
         $produk = Produk::create([
             'nama_produk' => $request->nama_produk,
             'harga_jual' => $request->harga_jual,
+            'id_kategori' => $request->id_kategori,
+
 
         ]);
 
