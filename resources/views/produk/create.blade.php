@@ -1,6 +1,6 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -34,20 +34,25 @@
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span>Pilih Kategori</span>
+                                <span>Kode Produk</span>
                             </label>
-                            <select name="kategori_id" id="" class="form-control">
-                                <option value="" selected disabled>--Pilih--</option>
-                                @foreach ($datas_kategori as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nama_kategori }}</option>
-                                @endforeach
-
-                            </select>
+                            {!! Form::text('kode_produk', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Kode Produk',
+                                'required',
+                            ]) !!}
                         </div>
-
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Merk Produk</span>
+                            </label>
+                            {!! Form::text('merk', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Merk Produk',
+                                'required',
+                            ]) !!}
+                        </div>
                     </div>
-
-
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
@@ -59,22 +64,43 @@
                                 'required',
                             ]) !!}
                         </div>
-
                     </div>
 
                     <div class="row pb-3">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Berat Produk</span>
+                            </label>
+                            {!! Form::text('berat', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Berat Produk',
+                                'required',
+                            ]) !!}
+                            <div class="text-muted fs-7 mt-2">*
+                            </div>
+                        </div>
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Harga Jual</span>
                             </label>
                             {!! Form::number('harga_jual', '', [
                                 'class' => 'form-control',
-                                'placeholder' => 'Masukkan Harga Jual',
+                                'placeholder' => 'Harga Produk',
                                 'required',
                             ]) !!}
                             {{-- <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div> --}}
                         </div>
-
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Kategori</span>
+                            </label>
+                            <select name="kategori_id" id="" class="form-control">
+                                <option value="" selected disabled>-- Pilih --</option>
+                                @foreach ($datas_kategori as $value)
+                                    <option value="{{ $value->id }}">{{ $value->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                     </div>
                     <div class="row">

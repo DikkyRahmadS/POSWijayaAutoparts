@@ -30,7 +30,7 @@
                 <!--begin::Form-->
                 {!! Form::model($value, ['route' => ['produk.destroy', $value->id], 'method' => 'delete']) !!}
                 <!--begin::Input group-->
-                <h4 class="text-center">Apakah yakin menghapus pengguna?</h4>
+                <h4 class="text-center">Apakah yakin menghapus produk?</h4>
                 <h5 class="text-center">{{ $value->nama_produk }} </h5>
                 <!--end::Input group-->
                 <!--begin::Actions-->

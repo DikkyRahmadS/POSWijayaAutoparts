@@ -1,6 +1,6 @@
 <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -34,6 +34,21 @@
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Kode Produk</span>
+                            </label>
+                            {!! Form::text('kode_produk', $value->kode_produk, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Merk Produk</span>
+                            </label>
+                            {!! Form::text('merk', $value->merk, ['class' => 'form-control']) !!}
+                        </div>
+
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Produk</span>
                             </label>
                             {!! Form::text('nama_produk', $value->nama_produk, ['class' => 'form-control']) !!}
@@ -44,10 +59,29 @@
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Berat Produk</span>
+                            </label>
+                            {!! Form::text('berat', $value->berat, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Harga Jual</span>
                             </label>
                             {!! Form::number('harga_jual', $value->harga_jual, ['class' => 'form-control']) !!}
                             {{-- <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div> --}}
+                        </div>
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Kategori</span>
+                            </label>
+                            <select name="kategori_id" id="" class="form-control">
+                                <option value="" selected disabled>-- Pilih --</option>
+                                @foreach ($datas_kategori as $k)
+                                    <option value="{{ $k->id }}"
+                                        {{ $k->id == $value->kategori_id ? 'selected' : '' }}>
+                                        {{ $k->nama_kategori }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
 
