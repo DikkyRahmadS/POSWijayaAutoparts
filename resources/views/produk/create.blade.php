@@ -36,7 +36,7 @@
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Pilih Kategori</span>
                             </label>
-                            <select name="id_kategori" id="" class="form-control">
+                            <select name="kategori_id" id="" class="form-control">
                                 <option value="" selected disabled>--Pilih--</option>
                                 @foreach ($datas_kategori as $value)
                                     <option value="{{ $value->id }}">{{ $value->nama_kategori }}</option>
