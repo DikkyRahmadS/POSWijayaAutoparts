@@ -50,6 +50,7 @@
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2 "> No </th>
+                        <th class="w-10px pe-2 "> Nama Kategori </th>
                         <th class="w-15px">Nama Produk</th>
                         <th class="w-15px">Harga Jual</th>
                         <th class="w-15px">Stok</th>
@@ -61,9 +62,11 @@
                 <!--begin::Table body-->
                 <tbody class="fw-bold text-gray-600">
                     <?php $i = $datas->firstItem(); ?>
+
                     @foreach ($datas as $key => $value)
                         <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
+                            <td>{{ $value->id_kategori }}</td>
                             <td>
                                 <div class="symbol symbol-45px me-5 ml-1">
                                     <img src="{{ Storage::url($value->image) }}" alt="" />
