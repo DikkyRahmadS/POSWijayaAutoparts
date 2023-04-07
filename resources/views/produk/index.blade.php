@@ -66,7 +66,7 @@
                     @foreach ($datas as $key => $value)
                         <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
-                            <td>{{ $value->id_kategori }}</td>
+                            <td>{{ $value->kategori->nama_kategori }}</td>
                             <td>
                                 <div class="symbol symbol-45px me-5 ml-1">
                                     <img src="{{ Storage::url($value->image) }}" alt="" />

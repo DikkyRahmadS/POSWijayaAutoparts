@@ -53,7 +53,7 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required',
             'harga_jual' => 'required',
-            'id_kategori' => "required"
+            'kategori_id' => "required"
 
 
         ]);
@@ -61,7 +61,7 @@ class ProdukController extends Controller
         $produk = Produk::create([
             'nama_produk' => $request->nama_produk,
             'harga_jual' => $request->harga_jual,
-            'id_kategori' => $request->id_kategori,
+            'kategori_id' => $request->kategori_id,
 
 
         ]);
