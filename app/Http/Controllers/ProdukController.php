@@ -51,7 +51,10 @@ class ProdukController extends Controller
     {
         //
         $request->validate([
+            'kode_produk' => 'required',
             'nama_produk' => 'required',
+            'merk' => 'required',
+            'berat' => 'required',
             'harga_jual' => 'required',
             'kategori_id' => "required"
 
@@ -59,7 +62,10 @@ class ProdukController extends Controller
         ]);
 
         $produk = Produk::create([
+            'kode_produk' => $request->kode_produk,
             'nama_produk' => $request->nama_produk,
+            'merk' => $request->merk,
+            'berat' => $request->berat,
             'harga_jual' => $request->harga_jual,
             'kategori_id' => $request->kategori_id,
 
@@ -114,8 +120,12 @@ class ProdukController extends Controller
         //
 
         $produk = Produk::find($id);
+        $produk->kode_produk = $request->kode_produk;
         $produk->nama_produk = $request->nama_produk;
+        $produk->merk = $request->merk;
+        $produk->berat = $request->berat;
         $produk->harga_jual = $request->harga_jual;
+        $produk->kategori_id = $request->kategori_id;
 
 
         if ($request->hasFile('image')) {

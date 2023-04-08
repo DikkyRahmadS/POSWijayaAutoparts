@@ -50,8 +50,10 @@
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                         <th class="w-10px pe-2 "> No </th>
-                        <th class="w-10px pe-2 "> Nama Kategori </th>
+                        <th class="w-10px">Kode Produk</th>
                         <th class="w-15px">Nama Produk</th>
+                        <th class="w-10px pe-2 ">Kategori </th>
+                        <th class="w-10px pe-2 ">Berat </th>
                         <th class="w-15px">Harga Jual</th>
                         <th class="w-15px">Stok</th>
                         <th class=" w-70px text-end"></th>
@@ -66,13 +68,32 @@
                     @foreach ($datas as $key => $value)
                         <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
-                            <td>{{ $value->kategori->nama_kategori }}</td>
                             <td>
-                                <div class="symbol symbol-45px me-5 ml-1">
-                                    <img src="{{ Storage::url($value->image) }}" alt="" />
-                                </div>
-                                {{ $value->nama_produk }}
+                                <!--begin::Badges-->
+                                <div class="badge badge-light-success">{{ $value->kode_produk }}</div>
+                                <!--end::Badges-->
                             </td>
+                            <td>
+                                <div class="d-flex">
+                                    <!--begin::Thumbnail-->
+                                    <div class="symbol symbol-45px me-1 ml-1">
+                                        <img src="{{ Storage::url($value->image) }}" alt="" />
+                                    </div>
+                                    <!--end::Thumbnail-->
+                                    <div class="ms-2">
+                                        <!--begin::Title-->
+                                        <a href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html"
+                                            class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1"
+                                            data-kt-ecommerce-category-filter="category_name">{{ $value->nama_produk }}</a>
+                                        <!--end::Title-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7 fw-bolder">{{ $value->merk }}</div>
+                                        <!--end::Description-->
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ $value->kategori->nama_kategori }}</td>
+                            <td>{{ $value->berat }}</td>
                             <td>{{ $value->harga_jual }}</td>
                             <td></td>
                             <td class="text-end">
