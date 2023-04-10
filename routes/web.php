@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
@@ -24,7 +25,8 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('pengguna', PenggunaController::class);
 Route::resource('produk', ProdukController::class);
 Route::resource('supplier', SupplierController::class);
-
+route::get('/masuk', [LoginController::class, 'halamanlogin']);
+route::post('postmasuk', [LoginController::class, 'postmasuk'])->name('postmasuk');
 
 
 // Route::group(['middleware' => ['role']], function () {
