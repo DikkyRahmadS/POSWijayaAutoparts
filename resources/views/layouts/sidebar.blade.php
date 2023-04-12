@@ -208,8 +208,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" {{ 'laporan/peminjaman' == request()->path() ? 'active' : '' }}
-                                href="/laporan/peminjaman">
+                            <a class="menu-link" {{ 'laporanpenjualan' == request()->path() ? 'active' : '' }}
+                                href="/laporanpenjualan">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

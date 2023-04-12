@@ -25,6 +25,7 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('pengguna', PenggunaController::class);
 Route::resource('produk', ProdukController::class);
 Route::resource('supplier', SupplierController::class);
+Route::resource('laporanpenjualan', PendapatanController::Class);
 route::get('/masuk', [LoginController::class, 'halamanlogin']);
 route::post('postmasuk', [LoginController::class, 'postmasuk'])->name('postmasuk');
 
