@@ -13,7 +13,6 @@ class SupplierController extends Controller
     public function index()
     {
         $keyword = request()->query('keyword');
-        //$datas = Supplier::all();
         $datas = Supplier::where('nama', 'Like', "%$keyword%")
             ->orWhere('alamat', 'LIKE', "%$keyword%")
             ->orWhere('no_hp', 'LIKE', "%$keyword%");

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengguna;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
@@ -15,9 +16,8 @@ class PenggunaController extends Controller
     public function index()
     {
         $keyword = request()->query('keyword');
-        //$datas = pengguna::all();
-        $datas = Pengguna::where('nama', 'Like', '%' . $keyword . '%')
-            ->orWhere('pin', 'LIKE', "%$keyword%");
+        $datas = User::where('name', 'Like', '%' . $keyword . '%')
+            ->orWhere('password', 'LIKE', "%$keyword%");
 
         $datas = $datas->orderBy('id', 'desc')->paginate(5);
         return view('pengguna.index', compact(
@@ -31,7 +31,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        $model = new Pengguna();
+        $model = new User();
         return view('pengguna.create', compact(
             'model'
         ));
@@ -43,21 +43,25 @@ class PenggunaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'pin' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
             'role' => 'required',
         ]);
 
-        $pengguna = Pengguna::create([
-            'nama' => $request->nama,
-            'pin' => $request->pin,
+        $pengguna = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make(
+                $request->password
+            ),
             'role' => $request->role,
         ]);
 
 
         if ($request->hasFile('image')) {
             $fotoExtension = $request->file('image')->extension();
-            $fotoFilename = Str::slug("$pengguna->id-$pengguna->nama") . '.' . $fotoExtension;
+            $fotoFilename = Str::slug("$pengguna->id-$pengguna->name") . '.' . $fotoExtension;
 
             $fotoLocation = "uploads/pengguna/$pengguna->id/foto";
 
@@ -76,7 +80,7 @@ class PenggunaController extends Controller
      */
     public function show(string $id)
     {
-        $model = Pengguna::find($id);
+        $model = User::find($id);
         return view('pengguna.show', compact(
             'model'
         ));
@@ -87,7 +91,7 @@ class PenggunaController extends Controller
      */
     public function edit(string $id)
     {
-        $model = Pengguna::find($id);
+        $model = User::find($id);
         return view('pengguna.edit', compact(
             'model'
         ));
@@ -99,14 +103,16 @@ class PenggunaController extends Controller
     public function update(Request $request, string $id)
     {
 
-        $pengguna = Pengguna::find($id);
-        $pengguna->nama = $request->nama;
-        $pengguna->pin = $request->pin;
+        $pengguna = User::find($id);
+        $pengguna->name = $request->name;
+        $pengguna->email = $request->email;
+        if ($request->password)
+            $pengguna->password = Hash::make($request->password);
         $pengguna->role = $request->role;
 
         if ($request->hasFile('image')) {
             $fotoExtension = $request->file('image')->extension();
-            $fotoFilename = Str::slug("$pengguna->id-$pengguna->nama") . '.' . $fotoExtension;
+            $fotoFilename = Str::slug("$pengguna->id-$pengguna->name") . '.' . $fotoExtension;
 
             $fotoLocation = "uploads/pengguna/$pengguna->id/foto";
 
@@ -124,7 +130,7 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        $pengguna =  Pengguna::find($id);
+        $pengguna =  User::find($id);
         Storage::disk('public')->deleteDirectory("uploads/pengguna/$pengguna->id");
 
         $pengguna->delete();

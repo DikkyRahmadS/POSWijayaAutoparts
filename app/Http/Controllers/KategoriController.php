@@ -13,7 +13,6 @@ class KategoriController extends Controller
     public function index()
     {
         $keyword = request()->query('keyword');
-        //$datas = Kategori::all();
         $datas = Kategori::where('nama_kategori', 'Like', '%' . $keyword . '%');
 
         $datas = $datas->orderBy('id', 'desc')->paginate(5);

@@ -1,6 +1,6 @@
 <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -36,18 +36,22 @@
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Karyawan</span>
                             </label>
-                            {!! Form::text('nama', $value->nama, ['class' => 'form-control']) !!}
+                            {!! Form::text('name', $value->name, ['class' => 'form-control']) !!}
                         </div>
-
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Email Karyawan</span>
+                            </label>
+                            {!! Form::text('email', $value->email, ['class' => 'form-control']) !!}
+                        </div>
                     </div>
-
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span>PIN</span>
+                                <span>Password</span>
                             </label>
-                            {!! Form::text('pin', $value->pin, ['class' => 'form-control']) !!}
-                            <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div>
+                            <input class="form-control" type="password" name="password" />
+                            <div class="text-muted fs-7 mt-2">* Kosongkan jika tidak ingin mengubah password.</div>
                         </div>
 
                         <div class="col">

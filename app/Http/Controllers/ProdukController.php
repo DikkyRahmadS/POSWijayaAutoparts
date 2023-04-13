@@ -17,7 +17,6 @@ class ProdukController extends Controller
     {
 
         $keyword = request()->query('keyword');
-        //$datas = pengguna::all();
         $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
 
         $datas = $datas->orderBy('id', 'desc')->paginate(5);
