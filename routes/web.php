@@ -7,6 +7,8 @@ use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KasirController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,6 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-
 
 
 
@@ -33,7 +33,9 @@ Route::group(['middleware' => ['auth', 'role']], function () {
     Route::resource('pengguna', PenggunaController::class);
     Route::resource('produk', ProdukController::class);
     Route::resource('supplier', SupplierController::class);
+    Route::resource('laporanpenjualan', PendapatanController::Class);
 });
 
-// Route::group(['middleware' => ['auth', 'role:1,0']], function () {
-// });
+Route::group(['middleware' => ['auth', 'role:1,0']], function () {
+    Route::get('/kasir', [KasirController::class, 'index']);
+});
