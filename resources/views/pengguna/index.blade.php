@@ -49,7 +49,7 @@
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                         <th class="min-w-10px"> No </th>
                         <th class="min-w-70px"> Nama Pengguna</th>
-                        <th class="min-w-70px"> PIN</th>
+                        <th class="min-w-70px"> Email </th>
                         <th class="min-w-70px"> Posisi</th>
                         <th class="min-w-70px"></th>
                     </tr>
@@ -66,9 +66,9 @@
                                 <div class="symbol symbol-45px me-5 ml-1">
                                     <img src="{{ Storage::url($value->image) }}" alt="" />
                                 </div>
-                                {{ $value->nama }}
+                                {{ $value->name }}
                             </td>
-                            <td>{{ $value->pin }}</td>
+                            <td>{{ $value->email }}</td>
                             <td>
                                 <span
                                     class="badge badge-lg {{ $value->role ? 'badge-light-danger' : 'badge-light-primary' }}">

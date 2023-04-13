@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,18 +18,22 @@ use App\Http\Controllers\SupplierController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+
+
+
+
+route::get('/masuk', [LoginController::class, 'halamanlogin'])->name('login');
+route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
+
+
+Route::group(['middleware' => ['auth', 'role']], function () {
+    route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('pengguna', PenggunaController::class);
+    Route::resource('produk', ProdukController::class);
+    Route::resource('supplier', SupplierController::class);
 });
 
-Route::resource('kategori', KategoriController::class);
-Route::resource('pengguna', PenggunaController::class);
-Route::resource('produk', ProdukController::class);
-Route::resource('supplier', SupplierController::class);
-route::get('/masuk', [LoginController::class, 'halamanlogin']);
-route::post('postmasuk', [LoginController::class, 'postmasuk'])->name('postmasuk');
-
-
-// Route::group(['middleware' => ['role']], function () {
-//     Route::resource('kategori', KategoriController::class);
+// Route::group(['middleware' => ['auth', 'role:1,0']], function () {
 // });
