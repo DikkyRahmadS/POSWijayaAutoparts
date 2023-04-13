@@ -21,7 +21,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials) &&  Auth::user()->role == 1) {
             return redirect()->intended('dashboard');
         } else if (Auth::attempt($credentials) &&  Auth::user()->role == 0) {
-            return redirect()->intended('kasir');
+            return redirect('/kasir');
         }
 
         return back()->withErrors([

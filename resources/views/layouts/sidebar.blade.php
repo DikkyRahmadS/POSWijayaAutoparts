@@ -212,15 +212,6 @@
                                 <span class="menu-title">Laporan Penjualan</span>
                             </a>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link  {{ 'laporanpetugas' == request()->path() ? 'active' : '' }}"
-                                href="/laporanpetugas">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Laporan Petugas</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">

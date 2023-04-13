@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
@@ -33,9 +34,9 @@ Route::group(['middleware' => ['auth', 'role']], function () {
     Route::resource('pengguna', PenggunaController::class);
     Route::resource('produk', ProdukController::class);
     Route::resource('supplier', SupplierController::class);
-    Route::resource('laporanpenjualan', PendapatanController::Class);
+    // Route::resource('laporanpenjualan', PendapatanController::Class);
 });
 
-Route::group(['middleware' => ['auth', 'role:1,0']], function () {
+Route::group(['middleware' => ['auth', 'role']], function () {
     Route::get('/kasir', [KasirController::class, 'index']);
 });

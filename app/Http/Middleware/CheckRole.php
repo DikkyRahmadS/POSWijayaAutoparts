@@ -19,7 +19,9 @@ class CheckRole
         //if (Auth::user() &&  Auth::user()->role == 1)
         if (Auth::user() &&  Auth::user()->role == 1) {
             return $next($request);
+        } else if (Auth::user() &&  Auth::user()->role == 0) {
+            return $next($request);
         }
-        return redirect('kasir');
+        return redirect('masuk');
     }
 }
