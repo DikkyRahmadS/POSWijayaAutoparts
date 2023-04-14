@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\PendapatanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KasirController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,19 +21,23 @@ use App\Http\Controllers\PendapatanController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+
+
+
+route::get('/masuk', [LoginController::class, 'halamanlogin'])->name('login');
+route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
+
+
+Route::group(['middleware' => ['auth', 'role']], function () {
+    route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('pengguna', PenggunaController::class);
+    Route::resource('produk', ProdukController::class);
+    Route::resource('supplier', SupplierController::class);
+    Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
 });
 
-Route::resource('kategori', KategoriController::class);
-Route::resource('pengguna', PenggunaController::class);
-Route::resource('produk', ProdukController::class);
-Route::resource('supplier', SupplierController::class);
-Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
-route::get('/masuk', [LoginController::class, 'halamanlogin']);
-route::post('postmasuk', [LoginController::class, 'postmasuk'])->name('postmasuk');
-
-
-// Route::group(['middleware' => ['role']], function () {
-//     Route::resource('kategori', KategoriController::class);
-// });
+Route::group(['middleware' => ['auth', 'role']], function () {
+    Route::get('/kasir', [KasirController::class, 'index']);
+});

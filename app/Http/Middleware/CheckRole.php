@@ -16,9 +16,12 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::pengguna() &&  Auth::pengguna()->role == 1) {
+        //if (Auth::user() &&  Auth::user()->role == 1)
+        if (Auth::user() &&  Auth::user()->role == 1) {
+            return $next($request);
+        } else if (Auth::user() &&  Auth::user()->role == 0) {
             return $next($request);
         }
-        return redirect('/');
+        return redirect('masuk');
     }
 }

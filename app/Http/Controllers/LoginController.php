@@ -13,22 +13,25 @@ class LoginController extends Controller
     {
         return view('login.login');
     }
-    public function postmasuk(Request $request)
-    {
-        $jumlah = $_POST["box1"] . $_POST["box2"] . $_POST["box3"] . $_POST["box4"] . $_POST["box5"] . $_POST["box6"];
 
-        // $data = DB::table('penggunas')->where('pin', '=', $jumlah);
-        // if ($data == TRUE) {
-        //     return redirect('dashboard');
-        // }
-        // dd($jumlah);
-        if (Auth::Attempt(['pin' => $jumlah])) {
-            return redirect('dashboard');
+    public function postlogin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials) &&  Auth::user()->role == 1) {
+            return redirect()->intended('dashboard');
+        } else if (Auth::attempt($credentials) &&  Auth::user()->role == 0) {
+            return redirect('/kasir');
         }
-        echo $jumlah;
-        // if (Auth::attempt($request->only('pin'))) {
-        //     return redirect('dashboard');
-        // }
-        // dd($jumlah);
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ]);
+    }
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('/masuk');
     }
 }

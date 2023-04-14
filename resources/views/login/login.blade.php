@@ -1,34 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>POS Wijaya Autoparts</title>
-    <link rel="stylesheet" href="/Login/styleLogin.css">
-    <script src="/Login/scriptLogin.js" defer></script>
+    <link rel="stylesheet" href="/Login/style.css">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <img src="/Login/img/IMG_CROP_20210501_13472663-removebg-preview.png" alt="">
-        </header>
-        <h4>Input PIN</h4>
-        <form action="{{ route('postmasuk') }}" method="POST">
+    @if (session('error'))
+        <div class="alert alert-error">
+            {{ session('error') }}
+        </div>
+    @endif
+    <div class="center">
+        <div class="gambar"><img src="/Login/IMG_CROP_20210501_13472663-removebg-preview.png"></div>
+        <form method="POST" action="{{ route('postlogin') }}">
             @csrf
-            <div class="input-field">
-                <input type="password" name="box1">
-                <input type="password" name="box2" disabled>
-                <input type="password" name="box3" disabled>
-                <input type="password" name="box4" disabled>
-                <input type="password" name="box5" disabled>
-                <input type="password" name="box6" disabled>
+            <div class="txt_field">
+                <input type="text" id="email" name="email" required>
+                <span></span>
+                <label>Username</label>
             </div>
-            <button>Login</button>
+            <div class="txt_field">
+                <input type="password" id="password" name="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <input type="submit" value="Login">
         </form>
     </div>
+
 </body>
 
 </html>

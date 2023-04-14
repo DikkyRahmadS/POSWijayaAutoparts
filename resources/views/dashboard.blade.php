@@ -13,14 +13,14 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 bg-danger py-5">
                         <h1 class="card-title align-items-start flex-column text-white pt-15">
-                            <span class="fw-bolder fs-2x mb-3">Hello, Admin</span>
+                            <span class="fw-bolder fs-2x mb-3">Hello, {{ Auth::user()->name }}</span>
                         </h1>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body p-0 pb-10">
                         <!--begin::Chart-->
-                        <div class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 100px"></div>
+                        <div class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 150px"></div>
                         <!--end::Chart-->
                         <!--begin::Stats-->
                         <div class="card-p mt-n20 position-relative">
@@ -31,7 +31,7 @@
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                                     <div class="row">
                                         <div class="col">
-                                            <h1 class="text-warning fw-bold fs-20 mt-6">kategori</h1>
+                                            <h1 class="text-warning fw-bold fs-20 mt-6">{{ $kategori }}</h1>
                                         </div>
                                         <div class="col">
                                             <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
@@ -58,7 +58,7 @@
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                                     <div class="row">
                                         <div class="col">
-                                            <h1 class="text-danger fw-bold fs-20 mt-6">Produk</h1>
+                                            <h1 class="text-danger fw-bold fs-20 mt-6">{{ $produk }}</h1>
                                         </div>
                                         <div class="col">
                                             <span class="svg-icon svg-icon-3x svg-icon-danger d-block my-2">
@@ -85,7 +85,7 @@
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                                     <div class="row">
                                         <div class="col">
-                                            <h1 class="text-success fw-bold fs-20 mt-6">Pengguna</h1>
+                                            <h1 class="text-success fw-bold fs-20 mt-6">{{ $user }}</h1>
                                         </div>
                                         <div class="col">
                                             <span class="svg-icon svg-icon-3x svg-icon-success d-block my-2">
@@ -112,7 +112,7 @@
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
                                     <div class="row">
                                         <div class="col">
-                                            <h1 class="text-primary fw-bold fs-20 mt-6">Transaksi</h1>
+                                            <h1 class="text-primary fw-bold fs-20 mt-6">{{ $supplier }}</h1>
                                         </div>
                                         <div class="col">
                                             <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
@@ -131,12 +131,15 @@
                                         </div>
                                     </div>
                                     <!--end::Svg Icon-->
-                                    <a href="#" class="text-primary fw-bold fs-6">Transaksi</a>
+                                    <a href="#" class="text-primary fw-bold fs-6">Supplier</a>
                                 </div>
                                 <!--end::Col-->
 
+
                             </div>
                             <!--end::Row-->
+                            <!--begin::Body-->
+
                         </div>
                         <!--end::Stats-->
                     </div>
@@ -150,8 +153,90 @@
             <!--end::Col-->
         </div>
         <!--end::Row-->
+        <div class="row gy-5 g-xl-8">
+            <!--begin::Col-->
+            <div class="col-xl-4">
+                <!--begin::List Widget 3-->
+                <div class="card card-xl-stretch mb-xl-8">
+                    <!--begin::Header-->
+                    <div class="card-header border-0">
+                        <h3 class="card-title fw-bolder text-dark">Todo</h3>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pt-2">
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-8">
+                            <!--begin::Bullet-->
+                            <span class="bullet bullet-vertical h-40px bg-success"></span>
+                            <!--end::Bullet-->
+                            <!--begin::Checkbox-->
+                            <div class="form-check form-check-custom form-check-solid mx-5">
+                                <input class="form-check-input" type="checkbox" value="" />
+                            </div>
+                            <!--end::Checkbox-->
+                            <!--begin::Description-->
+                            <div class="flex-grow-1">
+                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Create FireStone
+                                    Logo</a>
+                                <span class="text-muted fw-bold d-block">Due in 2 Days</span>
+                            </div>
+                            <!--end::Description-->
+                            <span class="badge badge-light-success fs-8 fw-bolder">New</span>
+                        </div>
+                        <!--end:Item-->
+                        <!--begin::Item-->
 
-        <!--end::Modal - New Product-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center">
+                            <!--begin::Bullet-->
+                            <span class="bullet bullet-vertical h-40px bg-success"></span>
+                            <!--end::Bullet-->
+                            <!--begin::Checkbox-->
+                            <div class="form-check form-check-custom form-check-solid mx-5">
+                                <input class="form-check-input" type="checkbox" value="" />
+                            </div>
+                            <!--end::Checkbox-->
+                            <!--begin::Description-->
+                            <div class="flex-grow-1">
+                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Customers
+                                    Update</a>
+                                <span class="text-muted fw-bold d-block">Due in 1 week</span>
+                            </div>
+                            <!--end::Description-->
+                            <span class="badge badge-light-success fs-8 fw-bolder">New</span>
+                        </div>
+                        <!--end:Item-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end:List Widget 3-->
+            </div>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xl-8">
+                <!--begin::Tables Widget 9-->
+                <div class="card card-xl-stretch mb-5 mb-xl-8">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bolder fs-3 mb-1">Members Statistics</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">Over 500 members</span>
+                        </h3>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body py-3">
+                        <!--begin::Table container-->
+                        <div class="mixed-widget-10-chart" data-kt-color="primary" style="height: 175px"></div>
+                        <!--end::Table container-->
+                    </div>
+                    <!--begin::Body-->
+                </div>
+                <!--end::Tables Widget 9-->
+            </div>
+            <!--end::Col-->
+        </div>
         <!--end::Modals-->
     </div>
 @endsection

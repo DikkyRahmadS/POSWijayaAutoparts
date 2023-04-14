@@ -1,6 +1,6 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -36,26 +36,33 @@
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Karyawan</span>
                             </label>
-                            {!! Form::text('nama', '', [
+                            {!! Form::text('name', '', [
                                 'class' => 'form-control',
                                 'placeholder' => 'Masukkan Nama ',
                                 'required',
                             ]) !!}
                         </div>
-
+                        <div class="col">
+                            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                <span>Email Karyawan</span>
+                            </label>
+                            {!! Form::text('email', '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Nama ',
+                                'required',
+                            ]) !!}
+                        </div>
                     </div>
-
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                <span>PIN</span>
+                                <span>Password</span>
                             </label>
-                            {!! Form::text('pin', '', [
+                            {!! Form::text('password', '', [
                                 'class' => 'form-control',
-                                'placeholder' => 'Masukkan PIN',
+                                'placeholder' => 'Masukkan Password',
                                 'required',
                             ]) !!}
-                            <div class="text-muted fs-7 mt-2">* Di isi dengan 6 angka</div>
                         </div>
 
                         <div class="col pb-3">
