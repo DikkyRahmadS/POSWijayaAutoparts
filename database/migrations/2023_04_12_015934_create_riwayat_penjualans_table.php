@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->onDelete('cascade');
             $table->date('tanggal_penjualan');
             $table->unsignedBigInteger('pengguna_id');
-            $table->foreign('pengguna_id')->references('id')->on('penggunas');
+            $table->foreign('pengguna_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
