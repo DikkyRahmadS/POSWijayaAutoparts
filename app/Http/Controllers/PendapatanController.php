@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendapatan;
+// use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class PendapatanController extends Controller
@@ -12,7 +13,8 @@ class PendapatanController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Pendapatan::all();
+        return view("pendapatan.index", compact("datas"));
     }
 
     /**

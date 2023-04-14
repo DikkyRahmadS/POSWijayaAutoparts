@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PendapatanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,7 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('pengguna', PenggunaController::class);
 Route::resource('produk', ProdukController::class);
 Route::resource('supplier', SupplierController::class);
-Route::resource('laporanpenjualan', PendapatanController::Class);
+Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
 route::get('/masuk', [LoginController::class, 'halamanlogin']);
 route::post('postmasuk', [LoginController::class, 'postmasuk'])->name('postmasuk');
 
