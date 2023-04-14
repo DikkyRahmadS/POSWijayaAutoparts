@@ -23,6 +23,7 @@ use App\Http\Controllers\KasirController;
 
 
 
+
 route::get('/masuk', [LoginController::class, 'halamanlogin'])->name('login');
 route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 route::post('postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
@@ -34,7 +35,7 @@ Route::group(['middleware' => ['auth', 'role']], function () {
     Route::resource('pengguna', PenggunaController::class);
     Route::resource('produk', ProdukController::class);
     Route::resource('supplier', SupplierController::class);
-    // Route::resource('laporanpenjualan', PendapatanController::Class);
+    Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
 });
 
 Route::group(['middleware' => ['auth', 'role']], function () {

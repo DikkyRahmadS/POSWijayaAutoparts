@@ -8,8 +8,8 @@
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
             <!--begin::Card title-->
             <div class="card-title">
-                <!--begin::Search-->
-                <form action="{{ url('pendapatan') }}" method="GET">
+                {{-- <!--begin::Search-->
+                <form action="{{ url('laporanpenjualan') }}" method="GET">
                     <div class="d-flex align-items-center position-relative my-1">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                         <span class="svg-icon svg-icon-1 position-absolute ms-4">
@@ -24,20 +24,19 @@
                         </span>
                         <!--end::Svg Icon-->
                         <input type="search" class="form-control form-control-solid w-250px ps-14"
-                            placeholder="Cari" id="keyword" name="keyword" value="{{ $keyword }}">
-
+                            placeholder="Cari Kategori" id="keyword" name="keyword" value="{{ $keyword }}">
                     </div>
                 </form>
-                <!--end::Search-->
+                <!--end::Search--> --}}
             </div>
             <!--end::Card title-->
             <!--begin::Card toolbar-->
             <div class="card-toolbar">
-                <!--begin::Add customer-->
+                {{-- <!--begin::Add customer-->
                 <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addModal">Tambah
-                    Produk</a>
-                <!--end::Add customer-->
+                    data-bs-target="#addModal">Tambah</a>
+                <!--end::Add customer--> --}}
+
             </div>
             <!--end::Card toolbar-->
         </div>
@@ -49,13 +48,12 @@
                 <thead>
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2 "> No </th>
-                        <th class="w-10px">Kode Produk</th>
-                        <th class="w-15px">Nama Produk</th>
-                        <th class="w-10px pe-2 ">Kategori </th>
-                        <th class="w-10px pe-2 ">Berat </th>
-                        <th class="w-15px">Harga Jual</th>
-                        <th class="w-15px">Stok</th>
+                        <th class="w-10px pe-2"> ID </th>
+                        <th class="w-10px pe-2"> ID Penjualan </th>
+                        <th class="w-10px pe-2"> ID Produk </th>
+                        <th class="w-15px"> Qty </th>
+                        <th class="w-15px"> Harga Asli Produk </th>
+                        <th class="w-15px"> Harga Jual Produk </th>
                         <th class=" w-70px text-end"></th>
                     </tr>
                     <!--end::Table row-->
@@ -63,39 +61,11 @@
                 <!--begin::Body-->
                 <!--begin::Table body-->
                 <tbody class="fw-bold text-gray-600">
-                    <?php $i = $datas->firstItem(); ?>
-
+                    <?php $i = 1; ?>
                     @foreach ($datas as $key => $value)
                         <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
-                            <td>
-                                <!--begin::Badges-->
-                                <div class="badge badge-light-success">{{ $value->kode_produk }}</div>
-                                <!--end::Badges-->
-                            </td>
-                            <td>
-                                <div class="d-flex">
-                                    <!--begin::Thumbnail-->
-                                    <div class="symbol symbol-45px me-1 ml-1">
-                                        <img src="{{ Storage::url($value->image) }}" alt="" />
-                                    </div>
-                                    <!--end::Thumbnail-->
-                                    <div class="ms-2">
-                                        <!--begin::Title-->
-                                        <a href="../../demo1/dist/apps/ecommerce/catalog/edit-category.html"
-                                            class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1"
-                                            data-kt-ecommerce-category-filter="category_name">{{ $value->nama_produk }}</a>
-                                        <!--end::Title-->
-                                        <!--begin::Description-->
-                                        <div class="text-muted fs-7 fw-bolder">{{ $value->merk }}</div>
-                                        <!--end::Description-->
-                                    </div>
-                                </div>
-                            </td>
-                            <td>{{ $value->kategori->nama_kategori }}</td>
-                            <td>{{ $value->berat }}</td>
-                            <td>{{ $value->harga_jual }}</td>
-                            <td></td>
+                            <td>{{ $value->id }}</td>
                             <td class="text-end">
                                 <a href="javascript:void(0)"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal"
@@ -138,8 +108,8 @@
                                     <!--end::Svg Icon-->
                                 </a>
                             </td>
-                            @include('produk.edit')
-                            @include('produk.delete')
+                            {{-- @include('kategori.edit')
+                            @include('kategori.delete') --}}
                         </tr>
                         <?php $i++; ?>
                     @endforeach
@@ -147,10 +117,9 @@
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
-
         </div>
         <!--end::Table container-->
-        @include('produk.create')
+        {{-- @include('kategori.create') --}}
 
     </div>
 

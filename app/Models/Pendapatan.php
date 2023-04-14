@@ -10,10 +10,7 @@ class Pendapatan extends Model
     use HasFactory;
     protected $table = 'pendapatans';
     protected $primaryKey = 'id';
-    protected $fillable = ['Tanggal','Nama Produk', 'Jumlah', 'Harga Asli Produk', 'Harga Jual'];
+    protected $fillable = ['id','penjualan_id', 'kode_produk', 'qty', 'harga_beli', 'harga_jual'];
 
-    public function riwayat_penjualans()
-    {
-        return $this->hasMany(RiwayatPenjualan::class);
-    }
+
 }
