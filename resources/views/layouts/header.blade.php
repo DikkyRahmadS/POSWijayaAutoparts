@@ -1,5 +1,6 @@
 <base href="">
 <title>Point Of Sales</title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta charset="utf-8" />
 <meta name="description"
     content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
@@ -29,3 +30,4 @@
 {{-- scss --}}
 <link rel="stylesheet" href="{{ asset('Transaksi/style/main.css') }}">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+@stack('css')

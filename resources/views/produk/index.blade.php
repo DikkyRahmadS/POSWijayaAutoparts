@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('menu', 'Menu')
-@section('title', 'Produk')
+@section('title', 'Daftar Produk')
 @section('content')
 
     <div class="card card-flush">
@@ -8,61 +8,39 @@
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
             <!--begin::Card title-->
             <div class="card-title">
-                <!--begin::Search-->
-                <form action="{{ url('produk') }}" method="GET">
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
-                                    rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
-                                <path
-                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                    fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <input type="search" class="form-control form-control-solid w-250px ps-14"
-                            placeholder="Cari Produk" id="keyword" name="keyword" value="{{ $keyword }}">
-
-                    </div>
-                </form>
-                <!--end::Search-->
+                <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-primary"><i
+                        class="fa fa-plus-circle"></i> Tambah
+                    Produk</button>
             </div>
             <!--end::Card title-->
             <!--begin::Card toolbar-->
             <div class="card-toolbar">
-                <!--begin::Add customer-->
-                <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addModal">Tambah
-                    Produk</a>
-                <!--end::Add customer-->
+
             </div>
             <!--end::Card toolbar-->
         </div>
         <!--end::Card header-->
         <div class="card-body pt-0">
             <!--begin::Table-->
-            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_category_table">
+            <table class="table align-middle table-row-dashed fs-6 gy-5" id="produktable">
                 <!--begin::Table head-->
                 <thead>
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2 "> No </th>
-                        <th class="w-10px">Kode Produk</th>
-                        <th class="w-15px">Nama Produk</th>
-                        <th class="w-10px pe-2 ">Kategori </th>
-                        <th class="w-10px pe-2 ">Berat </th>
-                        <th class="w-15px">Harga Jual</th>
-                        <th class="w-15px">Stok</th>
-                        <th class=" w-70px text-end"></th>
+                        <th class="min-w-10px "> No </th>
+                        <th class="min-w-70px">Kode Produk</th>
+                        <th class="min-w-70px">Nama Produk</th>
+                        <th class="min-w-70px pe-2 ">Kategori </th>
+                        <th class="min-w-70px pe-2 ">Berat </th>
+                        <th class="min-w-10px">Harga Jual</th>
+                        <th class="min-w-70px">Stok</th>
+                        <th class="min-w-70px text-end"></th>
                     </tr>
                     <!--end::Table row-->
                 </thead>
                 <!--begin::Body-->
                 <!--begin::Table body-->
-                <tbody class="fw-bold text-gray-600">
+                {{-- <tbody class="fw-bold text-gray-600">
                     <?php $i = $datas->firstItem(); ?>
 
                     @foreach ($datas as $key => $value)
@@ -94,8 +72,8 @@
                             </td>
                             <td>{{ $value->kategori->nama_kategori }}</td>
                             <td>{{ $value->berat }}</td>
-                            <td>{{ $value->harga_jual }}</td>
-                            <td></td>
+                            <td>Rp. {{ format_uang($value->harga_jual) }}</td>
+                            <td>{{ $value->stok }}</td>
                             <td class="text-end">
                                 <a href="javascript:void(0)"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal"
@@ -143,17 +121,154 @@
                         </tr>
                         <?php $i++; ?>
                     @endforeach
-                </tbody>
+                </tbody> --}}
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
 
         </div>
         <!--end::Table container-->
-        @include('produk.create')
+        @includeIf('produk.form')
 
     </div>
-
-
-
 @endsection
+
+@push('scripts')
+    <script>
+        let table;
+        $(function() {
+            table = $('#produktable').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                ajax: {
+                    url: '{{ route('produk.data') }}',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        searchable: false,
+                        sortable: false
+                    },
+                    {
+                        data: 'kode_produk'
+                    },
+                    {
+                        data: 'nama_produk'
+                    },
+                    {
+                        data: 'nama_kategori'
+                    },
+                    {
+                        data: 'berat'
+                    },
+                    {
+                        data: 'harga_jual'
+                    },
+                    {
+                        data: 'stok'
+                    },
+                    {
+                        data: 'aksi',
+                        searchable: false,
+                        sortable: false
+                    },
+                ]
+            });
+
+            $('#modal-produk').validator().on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                        url: $('#modal-produk form').attr('action'),
+                        type: $('#modal-produk form').attr('method'),
+                        data: new FormData($('#modal-produk form')[0]),
+                        async: false,
+                        processData: false,
+                        contentType: false
+                    })
+                    .done(response => {
+                        $('#modal-produk').modal('hide');
+                        toastr.success('Data Berhasil Disimpan!', {
+                            fadeAway: 1000
+                        });
+                        table.ajax.reload();
+                    })
+                    .fail(errors => {
+                        toastr.error('Data Gagal Disimpan!', {
+                            fadeAway: 1000
+                        });
+                    });
+            });
+        });
+
+        function addForm(url) {
+            $('#modal-produk').modal('show');
+            $('#modal-produk .modal-title').text('Tambah produk');
+
+            $('#modal-produk form')[0].reset();
+            $('#modal-produk form').attr('action', url);
+            $('#modal-produk [name=_method]').val('post');
+            $('#modal-produk [name=kode_produk]').focus();
+            $('.tampil-foto').html(``);
+            $('.stoktxt').html(`* Default 0, produk baru`);
+        }
+
+        function editForm(url) {
+            $('#modal-produk').modal('show');
+            $('#modal-produk .modal-title').text('Edit produk');
+
+            $('#modal-produk form')[0].reset();
+            $('#modal-produk form').attr('action', url);
+            $('#modal-produk [name=_method]').val('put');
+            $('#modal-produk [name=kode_produk]').focus();
+
+            $.get(url)
+                .done((response) => {
+                    $('#modal-produk [name=kode_produk]').val(response.kode_produk);
+                    $('#modal-produk [name=nama_produk]').val(response.nama_produk);
+                    $('#modal-produk [name=kategori_id]').val(response.kategori_id);
+                    $('#modal-produk [name=merk]').val(response.merk);
+                    $('#modal-produk [name=berat]').val(response.berat);
+                    $('#modal-produk [name=harga_jual]').val(response.harga_jual);
+                    $('#modal-produk [name=stok]').val(response.stok);
+                    $('.tampil-foto').html(`<img src="{{ Storage::url('/') }}${response.image}" width="200">`);
+
+                })
+                .fail((errors) => {
+                    alert('Tidak dapat menampilkan data');
+                    return;
+                });
+        }
+
+        function deleteData(url) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post(url, {
+                            '_token': $('[name=csrf-token]').attr('content'),
+                            '_method': 'delete'
+                        })
+                        .done((response) => {
+                            toastr.success('Data Berhasil Dihapus!', {
+                                fadeAway: 1000
+                            });
+                            table.ajax.reload();
+                        })
+                        .fail((errors) => {
+                            toastr.error('Data Gagal Dihapus!', {
+                                fadeAway: 1000
+                            });
+                        });
+                }
+            })
+        }
+    </script>
+@endpush

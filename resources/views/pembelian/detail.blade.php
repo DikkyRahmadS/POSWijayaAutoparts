@@ -1,12 +1,11 @@
-<div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog  mw-700px">
         <!--begin::Modal content-->
         <div class="modal-content">
-            <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Edit Kategori</h2>
+                <h2>Detail Pembelian</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -24,26 +23,20 @@
                 </div>
                 <!--end::Close-->
             </div>
-            <!--end::Modal header-->
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                <!--begin::Form-->
-                {!! Form::model($value, ['route' => ['kategori.update', $value->id], 'method' => 'put']) !!}
-                <div class="mb-3">
-                    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                        <span>Nama Kategori</span>
-                    </label>
-                    {!! Form::text('nama_kategori', $value->nama_kategori, ['class' => 'form-control']) !!}
-                </div>
-                <div class="text-center pt-15">
-                    <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
-                        <span class="indicator-label">Simpan</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                </div>
-                {!! Form::close() !!}
+                <table class="table align-middle table-row-dashed " id="table-detail">
+                    <thead>
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                            <th width="5%">No</th>
+                            <th>Kode</th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
             <!--end::Modal body-->
         </div>

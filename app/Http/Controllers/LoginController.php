@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -16,21 +16,26 @@ class LoginController extends Controller
 
     public function postlogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
 
-        if (Auth::attempt($credentials) &&  Auth::user()->role == 1) {
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            toast('Login Berhasil!', 'success', 'top-right');
             return redirect()->intended('dashboard');
-        } else if (Auth::attempt($credentials) &&  Auth::user()->role == 0) {
-            return redirect('/kasir');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ]);
+        toast('Email atau Password Salah!', 'error', 'top-right');
+        return back();
     }
     public function logout()
     {
         Auth::logout();
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
 
         return redirect('/masuk');
     }
