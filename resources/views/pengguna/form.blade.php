@@ -1,4 +1,4 @@
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-pengguna" tabindex="-1" aria-labelledby="modal-pengguna" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -6,7 +6,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Tambah Pengguna</h2>
+                <h2 class="modal-title"></h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -28,29 +28,24 @@
             <!--begin::Modal body-->
             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Form-->
-                <form action="{{ url('pengguna') }}" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data" data-method="">
                     @csrf
+                    @method('post')
                     <!--begin::Input group-->
                     <div class="row pb-3">
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Nama Karyawan</span>
                             </label>
-                            {!! Form::text('name', '', [
-                                'class' => 'form-control',
-                                'placeholder' => 'Masukkan Nama ',
-                                'required',
-                            ]) !!}
+                            <input type="text" name="name" id="name" class="form-control"
+                                placeholder="Masukkan Nama" required autofocus>
                         </div>
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Email Karyawan</span>
                             </label>
-                            {!! Form::text('email', '', [
-                                'class' => 'form-control',
-                                'placeholder' => 'Masukkan Nama ',
-                                'required',
-                            ]) !!}
+                            <input type="email" name="email" id="email" class="form-control"
+                                placeholder="Masukkan Email" required>
                         </div>
                     </div>
                     <div class="row pb-3">
@@ -58,11 +53,9 @@
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Password</span>
                             </label>
-                            {!! Form::text('password', '', [
-                                'class' => 'form-control',
-                                'placeholder' => 'Masukkan Password',
-                                'required',
-                            ]) !!}
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Masukkan Password" minlength="6">
+                            <div class="text-muted passtxt fs-7 mt-2"></div>
                         </div>
 
                         <div class="col pb-3">
@@ -84,6 +77,9 @@
                             <input type="file" class="form-control" id="image" name="image">
                             <div class="text-muted fs-7 mt-2">* Hanya file gambar *.png, *.jpg dan *.jpeg yang diterima
                             </div>
+                            <br>
+                            <div class="tampil-foto">
+                            </div>
                         </div>
                     </div>
 
@@ -94,8 +90,6 @@
                             data-bs-dismiss="modal">Batal</button>
                         <button type="submit" id="kt_modal_new_card_submit" class="btn btn-primary">
                             <span class="indicator-label">Simpan</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
                     <!--end::Actions-->
