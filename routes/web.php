@@ -72,3 +72,5 @@ Route::group(
         );
     }
 );
+
+Route::get('kasir/filter/{kasir}', [KasirController::class, 'filter'])->name("kasir.filter");

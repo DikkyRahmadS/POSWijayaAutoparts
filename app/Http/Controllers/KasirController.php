@@ -16,4 +16,14 @@ class KasirController extends Controller
         return view("kasir.index", compact("produks", "kategoris"));
         dd($produks);
     }
+
+    public function filter($id)
+    {
+
+        $kategoris = Kategori::all();
+        $produks = Produk::where("kategori_id", $id)->get();
+        return view("kasir.index", compact("produks", "kategoris"));
+        // $produks = Produk::find($kategoris->i);
+        // return view("kasir.index", compact("produks", "kategoris"));
+    }
 }

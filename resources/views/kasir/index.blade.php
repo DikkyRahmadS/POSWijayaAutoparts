@@ -18,8 +18,8 @@
 
                             {{-- kategori --}}
                             @foreach ($kategoris as $kategori)
-                                <li class="nav-item mb-3 me-0">
-                                    <!--begin::Nav link-->
+                                <li class="nav-item mb-3 me-3">
+                                    {{-- <!--begin::Nav link-->
                                     <a class="nav-link nav-link-border-solid btn btn-outline btn-flex btn-active-color-primary flex-column flex-stack pt-9 pb-7 page-bg show active"
                                         data-bs-toggle="pill" href="#kt_pos_food_content_1"
                                         style="width: 138px;height: 180px">
@@ -41,7 +41,10 @@
                                         </div>
                                         <!--end::Info-->
                                     </a>
-                                    <!--end::Nav link-->
+                                    <!--end::Nav link--> --}}
+
+                                    <a href="/kasir/filter/{{ $kategori->id }}"><button
+                                            class="btn btn-primary">{{ $kategori->nama_kategori }}</button></a>
                                 </li>
                             @endforeach
 
@@ -110,8 +113,55 @@
                                 <!--begin::Wrapper-->
                                 <div class="d-flex flex-wrap d-grid gap-5 gap-xxl-9">
 
-                                    @foreach ($produks as $produk)
+                                    {{-- @foreach ($produks as $produk)
                                         <!--begin::Card-->
+                                        @if ($produk->count() > 0)
+                                            <div class="card card-flush flex-row-fluid p-3 pb-5 mw-70">
+                                                <!--begin::Body-->
+                                                <div class="card-body text-center">
+                                                    <!--begin::Food img-->
+                                                    <img src="{{ Storage::url("$produk->image") }}"
+                                                        class="rounded-3 mb-4 w-150px h-150px w-xxl-200px h-xxl-200px"
+                                                        alt="" />
+                                                    <!--end::Food img-->
+
+                                                    <!--begin::Info-->
+                                                    <div class="mb-2">
+                                                        <!--begin::Title-->
+                                                        <div class="text-center">
+                                                            <span
+                                                                class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">{{ $produk->nama_produk }}</span>
+
+                                                            <span
+                                                                class="text-gray-400 fw-semibold d-block fs-6 mt-n1">{{ $produk->merk }}</span>
+                                                        </div>
+                                                        <!--end::Title-->
+                                                    </div>
+                                                    <!--end::Info-->
+
+                                                    <!--begin::Total-->
+                                                    <span
+                                                        class="text-success text-end fw-bold fs-1 ">{{ $produk->harga_jual }}</span><br>
+                                                    <span class="text-success text-end fw-bold fs-1"><button
+                                                            class="btn btn-primary mt-5">Tambah ke Cart</button></span>
+                                                    <!--end::Total-->
+                                                </div>
+                                                <!--end::Body-->
+                                            </div>
+                                        @else
+                                            <div class="mb-2">
+                                                <!--begin::Title-->
+                                                <div class="text-center">
+                                                    <span class="text-gray-400 fw-semibold d-block fs-6 mt-n1">Produk dengan
+                                                        kategori ini kosong</span>
+                                                </div>
+                                                <!--end::Title-->
+                                            </div>
+                                        @endif
+                                        <!--end::Card-->
+                                    @endforeach --}}
+
+                                    @forelse ($produks as $produk)
                                         <div class="card card-flush flex-row-fluid p-3 pb-5 mw-70">
                                             <!--begin::Body-->
                                             <div class="card-body text-center">
@@ -144,8 +194,17 @@
                                             </div>
                                             <!--end::Body-->
                                         </div>
-                                        <!--end::Card-->
-                                    @endforeach
+                                    @empty
+                                        <div class="mb-2 mt-4 text-center">
+                                            <!--begin::Title-->
+
+                                            <h1 class="text-gray-400 fw-bold d-block fs-3 mt-n1 text-center">Produk
+                                                dengan
+                                                kategori ini kosong</h1>
+
+                                            <!--end::Title-->
+                                        </div>
+                                    @endforelse
                                     {{-- <!--begin::Card-->
                                     <div class="card card-flush flex-row-fluid p-3 pb-5 mw-70">
                                         <!--begin::Body-->
