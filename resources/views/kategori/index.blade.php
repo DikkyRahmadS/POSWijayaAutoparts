@@ -74,18 +74,15 @@
                     $.post($('#modal-kategori form').attr('action'), $('#modal-kategori form').serialize())
                         .done((response) => {
                             $('#modal-kategori').modal('hide');
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Data Tersimpan',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
+                            toastr.success('Data Berhasil Disimpan!', {
+                                fadeAway: 1000
+                            });
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menyimpan data');
-                            return;
+                            toastr.error('Data Gagal Disimpan!', {
+                                fadeAway: 1000
+                            });
                         });
                 }
             });
@@ -115,8 +112,9 @@
                     $('#modal-kategori [name=nama_kategori]').val(response.nama_kategori);
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
+                    toastr.error('Tidak Dapat Menampilkan Data!', {
+                        fadeAway: 1000
+                    });
                 });
         }
 
@@ -137,18 +135,15 @@
                             '_method': 'delete'
                         })
                         .done((response) => {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Data Berhasil Dihapus',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
+                            toastr.success('Data Berhasil Dihapus!', {
+                                fadeAway: 1000
+                            });
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menghapus data');
-                            return;
+                            toastr.error('Tidak Dapat Menghapus Data!', {
+                                fadeAway: 1000
+                            });
                         });
                 }
             })

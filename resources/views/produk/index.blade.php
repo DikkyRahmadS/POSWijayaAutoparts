@@ -235,8 +235,9 @@
 
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
+                    toastr.error('Tidak Dapat Menampilkan Data!', {
+                        fadeAway: 1000
+                    });
                 });
         }
 
@@ -263,7 +264,7 @@
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            toastr.error('Data Gagal Dihapus!', {
+                            toastr.error('Tidak Dapat Menghapus Data!', {
                                 fadeAway: 1000
                             });
                         });

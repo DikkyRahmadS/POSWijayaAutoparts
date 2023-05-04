@@ -139,7 +139,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Daftar Produk</span>
+                                    <span class="menu-title">Produk</span>
                                 </a>
                             </div>
                             <div class="menu-item">

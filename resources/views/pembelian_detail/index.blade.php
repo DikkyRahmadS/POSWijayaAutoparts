@@ -223,8 +223,9 @@
                         });
                     })
                     .fail(errors => {
-                        alert('Tidak dapat menyimpan data');
-                        return;
+                        toastr.error('Data Gagal Disimpan!', {
+                            fadeAway: 1000
+                        });
                     });
             });
 
@@ -263,8 +264,9 @@
                     table.ajax.reload();
                 })
                 .fail(errors => {
-                    alert('Tidak dapat menyimpan data');
-                    return;
+                    toastr.error('Data Gagal Disimpan!', {
+                        fadeAway: 1000
+                    });
                 });
         }
 
@@ -285,18 +287,15 @@
                             '_method': 'delete'
                         })
                         .done((response) => {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Data Berhasil Dihapus',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
+                            toastr.success('Data Berhasil Dihapus!', {
+                                fadeAway: 1000
+                            });
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menghapus data');
-                            return;
+                            toastr.error('Tidak Dapat Menghapus Data!', {
+                                fadeAway: 1000
+                            });
                         });
                 }
             })
@@ -315,8 +314,9 @@
                     $('.tampil-terbilang').text(response.terbilang);
                 })
                 .fail(errors => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
+                    toastr.error('Tidak Dapat Menampilkan Data!', {
+                        fadeAway: 1000
+                    });
                 })
         }
     </script>
