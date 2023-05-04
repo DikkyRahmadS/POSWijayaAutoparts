@@ -27,7 +27,5 @@
 <link href="/Admin/dist/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 <!--end::Global Stylesheets Bundle-->
 
-{{-- scss --}}
-<link rel="stylesheet" href="{{ asset('Transaksi/style/main.css') }}">
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 @stack('css')
