@@ -11,6 +11,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\PenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,8 @@ Route::group(
                     ->except('create', 'show', 'edit');
 
                 Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
+
+
             }
         );
 
@@ -68,6 +71,9 @@ Route::group(
             ['middleware' => 'role:1,0'],
             function () {
                 Route::get('/kasir', [KasirController::class, 'index']);
+
+                Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+                Route::resource('penjualan', PenjualanController::class);
             }
         );
     }

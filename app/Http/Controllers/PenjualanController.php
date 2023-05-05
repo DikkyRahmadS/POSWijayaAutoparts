@@ -95,15 +95,36 @@ class PenjualanController extends Controller
         //     $produk->update();
         // }
 
-        return redirect()->route('transaksi.selesai');
+        //return redirect()->route('transaksi.selesai');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Penjualan $penjualan)
+    public function show($id)
     {
-        //
+        $detail = PenjualanDetail::with('produk')->where('penjualan_id', $id)->get();
+
+        return datatables()
+            ->of($detail)
+            ->addIndexColumn()
+            ->addColumn('kode_produk', function ($detail) {
+                return '<div class="badge badge-light-success">' . $detail->produk->kode_produk  . '</div>';
+            })
+            ->addColumn('nama_produk', function ($detail) {
+                return $detail->produk->nama_produk;
+            })
+            ->addColumn('harga_beli', function ($detail) {
+                return 'Rp. ' . format_uang($detail->harga_beli);
+            })
+            ->addColumn('jumlah', function ($detail) {
+                return format_uang($detail->jumlah);
+            })
+            ->addColumn('subtotal', function ($detail) {
+                return 'Rp. ' . format_uang($detail->subtotal);
+            })
+            ->rawColumns(['kode_produk'])
+            ->make(true);
     }
 
     /**
@@ -125,8 +146,21 @@ class PenjualanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penjualan $penjualan)
+    public function destroy($id)
     {
-        //
+        $penjualan = Penjualan::find($id);
+        $detail    = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
+        foreach ($detail as $item) {
+            $produk = Produk::find($item->produk_id);
+            if ($produk) {
+                $produk->stok += $item->jumlah;
+                $produk->update();
+            }
+
+            $item->delete();
+    }
+        $penjualan->delete();
+
+        return response(null, 204);
     }
 }
