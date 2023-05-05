@@ -60,7 +60,10 @@ Route::group(
                 Route::resource('pembeliandetail', PembelianDetailController::class)
                     ->except('create', 'show', 'edit');
 
-                Route::get('laporanpenjualan', [PendapatanController::class, 'index']);
+                Route::get('/laporanpendapatan', [PendapatanController::class, 'index'])->name('laporan.index');
+                Route::get('/laporanpendapatan/data/{awal}/{akhir}', [PendapatanController::class, 'data'])->name('laporan.data');
+                Route::get('/laporanpendapatan/pdf/{awal}/{akhir}', [PendapatanController::class, 'exportPDF'])->name('laporan.export_pdf');
+
             }
         );
 

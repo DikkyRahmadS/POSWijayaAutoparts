@@ -1,44 +1,30 @@
 @extends('layouts.master')
 @section('menu', 'Menu')
-@section('title', 'Laporan Penjualan')
-@section('content')
+@section('title', 'Laporan Pendapatan')
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+@endpush
 
+@section('content')
+<h4>
+    Laporan Pendapatan {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
+</h4>
+<br>
     <div class="card card-flush">
         <!--begin::Card header-->
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
             <!--begin::Card title-->
             <div class="card-title">
-                {{-- <!--begin::Search-->
-                <form action="{{ url('laporanpenjualan') }}" method="GET">
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
-                                    rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
-                                <path
-                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                    fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <input type="search" class="form-control form-control-solid w-250px ps-14"
-                            placeholder="Cari Kategori" id="keyword" name="keyword" value="{{ $keyword }}">
-                    </div>
-                </form>
-                <!--end::Search--> --}}
+                <div class="card-title d-grid gap-2 d-md-block">
+                    <button onclick="updatePeriode()" class="btn btn-primary">
+                        Ubah Periode 
+                    </button>
+                    <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark">
+                        Export PDF 
+                    </a>
+                </div>
             </div>
             <!--end::Card title-->
-            <!--begin::Card toolbar-->
-            <div class="card-toolbar">
-                {{-- <!--begin::Add customer-->
-                <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addModal">Tambah</a>
-                <!--end::Add customer--> --}}
-
-            </div>
-            <!--end::Card toolbar-->
         </div>
         <!--end::Card header-->
         <div class="card-body pt-0">
@@ -48,22 +34,20 @@
                 <thead>
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="w-10px pe-2"> ID </th>
-                        <th class="w-10px pe-2"> ID Penjualan </th>
-                        <th class="w-10px pe-2"> ID Produk </th>
-                        <th class="w-15px"> Qty </th>
-                        <th class="w-15px"> Harga Asli Produk </th>
-                        <th class="w-15px"> Harga Jual Produk </th>
-                        <th class=" w-70px text-end"></th>
+                        <th class="min-w-10px"> No </th>
+                        <th class="min-w-50px">Tanggal</th>
+                        <th class="min-w-70px">Penjualan</th>
+                        <th class="min-w-70px">Pembelian</th>
+                        <th class="min-w-70px">Pendapatan</th>
                     </tr>
                     <!--end::Table row-->
                 </thead>
                 <!--begin::Body-->
                 <!--begin::Table body-->
-                <tbody class="fw-bold text-gray-600">
-                    <?php $i = 1; ?>
-                    @foreach ($datas as $key => $value)
-                        <tr>
+                {{-- <tbody class="fw-bold text-gray-600"> --}}
+                    <?//php $i = 1; ?>
+                    {{-- @foreach ($datas as $key => $value) --}}
+                        {{-- <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
                             <td>{{ $value->id }}</td>
                             <td class="text-end">
@@ -83,14 +67,12 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                </a>
+                                </a> --}}
 
-                                <a href="javascript:void(0)"
+                                {{-- <a href="javascript:void(0)"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal{{ $value->id }}">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-
-
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
@@ -106,23 +88,56 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                </a>
-                            </td>
-                            {{-- @include('kategori.edit')
-                            @include('kategori.delete') --}}
-                        </tr>
-                        <?php $i++; ?>
-                    @endforeach
-                </tbody>
+                                </a> --}}
+                            {{-- </td>
+                        </tr> --}}
+                        <?php //$i++; ?>
+                    {{-- @endforeach --}}
+                {{-- </tbody> --}}
                 <!--end::Table body-->
             </table>
             <!--end::Table-->
         </div>
         <!--end::Table container-->
-        {{-- @include('kategori.create') --}}
-
     </div>
-
-
-
+    @includeIf('pendapatan.form')
 @endsection
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"></script>
+<script>
+    let table;
+
+    $(function(){
+        table = $('.table').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            ajax: {
+                url: '{{ route('laporan.data', [$tanggalAwal, $tanggalAkhir]) }}',
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'tanggal'},
+                {data: 'penjualan'},
+                {data: 'pembelian'},
+                {data: 'pendapatan'}
+            ],
+            dom: 'Brt',
+            bSort: false,
+            bPaginate: false
+        });
+
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
+    });
+
+    function updatePeriode() {
+        $('#modal-form').modal('show');
+    }
+</script>
+@endpush
