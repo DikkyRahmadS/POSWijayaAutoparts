@@ -11,6 +11,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\PenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ Route::group(
                 Route::get('/laporanpendapatan/data/{awal}/{akhir}', [PendapatanController::class, 'data'])->name('laporan.data');
                 Route::get('/laporanpendapatan/pdf/{awal}/{akhir}', [PendapatanController::class, 'exportPDF'])->name('laporan.export_pdf');
 
+
             }
         );
 
@@ -71,6 +73,9 @@ Route::group(
             ['middleware' => 'role:1,0'],
             function () {
                 Route::get('/kasir', [KasirController::class, 'index']);
+
+                Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+                Route::resource('penjualan', PenjualanController::class);
             }
         );
     }
