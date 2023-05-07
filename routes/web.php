@@ -64,8 +64,6 @@ Route::group(
                 Route::get('/laporanpendapatan', [PendapatanController::class, 'index'])->name('laporan.index');
                 Route::get('/laporanpendapatan/data/{awal}/{akhir}', [PendapatanController::class, 'data'])->name('laporan.data');
                 Route::get('/laporanpendapatan/pdf/{awal}/{akhir}', [PendapatanController::class, 'exportPDF'])->name('laporan.export_pdf');
-
-
             }
         );
 
