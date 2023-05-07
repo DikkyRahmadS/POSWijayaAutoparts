@@ -175,8 +175,8 @@
                         </a>
                     </div>
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                        <a href="/laporanpenjualan">
-                            <span class="menu-link {{ 'laporanpenjualan' == request()->path() ? 'active' : '' }}">
+                        <a href="/laporanpendapatan">
+                            <span class="menu-link {{ 'laporanpendapatan' == request()->path() ? 'active' : '' }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art009.svg-->
                                     <span class="svg-icon svg-icon-2">

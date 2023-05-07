@@ -20,7 +20,7 @@
                         Ubah Periode 
                     </button>
                     <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark">
-                        Export PDF 
+                        <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF 
                     </a>
                 </div>
             </div>
