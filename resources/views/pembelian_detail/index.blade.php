@@ -219,7 +219,7 @@
                     })
                     .done(response => {
                         $(this).on('mouseout', function() {
-                            table.ajax.reload();
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
                         });
                     })
                     .fail(errors => {
@@ -261,7 +261,7 @@
             $.post('{{ route('pembeliandetail.store') }}', $('.form-produk').serialize())
                 .done(response => {
                     $('#kode_produk').focus();
-                    table.ajax.reload();
+                    table.ajax.reload(() => loadForm($('#diskon').val()));
                 })
                 .fail(errors => {
                     toastr.error('Data Gagal Disimpan!', {
@@ -290,7 +290,7 @@
                             toastr.success('Data Berhasil Dihapus!', {
                                 fadeAway: 1000
                             });
-                            table.ajax.reload();
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
                         })
                         .fail((errors) => {
                             toastr.error('Tidak Dapat Menghapus Data!', {

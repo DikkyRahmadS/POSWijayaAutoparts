@@ -77,25 +77,25 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        // $penjualan = Penjualan::findOrFail($request->id);
-        // $penjualan->total_item = $request->total_item;
-        // $penjualan->total_harga = $request->total;
-        // $penjualan->diskon = $request->diskon;
-        // $penjualan->bayar = $request->bayar;
-        // $penjualan->diterima = $request->diterima;
-        // $penjualan->update();
+        $penjualan = Penjualan::findOrFail($request->id);
+        $penjualan->total_item = $request->total_item;
+        $penjualan->total_harga = $request->total;
+        $penjualan->diskon = $request->diskon;
+        $penjualan->bayar = $request->bayar;
+        $penjualan->diterima = $request->diterima;
+        $penjualan->update();
 
-        // $detail = PenjualanDetail::where('id', $penjualan->id)->get();
-        // foreach ($detail as $item) {
-        //     $item->diskon = $request->diskon;
-        //     $item->update();
+        $detail = PenjualanDetail::where('id', $penjualan->id)->get();
+        foreach ($detail as $item) {
+            $item->diskon = $request->diskon;
+            $item->update();
 
-        //     $produk = Produk::find($item->produk_id);
-        //     $produk->stok -= $item->jumlah;
-        //     $produk->update();
-        // }
+            $produk = Produk::find($item->produk_id);
+            $produk->stok -= $item->jumlah;
+            $produk->update();
+        }
 
-        //return redirect()->route('transaksi.selesai');
+        return redirect()->route('penjualan.data');
     }
 
     /**
@@ -158,7 +158,7 @@ class PenjualanController extends Controller
             }
 
             $item->delete();
-    }
+        }
         $penjualan->delete();
 
         return response(null, 204);

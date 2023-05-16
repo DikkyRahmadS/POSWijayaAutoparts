@@ -10,7 +10,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KasirController;
+use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\PenjualanController;
 
 /*
@@ -70,10 +70,17 @@ Route::group(
         Route::group(
             ['middleware' => 'role:1,0'],
             function () {
-                Route::get('/kasir', [KasirController::class, 'index']);
 
                 Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-                Route::resource('penjualan', PenjualanController::class);
+                Route::resource('penjualan', PenjualanController::class)
+                    ->except('create');
+
+                Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
+                Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+                Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
+                Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
+                Route::resource('/transaksi', PenjualanDetailController::class)
+                    ->except('show');
             }
         );
     }

@@ -2,14 +2,15 @@
 @section('menu', 'Menu')
 @section('title', 'Laporan Pendapatan')
 @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 @endpush
 
 @section('content')
-<h4>
-    Laporan Pendapatan {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
-</h4>
-<br>
+    <h4>
+        Tanggal : {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
+    </h4>
+    <br>
     <div class="card card-flush">
         <!--begin::Card header-->
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -17,8 +18,9 @@
             <div class="card-title">
                 <div class="card-title d-grid gap-2 d-md-block">
                     <button onclick="updatePeriode()" class="btn btn-primary">
-                        Ubah Periode 
+                        Ubah Periode
                     </button>
+
                     <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark">
                         <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF 
                     </a>
@@ -45,9 +47,9 @@
                 <!--begin::Body-->
                 <!--begin::Table body-->
                 {{-- <tbody class="fw-bold text-gray-600"> --}}
-                    <?//php $i = 1; ?>
-                    {{-- @foreach ($datas as $key => $value) --}}
-                        {{-- <tr>
+                <?//php $i = 1; ?>
+                {{-- @foreach ($datas as $key => $value) --}}
+                {{-- <tr>
                             <td style="padding-left:10px">{{ $i }}</td>
                             <td>{{ $value->id }}</td>
                             <td class="text-end">
@@ -69,7 +71,7 @@
                                     <!--end::Svg Icon-->
                                 </a> --}}
 
-                                {{-- <a href="javascript:void(0)"
+                {{-- <a href="javascript:void(0)"
                                     class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal{{ $value->id }}">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
@@ -89,10 +91,11 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                 </a> --}}
-                            {{-- </td>
+                {{-- </td>
                         </tr> --}}
-                        <?php //$i++; ?>
-                    {{-- @endforeach --}}
+                <?php //$i++;
+                ?>
+                {{-- @endforeach --}}
                 {{-- </tbody> --}}
                 <!--end::Table body-->
             </table>
@@ -104,40 +107,52 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"></script>
-<script>
-    let table;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    </script>
+    <script>
+        let table;
 
-    $(function(){
-        table = $('.table').DataTable({
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            autoWidth: false,
-            ajax: {
-                url: '{{ route('laporan.data', [$tanggalAwal, $tanggalAkhir]) }}',
-            },
-            columns: [
-                {data: 'DT_RowIndex', searchable: false, sortable: false},
-                {data: 'tanggal'},
-                {data: 'penjualan'},
-                {data: 'pembelian'},
-                {data: 'pendapatan'}
-            ],
-            dom: 'Brt',
-            bSort: false,
-            bPaginate: false
+        $(function() {
+            table = $('.table').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                ajax: {
+                    url: '{{ route('laporan.data', [$tanggalAwal, $tanggalAkhir]) }}',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        searchable: false,
+                        sortable: false
+                    },
+                    {
+                        data: 'tanggal'
+                    },
+                    {
+                        data: 'penjualan'
+                    },
+                    {
+                        data: 'pembelian'
+                    },
+                    {
+                        data: 'pendapatan'
+                    }
+                ],
+                dom: 'Brt',
+                bSort: false,
+                bPaginate: false
+            });
+
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+
         });
 
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true
-        });
-
-    });
-
-    function updatePeriode() {
-        $('#modal-form').modal('show');
-    }
-</script>
+        function updatePeriode() {
+            $('#modal-form').modal('show');
+        }
+    </script>
 @endpush
