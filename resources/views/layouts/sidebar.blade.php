@@ -175,8 +175,8 @@
                         </a>
                     </div>
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                        <a href="/laporanpenjualan">
-                            <span class="menu-link {{ 'laporanpenjualan' == request()->path() ? 'active' : '' }}">
+                        <a href="/laporanpendapatan">
+                            <span class="menu-link {{ 'laporanpendapatan' == request()->path() ? 'active' : '' }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/art/art009.svg-->
                                     <span class="svg-icon svg-icon-2">
@@ -225,8 +225,8 @@
                         <span class="menu-title">Kelola Penjualan</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion{{ 'penjualan' == request()->path() || 'kasir' == request()->path() ? ' show' : '' }}"
-                        {{ 'penjualan' == request()->path() || 'kasir' == request()->path() ? 'style=display: none; overflow: hidden;' : 'style=flex=0;' }}>
+                    <div class="menu-sub menu-sub-accordion{{ 'penjualan' == request()->path() || 'transaksi' == request()->path() ? ' show' : '' }}"
+                        {{ 'penjualan' == request()->path() || 'transaksi' == request()->path() ? 'style=display: none; overflow: hidden;' : 'style=flex=0;' }}>
                         <div class="menu-item">
                             <a class="menu-link  {{ 'penjualan' == request()->path() ? 'active' : '' }}"
                                 href="/penjualan">
@@ -237,7 +237,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link {{ 'kasir' == request()->path() ? 'active' : '' }}" href="kasir">
+                            <a class="menu-link {{ 'transaksi' == request()->path() ? 'active' : '' }}"
+                                href="{{ route('transaksi.baru') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
