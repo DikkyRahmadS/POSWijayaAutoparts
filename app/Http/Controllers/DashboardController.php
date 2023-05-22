@@ -23,10 +23,10 @@ class DashboardController extends Controller
         $kategori = Kategori::count();
         $supplier = Supplier::count();
         $user = User::count();
-        $pendapatan = Pendapatan::select(DB::raw("SUM(harga_jual*qty) as sum, MONTH(created_at)"))
-                        ->whereYear('created_at', date('Y'))
-                        ->groupBy(DB::raw("MONTH(created_at)"))
-                        ->pluck('sum');
+        $pendapatan = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"), DB::raw("MONTH(created_at) as bulan"))
+            ->groupBy(DB::raw("MONTH(created_at)"))
+            ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
+            ->pluck('pendapatan');
         $total_pendapatan = $pendapatan->sum();
         $produk_terjual = DB::table('penjualan_details')
                         ->join('produks', 'penjualan_details.produk_id', '=', 'produks.id')
@@ -42,6 +42,12 @@ class DashboardController extends Controller
                             ->where(DB::raw("WEEK(created_at)"), date('W'))
                             ->groupBy(DB::raw("WEEK(created_at)"))
                             ->avg('subtotal');
+        $bulan = PenjualanDetail::select(DB::raw("MONTHNAME(created_at) as bulan"))
+                    //->GroupBy(DB::raw("MONTHNAME(created_at)"))
+                    ->distinct()
+                    ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
+                    ->pluck('bulan');
+                    // dd($bulan);
         
 
         return view('dashboard', compact(
@@ -54,7 +60,8 @@ class DashboardController extends Controller
             'produk_terjual',
             'total_produk',
             'total_transaksi',
-            'mean_penjualan'
+            'mean_penjualan',
+            'bulan'
         ));
     }
 }

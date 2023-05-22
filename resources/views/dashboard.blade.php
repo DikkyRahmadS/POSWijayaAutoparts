@@ -384,58 +384,7 @@
                         </div>
                         <!--end::Statistics-->
                         <!--begin::Chart-->
-
-
-
-                        <div id="container">
-                            <script src="https://code.highcharts.com/highcharts.js"></script>
-                            <script type="text/javascript">
-                                var pendapatan = {{ json_encode($pendapatan) }};
-                                Highcharts.chart('container', {
-                                    title: {
-                                        text: 'Pendapatan Sepanjang Tahun'
-                                    },
-                                    xAxis: {
-                                        categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-                                            'October', 'November', 'December'
-                                        ]
-                                    },
-                                    yAxis: {
-                                        title: {
-                                            text: 'Jumlah Pendapatan'
-                                        }
-                                    },
-                                    legend: {
-                                        layout: 'vertical',
-                                        align: 'right',
-                                        verticalAlign: 'middle'
-                                    },
-                                    plotOptions: {
-                                        series: {
-                                            allowPointSelect: true
-                                        }
-                                    },
-                                    series: [{
-                                        name: 'Pendapatan',
-                                        data: pendapatan
-                                    }],
-                                    responsive: {
-                                        rules: [{
-                                            condition: {
-                                                maxWidth: 500
-                                            },
-                                            chartOptions: {
-                                                legend: {
-                                                    layout: 'horizontal',
-                                                    align: 'center',
-                                                    verticalAlign: 'bottom'
-                                                }
-                                            }
-                                        }]
-                                    }
-                                });
-                            </script>
-                        </div>
+                        <div id="grafik"></div>
                         <!--end::Chart-->
                     </div>
                     <!--end::Card body-->
@@ -447,3 +396,37 @@
         <!--end::Modals-->
     </div>
 @endsection
+@push('scripts')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript">
+        var pendapatan = <?php echo json_encode($pendapatan) ?>;
+        var bulan = <?php echo json_encode($bulan) ?>;
+        Highcharts.chart('grafik', {
+            title : {
+                text: 'Grafik Pendapatan Bulanan'
+            },
+            xAxis : {
+                categories : bulan
+            },
+            yAxis : {
+                title: {
+                    text : 'Nominal Pendapatan Bulanan' 
+                }
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [
+                {
+                    name: 'Nominal Pendapatan',
+                    data: pendapatan
+                }
+            ]
+        });
+    </script>
+@endpush
