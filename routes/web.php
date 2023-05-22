@@ -12,6 +12,7 @@ use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,3 +90,10 @@ Route::group(
         );
     }
 );
+
+// laporan
+Route::get('/laporan', [LaporanController::class, 'index'])->name("laporan.index");
+Route::post('/laporan/cetak_pdf_produk', [LaporanController::class, 'cetak_pdf_produk'])->name("laporan.cetak_pdf_produk");
+Route::post('/laporan/cetak_pdf_supplier', [LaporanController::class, 'cetak_pdf_supplier'])->name("laporan.cetak_pdf_supplier");
+Route::get('/laporan/index_produk', [LaporanController::class, 'produk'])->name("laporan.produk");
+Route::get('/laporan/index_supplier', [LaporanController::class, 'supplier'])->name("laporan.supplier");

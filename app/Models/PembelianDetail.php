@@ -20,4 +20,9 @@ class PembelianDetail extends Model
     {
         return $this->belongsTo('App\Models\Produk');
     }
+
+    public function pembelian()
+    {
+        return $this->belongsTo('App\Models\Pembelian');
+    }
 }
