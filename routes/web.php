@@ -62,9 +62,15 @@ Route::group(
                 Route::resource('pembeliandetail', PembelianDetailController::class)
                     ->except('create', 'show', 'edit');
 
-                Route::get('/laporanpendapatan', [PendapatanController::class, 'index'])->name('laporan.index');
+                Route::get('/laporanpendapatan', [PendapatanController::class, 'index'])->name('pendapatan.index');
                 Route::get('/laporanpendapatan/data/{awal}/{akhir}', [PendapatanController::class, 'data'])->name('laporan.data');
                 Route::get('/laporanpendapatan/pdf/{awal}/{akhir}', [PendapatanController::class, 'exportPDF'])->name('laporan.export_pdf');
+
+                Route::get('/laporan', [LaporanController::class, 'index'])->name("laporan.index");
+Route::post('/laporan/cetak_pdf_produk', [LaporanController::class, 'cetak_pdf_produk'])->name("laporan.cetak_pdf_produk");
+Route::post('/laporan/cetak_pdf_supplier', [LaporanController::class, 'cetak_pdf_supplier'])->name("laporan.cetak_pdf_supplier");
+Route::get('/laporan/index_produk', [LaporanController::class, 'produk'])->name("laporan.produk");
+Route::get('/laporan/index_supplier', [LaporanController::class, 'supplier'])->name("laporan.supplier");
             }
         );
 
@@ -91,9 +97,3 @@ Route::group(
     }
 );
 
-// laporan
-Route::get('/laporan', [LaporanController::class, 'index'])->name("laporan.index");
-Route::post('/laporan/cetak_pdf_produk', [LaporanController::class, 'cetak_pdf_produk'])->name("laporan.cetak_pdf_produk");
-Route::post('/laporan/cetak_pdf_supplier', [LaporanController::class, 'cetak_pdf_supplier'])->name("laporan.cetak_pdf_supplier");
-Route::get('/laporan/index_produk', [LaporanController::class, 'produk'])->name("laporan.produk");
-Route::get('/laporan/index_supplier', [LaporanController::class, 'supplier'])->name("laporan.supplier");

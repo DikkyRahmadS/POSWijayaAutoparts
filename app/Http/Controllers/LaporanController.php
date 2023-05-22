@@ -26,7 +26,9 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadview('laporan.index_pdf_produk', ['produks' => $produks]);
         $pdf->setPaper("A4", 'potrait');
-        return $pdf->download('laporan-produk-pdf');
+        // return $pdf->download('laporan-produk-pdf');
+        return $pdf->stream('Laporan-produk-'.'.pdf');
+
     }
 
     public function cetak_pdf_supplier(Request $request)
@@ -40,7 +42,8 @@ class LaporanController extends Controller
 
         $pdf = Pdf::loadview('laporan.index_pdf_supplier', ['pembeliansDetail' => $pembeliansDetail]);
         $pdf->setPaper("A4", 'potrait');
-        return $pdf->download('laporan-supplier-pdf');
+        // return $pdf->download('laporan-supplier-pdf');
+        return $pdf->stream('Laporan-supplier-'.'.pdf');
     }
 
     public function getFilteredProduks()
