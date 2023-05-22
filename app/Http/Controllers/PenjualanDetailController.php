@@ -24,7 +24,7 @@ class PenjualanDetailController extends Controller
         if ($id_penjualan = session('id')) {
             $penjualan = Penjualan::find($id_penjualan);
 
-            return view("kasir.index", compact('produks', 'kategoris', 'id_penjualan'));
+            return view("kasir.index", compact('produks', 'kategoris','penjualan','id_penjualan'));
         } else {
             if (auth()->user()->role == 1) {
                 return redirect()->route('transaksi.baru');

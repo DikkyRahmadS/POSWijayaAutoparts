@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Detail Pembelian</h2>
+                <h2>Detail Penjualan</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">

@@ -77,7 +77,7 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        $penjualan = Penjualan::findOrFail($request->id);
+        $penjualan = Penjualan::findOrFail($request->penjualan_id);
         $penjualan->total_item = $request->total_item;
         $penjualan->total_harga = $request->total;
         $penjualan->diskon = $request->diskon;
@@ -85,7 +85,7 @@ class PenjualanController extends Controller
         $penjualan->diterima = $request->diterima;
         $penjualan->update();
 
-        $detail = PenjualanDetail::where('id', $penjualan->id)->get();
+        $detail = PenjualanDetail::where('penjualan_id', $penjualan->id)->get();
         foreach ($detail as $item) {
             $item->diskon = $request->diskon;
             $item->update();
@@ -95,7 +95,12 @@ class PenjualanController extends Controller
             $produk->update();
         }
 
-        return redirect()->route('penjualan.data');
+
+        // return response()->json('Data berhasil disimpan', 200);
+        // return $request;
+        return redirect()->route('transaksi.selesai');
+        // $coba = $request->all();
+        // dd($coba);
     }
 
     /**
@@ -114,8 +119,8 @@ class PenjualanController extends Controller
             ->addColumn('nama_produk', function ($detail) {
                 return $detail->produk->nama_produk;
             })
-            ->addColumn('harga_beli', function ($detail) {
-                return 'Rp. ' . format_uang($detail->harga_beli);
+            ->addColumn('harga_jual', function ($detail) {
+                return 'Rp. ' . format_uang($detail->harga_jual);
             })
             ->addColumn('jumlah', function ($detail) {
                 return format_uang($detail->jumlah);
@@ -162,5 +167,22 @@ class PenjualanController extends Controller
         $penjualan->delete();
 
         return response(null, 204);
+    }
+    public function selesai()
+    {
+
+        return view('penjualan.selesai');
+    }
+    public function nota()
+    {
+        $penjualan = Penjualan::find(session('id'));
+        if (!$penjualan) {
+            abort(404);
+        }
+        $detail = PenjualanDetail::with('produk')
+            ->where('penjualan_id', session('id'))
+            ->get();
+
+        return view('penjualan.nota', compact('penjualan', 'detail'));
     }
 }
