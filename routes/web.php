@@ -72,11 +72,15 @@ Route::group(
             function () {
 
                 Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-                Route::resource('penjualan', PenjualanController::class)
-                    ->except('create');
+                Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+                Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+                Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 
                 Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
-                Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+                Route::post('/penjualan/simpan', [PenjualanController::class, 'store'])->name('penjualan.simpan');
+                Route::get('/transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+                Route::get('/transaksi/nota', [PenjualanController::class, 'nota'])->name('transaksi.nota');
+
                 Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
                 Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
                 Route::resource('/transaksi', PenjualanDetailController::class)

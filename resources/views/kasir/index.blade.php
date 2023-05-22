@@ -128,12 +128,6 @@
             <!--begin::Header-->
             <div class="card-header pt-5">
                 <h3 class="card-title fw-bold text-gray-800 fs-2qx">Cart</h3>
-
-                {{-- <!--begin::Toolbar-->
-                        <div class="card-toolbar">
-                            <a href="#" class="btn btn-light-primary fs-4 fw-bold py-4">Clear All</a>
-                        </div>
-                        <!--end::Toolbar--> --}}
             </div>
             <!--end::Header-->
 
@@ -152,108 +146,6 @@
                                 <th class="w-30px"></th>
                             </tr>
                         </thead>
-                        <!--end::Table head-->
-                        {{--
-                                <!--begin::Table body-->
-                                <tbody>
-                                    <tr data-kt-pos-element="item" data-kt-pos-item-price="33">
-                                        <td class="pe-0">
-                                            <div class="d-flex align-items-center">
-                                                <img src="/metronic8/demo1/assets/media/stock/food/img-2.jpg"
-                                                    class="w-50px h-50px rounded-3 me-3" alt="" />
-                                                <span
-                                                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">T-Bone
-                                                    Stake</span>
-                                            </div>
-                                        </td>
-
-                                        <td class="pe-0">
-                                            <!--begin::Dialer-->
-                                            <div class="position-relative d-flex align-items-center" data-kt-dialer="true"
-                                                data-kt-dialer-min="1" data-kt-dialer-max="10" data-kt-dialer-step="1"
-                                                data-kt-dialer-decimals="0">
-
-                                                <!--begin::Decrease control-->
-                                                <button type="button"
-                                                    class="btn btn-icon btn-sm btn-light btn-icon-gray-400"
-                                                    data-kt-dialer-control="decrease">
-                                                    <i class="ki-duotone ki-minus fs-3x"></i>
-                                                </button>
-                                                <!--end::Decrease control-->
-
-                                                <!--begin::Input control-->
-                                                <input type="text"
-                                                    class="form-control border-0 text-center px-0 fs-3 fw-bold text-gray-800 w-30px"
-                                                    data-kt-dialer-control="input" placeholder="Amount" name="manageBudget"
-                                                    readonly value="2" />
-                                                <!--end::Input control-->
-
-                                                <!--begin::Increase control-->
-                                                <button type="button"
-                                                    class="btn btn-icon btn-sm btn-light btn-icon-gray-400"
-                                                    data-kt-dialer-control="increase">
-                                                    <i class="ki-duotone ki-plus fs-3x"></i>
-                                                </button>
-                                                <!--end::Increase control-->
-                                            </div>
-                                            <!--end::Dialer-->
-                                        </td>
-
-                                        <td class="text-end">
-                                            <span class="fw-bold text-primary fs-2"
-                                                data-kt-pos-element="item-total">$66.00</span>
-                                        </td>
-                                    </tr>
-                                    <tr data-kt-pos-element="item" data-kt-pos-item-price="7.5">
-                                        <td class="pe-0">
-                                            <div class="d-flex align-items-center">
-                                                <img src="/metronic8/demo1/assets/media/stock/food/img-9.jpg"
-                                                    class="w-50px h-50px rounded-3 me-3" alt="" />
-                                                <span
-                                                    class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">Soup
-                                                    of the Day</span>
-                                            </div>
-                                        </td>
-
-                                        <td class="pe-0">
-                                            <!--begin::Dialer-->
-                                            <div class="position-relative d-flex align-items-center" data-kt-dialer="true"
-                                                data-kt-dialer-min="1" data-kt-dialer-max="10" data-kt-dialer-step="1"
-                                                data-kt-dialer-decimals="0">
-
-                                                <!--begin::Decrease control-->
-                                                <button type="button"
-                                                    class="btn btn-icon btn-sm btn-light btn-icon-gray-400"
-                                                    data-kt-dialer-control="decrease">
-                                                    <i class="ki-duotone ki-minus fs-3x"></i>
-                                                </button>
-                                                <!--end::Decrease control-->
-
-                                                <!--begin::Input control-->
-                                                <input type="text"
-                                                    class="form-control border-0 text-center px-0 fs-3 fw-bold text-gray-800 w-30px"
-                                                    data-kt-dialer-control="input" placeholder="Amount" name="manageBudget"
-                                                    readonly value="1" />
-                                                <!--end::Input control-->
-
-                                                <!--begin::Increase control-->
-                                                <button type="button"
-                                                    class="btn btn-icon btn-sm btn-light btn-icon-gray-400"
-                                                    data-kt-dialer-control="increase">
-                                                    <i class="ki-duotone ki-plus fs-3x"></i>
-                                                </button>
-                                                <!--end::Increase control-->
-                                            </div>
-                                            <!--end::Dialer-->
-                                        </td>
-
-                                        <td class="text-end">
-                                            <span class="fw-bold text-primary fs-2"
-                                                data-kt-pos-element="item-total">$7.50</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <!--end::Table body--> --}}
                     </table>
                     <!--end::Table-->
                 </div>
@@ -279,9 +171,8 @@
                         <span class="d-block mb-9">$11.20</span>
                         <span class="d-block fs-2qx lh-1" data-kt-pos-element="grant-total">$93.46</span>
                     </div> --}}
-                <form action="{{ route('penjualan.store') }}" class="form-penjualan" method="post">
+                <form action="{{ route('penjualan.simpan') }}" class="form-penjualan" method="POST">
                     @csrf
-
                     <div class="d-flex flex-stack bg-success rounded-3 p-6 mb-11">
                         <input type="hidden" name="penjualan_id" value="{{ $id_penjualan }}">
                         <input type="hidden" name="total" id="total">
@@ -438,7 +329,6 @@
         function tambahProduk() {
             $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
                 .done(response => {
-                    $('#kode_produk').focus();
                     table.ajax.reload(() => loadForm($('#diskon').val()));
                 })
                 .fail(errors => {

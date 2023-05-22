@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendapatan;
 use App\Models\Pembelian;
-// use App\Models\Penjualan;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
 class PendapatanController extends Controller
@@ -33,17 +33,17 @@ class PendapatanController extends Controller
         while (strtotime($awal) <= strtotime($akhir)) {
             $tanggal = $awal;
             $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
-            
-            //$total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
+
+            $total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
             $total_pembelian = Pembelian::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
 
-            $pendapatan = 0 - $total_pembelian;
+            $pendapatan = $total_penjualan - $total_pembelian;
             $total_pendapatan += $pendapatan;
 
             $row = array();
             $row['DT_RowIndex'] = $no++;
             $row['tanggal'] = tanggal_indonesia($tanggal, false);
-            $row['penjualan'] = 0; // format_uang($total_penjualan);
+            $row['penjualan'] = format_uang($total_penjualan);
             $row['pembelian'] = format_uang($total_pembelian);
             $row['pendapatan'] = format_uang($pendapatan);
 
@@ -75,7 +75,7 @@ class PendapatanController extends Controller
     //     $data = $this->getData($awal, $akhir);
     //     $pdf  = PDF::loadView('laporan.pdf', compact('awal', 'akhir', 'data'));
     //     $pdf->setPaper('a4', 'potrait');
-        
+
     //     return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
     // }
 }

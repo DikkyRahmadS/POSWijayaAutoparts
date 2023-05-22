@@ -12,6 +12,14 @@ class Penjualan extends Model
     protected $table = 'penjualans';
     protected $primaryKey = 'id';
     protected $guarded = [];
+    protected $fillable = [
+        'total_item',
+        'total_harga',
+        'diskon',
+        'bayar',
+        'diterima',
+        'user_id'
+    ];
 
     public function user()
     {
