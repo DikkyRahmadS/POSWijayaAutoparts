@@ -20,9 +20,9 @@
                     <button onclick="updatePeriode()" class="btn btn-primary">
                         Ubah Periode
                     </button>
-                    <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank"
-                        class="btn btn-dark">
-                        Export PDF
+
+                    <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark">
+                        <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF 
                     </a>
                 </div>
             </div>

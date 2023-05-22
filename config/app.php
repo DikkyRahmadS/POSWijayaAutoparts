@@ -184,6 +184,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         App\Providers\HelpersServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -216,6 +217,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Helpers' => App\Helpers\Helpers::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ])->toArray(),
 

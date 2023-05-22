@@ -6,6 +6,7 @@ use App\Models\Pendapatan;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use PDF;
 
 class PendapatanController extends Controller
 {
@@ -70,12 +71,13 @@ class PendapatanController extends Controller
             ->make(true);
     }
 
-    // public function exportPDF($awal, $akhir)
-    // {
-    //     $data = $this->getData($awal, $akhir);
-    //     $pdf  = PDF::loadView('laporan.pdf', compact('awal', 'akhir', 'data'));
-    //     $pdf->setPaper('a4', 'potrait');
 
-    //     return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
-    // }
+    public function exportPDF($awal, $akhir)
+    {
+        $data = $this->getData($awal, $akhir);
+        $pdf  = PDF::loadView('pendapatan.pdf', compact('awal', 'akhir', 'data'));
+        $pdf->setPaper('a4', 'potrait');
+        
+        return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
+    }
 }
