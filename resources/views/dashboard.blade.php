@@ -154,7 +154,7 @@
         </div>
 
         <div class="row g-5 g-xl-10 mb-xl-10">
-            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
+            <div class="col-lg-6 mb-5 mb-xl-0">
                 <!--begin::Card widget 4-->
                 <div class="card card-flush overflow-hidden h-md-100">
                     <!--begin::Header-->
@@ -186,37 +186,7 @@
                 <!--end::Card widget 4-->
             </div>
 
-            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
-                <!--begin::Card widget 5-->
-                <div class="card card-flush overflow-hidden h-md-100">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5">
-                        <!--begin::Title-->
-                        <div class="card-title d-flex flex-column">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Amount-->
-                                <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $total_transaksi }}</span>
-                                <!--end::Amount-->
-                            </div>
-                            <!--end::Info-->
-                            <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">Transaksi Penjualan Bulan Ini</span>
-                            <!--end::Subtitle-->
-                        </div>
-                        <!--end::Title-->
-                    </div>
-                    <!--end::Header-->
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
-        
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card widget 5-->
-            </div>
-
-            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
+            <div class="col-lg-6 mb-5 mb-xl-0">
                 <!--begin::Card widget 6-->
                 <div class="card card-flush overflow-hidden h-md-100">
                     <!--begin::Header-->
@@ -227,7 +197,8 @@
                             <div class="d-flex align-items-center">
                                 <!--begin::Amount-->
                                 <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
-                                <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan) }}</span>
+                                <span
+                                    class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan) }}</span>
                                 <!--end::Amount-->
                             </div>
                             <!--end::Info-->
@@ -253,7 +224,7 @@
                 </div>
                 <!--end::Card widget 6-->
             </div>
-            
+
             <!--begin::Col-->
             <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
                 <!--begin::Chart widget 3-->
@@ -275,7 +246,8 @@
                             <!--begin::Statistics-->
                             <div class="d-flex mb-2">
                                 <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
-                                <span class="fs-2hx fw-bolder text-gray-800 me-2 lh-1 ls-n2">{{ format_uang($total_pendapatan) }}</span>
+                                <span
+                                    class="fs-2hx fw-bolder text-gray-800 me-2 lh-1 ls-n2">{{ format_uang($total_pendapatan) }}</span>
                             </div>
                             <!--end::Statistics-->
                         </div>
@@ -293,7 +265,7 @@
         <!--end::Modals-->
 
     </div>
-    
+
 @endsection
 
 @push('scripts')
@@ -304,21 +276,21 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript">
-        var pendapatan = <?php echo json_encode($pendapatan) ?>;
-        var bulan = <?php echo json_encode($bulan) ?>;
+        var pendapatan = <?php echo json_encode($pendapatan); ?>;
+        var bulan = <?php echo json_encode($bulan); ?>;
         Highcharts.chart('grafik-pendapatan', {
-            title : {
+            title: {
                 text: 'Grafik Pendapatan Bulanan'
             },
-            chart : {
+            chart: {
                 type: 'spline'
             },
-            xAxis : {
-                categories : bulan
+            xAxis: {
+                categories: bulan
             },
-            yAxis : {
+            yAxis: {
                 title: {
-                    text : 'Nominal Pendapatan Bulanan' 
+                    text: 'Nominal Pendapatan Bulanan'
                 }
             },
             chart: {
@@ -329,30 +301,29 @@
                     allowPointSelect: true
                 }
             },
-            series: [
-                {
-                    name: 'Nominal Pendapatan',
-                    data: pendapatan
-                }
-            ]
+            series: [{
+                name: 'Nominal Pendapatan',
+                data: pendapatan
+            }]
         });
 
 
-        var penjualan_perhari = <?php echo json_encode($penjualan_perhari) ?>;
-        var hari = <?php echo json_encode($hari) ?>;
+        var penjualan_perhari = <?php echo json_encode($penjualan_perhari); ?>;
+        var hari = <?php echo json_encode($hari); ?>;
         Highcharts.chart('grafik-penjualan', {
-            title : {
+            title: {
                 text: 'Grafik Penjualan Minggu Ini'
             },
             // subtitle : {
-                // text: <?php //echo date('D-M-Y') ?>
+            // text: <?php //echo date('D-M-Y')
+            ?>
             // },
-            xAxis : {
-                categories : hari
+            xAxis: {
+                categories: hari
             },
-            yAxis : {
+            yAxis: {
                 title: {
-                    text : 'Nominal Penjualan Mingguan' 
+                    text: 'Nominal Penjualan Mingguan'
                 }
             },
             plotOptions: {
@@ -360,12 +331,10 @@
                     allowPointSelect: true
                 }
             },
-            series: [
-                {
-                    name: 'Nominal Penjualan',
-                    data: penjualan_perhari
-                }
-            ]
+            series: [{
+                name: 'Nominal Penjualan',
+                data: penjualan_perhari
+            }]
         });
         Highcharts.chart('grafik-produk', {
             chart: {
@@ -386,7 +355,7 @@
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}: {point.y}',
-                        
+
                     }
                 }
             },
@@ -394,49 +363,45 @@
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> pcs<br/>'
             },
-            series: [
-                {
-                    name: 'Kategori',
-                    colorByPoint: true,
-                    data: [
-                        <?php 
-                            $data = (array) json_decode($produk_kategori);
-                            for($i=0; $i<count($data); $i++){
-                                echo "{";
-                                echo "name: '" .$data[$i]->name. "', ";
-                                echo "y: " .$data[$i]->y. ", ";
-                                echo "drilldown: '" .$data[$i]->name. "'";
-                                echo "},";
-                            }
-                        ?>
-                    ]
-                }
-            ],
+            series: [{
+                name: 'Kategori',
+                colorByPoint: true,
+                data: [
+                    <?php
+                    $data = (array) json_decode($produk_kategori);
+                    for ($i = 0; $i < count($data); $i++) {
+                        echo '{';
+                        echo "name: '" . $data[$i]->name . "', ";
+                        echo 'y: ' . $data[$i]->y . ', ';
+                        echo "drilldown: '" . $data[$i]->name . "'";
+                        echo '},';
+                    }
+                    ?>
+                ]
+            }],
             drilldown: {
                 series: [
                     <?php
-                        $items = (array) json_decode($drilldown_produk);
-                        for($i=0; $i<count($data); $i++){
-                            echo "{";
-                            echo "name: '" .$data[$i]->name. "', ";
-                            echo "id: '" .$data[$i]->name. "', ";
-                            echo "data: [";
-                            for($j=0; $j<count($items); $j++){
-                                if($items[$j]->nama_kategori === $data[$i]->name){
-                                    echo "[";
-                                    echo "'" .$items[$j]->nama_produk. " (ID: " .$items[$j]->id. ")',";
-                                    echo $items[$j]->y;
-                                    echo "],";
-                                }
+                    $items = (array) json_decode($drilldown_produk);
+                    for ($i = 0; $i < count($data); $i++) {
+                        echo '{';
+                        echo "name: '" . $data[$i]->name . "', ";
+                        echo "id: '" . $data[$i]->name . "', ";
+                        echo 'data: [';
+                        for ($j = 0; $j < count($items); $j++) {
+                            if ($items[$j]->nama_kategori === $data[$i]->name) {
+                                echo '[';
+                                echo "'" . $items[$j]->nama_produk . ' (ID: ' . $items[$j]->id . ")',";
+                                echo $items[$j]->y;
+                                echo '],';
                             }
-                            echo "]";
-                            echo "},";
                         }
+                        echo ']';
+                        echo '},';
+                    }
                     ?>
                 ]
             }
         });
-        
-
     </script>
 @endpush
