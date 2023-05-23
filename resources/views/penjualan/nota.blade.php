@@ -27,7 +27,7 @@
                         .text-right {
                             text-align: right;
                         }
-    
+
                         @media print {
                             @page {
                                 margin: 0;
@@ -57,7 +57,7 @@
     <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
     <div class="text-center">
         <h3 style="margin-bottom: 5px;">Wijaya Dinamo</h3>
-        <p>Jl. Cempaka Desa No.122\Kabupaten Malang</p>
+        <p>Jl. Cempaka Desa No.122 Kabupaten Malang</p>
     </div>
     <br>
     <div>
