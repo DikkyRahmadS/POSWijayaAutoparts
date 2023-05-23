@@ -233,16 +233,20 @@
                             <!--end::Info-->
                             <!--begin::Subtitle-->
                             <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Minggu</span>
+
                             <span class="text-gray-400 pt-1 fw-bold fs-6">{{ date('M') }} {{ date('Y') }} </span>
+
                             <!--end::Subtitle-->
                         </div>
                         <!--end::Title-->
                     </div>
                     <!--end::Header-->
                     <!--begin::Card body-->
-                    <div class="card-body d-flex align-items-end px-0 pb-0">
+                    <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
                         <!--begin::Chart-->
-                        <div class="grafik-penjualan-perminggu"></div>
+
+                        <div id="grafik-penjualan"></div>
+
                         <!--end::Chart-->
                     </div>
                     <!--end::Card body-->
@@ -287,7 +291,7 @@
             <!--end::Col-->
         </div>
         <!--end::Modals-->
-        
+
     </div>
     
 @endsection
@@ -305,6 +309,9 @@
         Highcharts.chart('grafik-pendapatan', {
             title : {
                 text: 'Grafik Pendapatan Bulanan'
+            },
+            chart : {
+                type: 'spline'
             },
             xAxis : {
                 categories : bulan
@@ -329,8 +336,38 @@
                 }
             ]
         });
-        // Create the chart
-        Highcharts.chart('grafik-produk', {
+
+
+        var penjualan_perhari = <?php echo json_encode($penjualan_perhari) ?>;
+        var hari = <?php echo json_encode($hari) ?>;
+        Highcharts.chart('grafik-penjualan', {
+            title : {
+                text: 'Grafik Penjualan Minggu Ini'
+            },
+            // subtitle : {
+                // text: <?php //echo date('D-M-Y') ?>
+            // },
+            xAxis : {
+                categories : hari
+            },
+            yAxis : {
+                title: {
+                    text : 'Nominal Penjualan Mingguan' 
+                }
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [
+                {
+                    name: 'Nominal Penjualan',
+                    data: penjualan_perhari
+                }
+            ]
+        });
+         Highcharts.chart('grafik-produk', {
             chart: {
                 type: 'pie'
             },
@@ -341,10 +378,6 @@
             accessibility: {
                 announceNewData: {
                     enabled: true
-                }
-            },
-            plotOptions: {
-                series: {
                     borderRadius: 5,
                     dataLabels: {
                         enabled: true,
@@ -400,5 +433,6 @@
             }
         });
         
+
     </script>
 @endpush

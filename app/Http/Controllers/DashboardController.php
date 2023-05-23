@@ -46,6 +46,20 @@ class DashboardController extends Controller
                     ->distinct()
                     ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
                     ->pluck('bulan');
+
+                    // dd($bulan);
+        $penjualan_perhari = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"), DB::raw("DAY(created_at) as hari"))
+                                ->where(DB::raw("WEEK(created_at)"), date('W'))
+                                ->groupBy(DB::raw("DAY(created_at)"))
+                                ->get()
+                                ->pluck('pendapatan');
+                                //dd($penjualan_perhari);
+        $hari = Penjualan::select(DB::raw("DAYNAME(created_at)"))
+                    ->whereWeek(DB::raw("WEEK(created_at)"), date('W'))
+                    ->distinct();
+                    // dd($hari);
+        
+
         // dd($bulan);
         $produk_kategori = DB::table('penjualan_details')
                             ->join('produks', 'penjualan_details.produk_id', '=', 'produks.id')
@@ -62,6 +76,7 @@ class DashboardController extends Controller
         // dd($drilldown_produk);
         // dd($produk_kategori);
 
+
         return view('dashboard', compact(
             'produk',
             'kategori',
@@ -74,8 +89,11 @@ class DashboardController extends Controller
             'total_transaksi',
             'mean_penjualan',
             'bulan',
+            'penjualan_perhari',
+            'hari',
             'produk_kategori',
             'drilldown_produk'
+
         ));
     }
 }
