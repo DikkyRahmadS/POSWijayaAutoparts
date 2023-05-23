@@ -367,7 +367,7 @@
                 }
             ]
         });
-         Highcharts.chart('grafik-produk', {
+        Highcharts.chart('grafik-produk', {
             chart: {
                 type: 'pie'
             },
@@ -378,6 +378,10 @@
             accessibility: {
                 announceNewData: {
                     enabled: true
+                }
+            },
+            plotOptions: {
+                series: {
                     borderRadius: 5,
                     dataLabels: {
                         enabled: true,
