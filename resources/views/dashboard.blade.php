@@ -7,7 +7,7 @@
         <!--begin::Row-->
         <div class="row gy-5 g-xl-8 ">
             <!--begin::Col-->
-            <div class="col-xl-12 ">
+            <div class="col-xl-12 mb-5 ">
                 <!--begin::Mixed Widget 2-->
                 @if (auth()->user()->role == 1)
                     <div class="card card-xl-stretch">
