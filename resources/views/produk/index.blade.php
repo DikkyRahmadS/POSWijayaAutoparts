@@ -33,7 +33,7 @@
                         <th class="min-w-70px pe-2 ">Kategori </th>
                         <th class="min-w-70px pe-2 ">Berat </th>
                         <th class="min-w-10px">Harga Jual</th>
-                        <th class="min-w-70px">Stok</th>
+                        <th class="min-w-10px">Stok</th>
                         <th class="min-w-70px text-end"></th>
                     </tr>
                     <!--end::Table row-->

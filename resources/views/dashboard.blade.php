@@ -137,12 +137,9 @@
                                         <a href="#" class="text-primary fw-bold fs-6">Supplier</a>
                                     </div>
                                     <!--end::Col-->
-
-
                                 </div>
                                 <!--end::Row-->
                                 <!--begin::Body-->
-
                             </div>
                             <!--end::Stats-->
                         </div>
@@ -153,10 +150,9 @@
             </div>
             <!--end::Col-->
             <!--begin::Col-->
-
             <!--end::Col-->
         </div>
-        
+
         <div class="row g-5 g-xl-10 mb-xl-10">
             <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
                 <!--begin::Card widget 4-->
@@ -237,7 +233,9 @@
                             <!--end::Info-->
                             <!--begin::Subtitle-->
                             <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Minggu</span>
-                            <!-- <span class="text-gray-400 pt-1 fw-bold fs-6">{{ date('M') }} {{ date('Y') }} </span> -->
+
+                            <span class="text-gray-400 pt-1 fw-bold fs-6">{{ date('M') }} {{ date('Y') }} </span>
+
                             <!--end::Subtitle-->
                         </div>
                         <!--end::Title-->
@@ -246,7 +244,9 @@
                     <!--begin::Card body-->
                     <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
                         <!--begin::Chart-->
+
                         <div id="grafik-penjualan"></div>
+
                         <!--end::Chart-->
                     </div>
                     <!--end::Card body-->
@@ -281,7 +281,7 @@
                         </div>
                         <!--end::Statistics-->
                         <!--begin::Chart-->
-                        <div id="grafik"></div>
+                        <div id="grafik-pendapatan"></div>
                         <!--end::Chart-->
                     </div>
                     <!--end::Card body-->
@@ -293,16 +293,20 @@
         <!--end::Modals-->
 
     </div>
+    
 @endsection
+
 @push('scripts')
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript">
         var pendapatan = <?php echo json_encode($pendapatan) ?>;
         var bulan = <?php echo json_encode($bulan) ?>;
-        Highcharts.chart('grafik', {
+        Highcharts.chart('grafik-pendapatan', {
             title : {
                 text: 'Grafik Pendapatan Bulanan'
             },
@@ -317,6 +321,9 @@
                     text : 'Nominal Pendapatan Bulanan' 
                 }
             },
+            chart: {
+                type: 'spline'
+            },
             plotOptions: {
                 series: {
                     allowPointSelect: true
@@ -329,6 +336,7 @@
                 }
             ]
         });
+
 
         var penjualan_perhari = <?php echo json_encode($penjualan_perhari) ?>;
         var hari = <?php echo json_encode($hari) ?>;
@@ -359,5 +367,72 @@
                 }
             ]
         });
+         Highcharts.chart('grafik-produk', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Grafik Produk Terjual',
+                align: 'center'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                    borderRadius: 5,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.y}',
+                        
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> pcs<br/>'
+            },
+            series: [
+                {
+                    name: 'Kategori',
+                    colorByPoint: true,
+                    data: [
+                        <?php 
+                            $data = (array) json_decode($produk_kategori);
+                            for($i=0; $i<count($data); $i++){
+                                echo "{";
+                                echo "name: '" .$data[$i]->name. "', ";
+                                echo "y: " .$data[$i]->y. ", ";
+                                echo "drilldown: '" .$data[$i]->name. "'";
+                                echo "},";
+                            }
+                        ?>
+                    ]
+                }
+            ],
+            drilldown: {
+                series: [
+                    <?php
+                        $items = (array) json_decode($drilldown_produk);
+                        for($i=0; $i<count($data); $i++){
+                            echo "{";
+                            echo "name: '" .$data[$i]->name. "', ";
+                            echo "id: '" .$data[$i]->name. "', ";
+                            echo "data: [";
+                            for($j=0; $j<count($items); $j++){
+                                if($items[$j]->nama_kategori === $data[$i]->name){
+                                    echo "[";
+                                    echo "'" .$items[$j]->nama_produk. " (ID: " .$items[$j]->id. ")',";
+                                    echo $items[$j]->y;
+                                    echo "],";
+                                }
+                            }
+                            echo "]";
+                            echo "},";
+                        }
+                    ?>
+                ]
+            }
+        });
+        
+
     </script>
 @endpush

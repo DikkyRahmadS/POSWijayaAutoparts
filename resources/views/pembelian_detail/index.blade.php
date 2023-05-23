@@ -140,6 +140,8 @@
         let table, table2;
 
         $(function() {
+            $('#kt_body').attr('data-kt-aside-minimize', 'on');
+            
             table = $('#detail_pembelian').DataTable({
                     responsive: true,
                     processing: true,
