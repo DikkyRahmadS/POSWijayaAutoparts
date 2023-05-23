@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-footer">
                     <button class="btn btn-warning btn-flat" onclick="nota('{{ route('transaksi.nota') }}', 'Nota')">Cetak
-                        Ulang Nota</button>
+                        Nota</button>
                     <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
 @push('scripts')
     <script>
         function nota(url, title) {
-            popupCenter(url, title, 550, 500);
+            popupCenter(url, title, 350, 500);
         }
 
         function popupCenter(url, title, w, h) {
