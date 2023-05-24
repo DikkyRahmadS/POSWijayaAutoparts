@@ -33,7 +33,7 @@
                 @foreach ($produks as $produk)
                     <input type="hidden" name="getFilteredProduks[]" value="{{ json_encode($produk) }}">
                 @endforeach
-                <button type="submit" class="btn btn-primary">Export to PDF</button>
+                <button type="submit" class="btn btn-dark">Export to PDF</button>
             </form>
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="produktable">
                 <thead>
@@ -49,17 +49,17 @@
                     </tr>
                 </thead>
                 @php
-                    $i = 1;
+                    $counter = $produks->firstItem();
                 @endphp
                 <tbody>
                     @foreach ($produks as $produk)
                         <tr>
-                            <td>{{ $i++ }}</td>
+                            <td>{{ $counter++ }}</td>
                             <td>{{ $produk->kode_produk }}</td>
                             <td>{{ $produk->nama_produk }}</td>
                             <td>{{ $produk->kategori->nama_kategori }}</td>
                             <td>{{ $produk->berat }} g</td>
-                            <td>Rp. {{ $produk->harga_jual }}</td>
+                            <td>Rp. {{ format_uang($produk->harga_jual) }}</td>
                             <td>{{ $produk->stok }}</td>
                         </tr>
                     @endforeach

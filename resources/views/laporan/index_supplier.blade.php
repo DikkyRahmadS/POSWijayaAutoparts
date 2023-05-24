@@ -28,7 +28,7 @@
                 @foreach ($pembeliansDetail as $pembelianDetail)
                     <input type="hidden" name="getFilteredSupplier[]" value="{{ json_encode($pembelianDetail) }}">
                 @endforeach
-                <button type="submit" class="btn btn-primary">Export to PDF</button>
+                <button type="submit" class="btn btn-dark">Export to PDF</button>
             </form>
             {{-- <a href="/laporan/cetak_pdf_supplier"><button class="btn btn-primary ">Cetak PDF</button></a> --}}
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="produktable">
@@ -44,12 +44,12 @@
                     </tr>
                 </thead>
                 @php
-                    $i = 1;
+                    $counter = $pembeliansDetail->firstItem();
                 @endphp
                 <tbody>
                     @foreach ($pembeliansDetail as $pembelianDetail)
                         <tr>
-                            <td>{{ $i++ }}</td>
+                            <td>{{ $counter++ }}</td>
                             <td>{{ $pembelianDetail->pembelian->supplier->nama }}</td>
                             <td>{{ $pembelianDetail->pembelian->supplier->alamat }}</td>
                             <td>{{ $pembelianDetail->pembelian->supplier->no_hp }}</td>

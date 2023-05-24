@@ -66,7 +66,7 @@
                     <td>{{ $produk->nama_produk }}</td>
                     <td>{{ $produk->kategori->nama_kategori }}</td>
                     <td>{{ $produk->berat }} g</td>
-                    <td>Rp. {{ $produk->harga_jual }}</td>
+                    <td>Rp. {{ format_uang($produk->harga_jual) }}</td>
                     <td>{{ $produk->stok }}</td>
                 </tr>
             @endforeach

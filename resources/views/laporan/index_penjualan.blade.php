@@ -10,11 +10,11 @@
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <label for="" class="form-label">Tanggal Awal</label>
-                        <input type="date" class="form-control" name="tanggal_awal">
+                        <input type="date" class="form-control" name="tanggal_awal" value="{{ old('tanggal_awal')}}">
                     </div>
                     <div class="col-sm-3">
                         <label for="" class="form-label">Tanggal Akhir</label>
-                        <input type="date" class="form-control" name="tanggal_akhir">
+                        <input type="date" class="form-control" name="tanggal_akhir" value="{{ old('tanggal_akhir')}}">
                     </div>
 
                     <div class="col-sm-3 mt-8">
@@ -29,7 +29,7 @@
                 @foreach ($penjualansDetail as $penjualanDetail)
                     <input type="hidden" name="getFilteredPenjualans[]" value="{{ json_encode($penjualanDetail) }}">
                 @endforeach
-                <button type="submit" class="btn btn-primary">Export to PDF</button>
+                <button type="submit" class="btn btn-dark">Export to PDF</button>
             </form>
             
                 
@@ -49,19 +49,20 @@
                     </tr>
                 </thead>
                 @php
-                    $i = 1;
+                    $counter = $penjualansDetail->firstItem();
+                    $totalHarga = 0;
                 @endphp
                 <tbody>
                     @foreach ($penjualansDetail as $penjualanDetail)
                         <tr>
-                            <td>{{ $i++ }}</td>
+                            <td>{{ $counter++ }}</td>
                             <td>{{ $penjualanDetail->created_at->format('d M Y') }}</td>
                             <td>{{ $penjualanDetail->penjualan_id }}</td>
                             <td>{{ $penjualanDetail->produk->nama_produk }}</td>
                             <td>{{ $penjualanDetail->jumlah }}</td>
-                            <td>{{ $penjualanDetail->subtotal }}</td>
+                            <td>Rp. {{ format_uang($penjualanDetail->subtotal) }}</td>
                             <td>{{ $penjualanDetail->penjualan->diskon }}</td>
-                            <td>{{ $penjualanDetail->penjualan->diterima }}</td>
+                            <td>Rp. {{ format_uang($penjualanDetail->penjualan->diterima) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
