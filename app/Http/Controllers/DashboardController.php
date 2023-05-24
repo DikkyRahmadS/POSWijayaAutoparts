@@ -23,11 +23,21 @@ class DashboardController extends Controller
         $kategori = Kategori::count();
         $supplier = Supplier::count();
         $user = User::count();
-        $pendapatan = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"), DB::raw("MONTH(created_at) as bulan"))
-            ->groupBy(DB::raw("MONTH(created_at)"))
-            ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
-            ->pluck('pendapatan');
-        $total_pendapatan = $pendapatan->sum();
+        // $pendapatan = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"), DB::raw("MONTH(created_at) as bulan"))
+        //     ->groupBy(DB::raw("MONTH(created_at)"))
+        //     ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
+        //     ->pluck('pendapatan');
+        $pendapatan = DB::table('penjualan_details')
+                        ->select(DB::raw("MONTH(created_at) as bulan"), DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"))
+                        ->whereYear('created_at', date('Y'))
+                        ->groupBy('bulan')
+                        ->orderBy('bulan', 'asc')
+                        ->get();
+        // dd($pendapatan);
+        $total_pendapatan = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS INT) as total_pendapatan"))
+                            ->whereYear('created_at', date('Y'))
+                            ->pluck('total_pendapatan')
+                            ->sum();
         $produk_terjual = DB::table('penjualan_details')
                         ->join('produks', 'penjualan_details.produk_id', '=', 'produks.id')
                         ->select(DB::raw("SUM(penjualan_details.jumlah) as sum"), 'produks.nama_produk')
@@ -38,29 +48,24 @@ class DashboardController extends Controller
         $total_transaksi = Penjualan::whereYear('created_at', date('Y'))
                             ->whereMonth('created_at', date('m'))
                             ->count();
+        // $mean_penjualan = DB::table('penjualan_details')
+        //                     ->where(DB::raw("WEEK(created_at)"), date('W'))
+        //                     ->whereYear('created_at', date('Y'))
+        //                     ->groupBy(DB::raw("WEEK(created_at)"))
+        //                     ->avg('subtotal');
         $mean_penjualan = DB::table('penjualan_details')
+                            ->select(DB::raw("CAST(SUM(subtotal)/7 AS INT) AS mean"))
                             ->where(DB::raw("WEEK(created_at)"), date('W'))
-                            ->groupBy(DB::raw("WEEK(created_at)"))
-                            ->avg('subtotal');
-        $bulan = PenjualanDetail::select(DB::raw("MONTHNAME(created_at) as bulan"))
-                    ->distinct()
-                    ->orderBy(DB::raw("MONTH(created_at)"), 'asc')
-                    ->pluck('bulan');
-
-                    // dd($bulan);
-        $penjualan_perhari = PenjualanDetail::select(DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"), DB::raw("DAY(created_at) as hari"))
+                            ->whereYear('created_at', date('Y'))
+                            ->get();
+        $penjualan_perhari = DB::table('penjualan_details')
+                                ->select(DB::raw("DAYNAME(created_at) as hari"), DB::raw("CAST(SUM(subtotal) AS int) as pendapatan"))
+                                ->whereYear('created_at', date('Y'))
                                 ->where(DB::raw("WEEK(created_at)"), date('W'))
-                                ->groupBy(DB::raw("DAY(created_at)"))
-                                ->get()
-                                ->pluck('pendapatan');
-                                //dd($penjualan_perhari);
-        $hari = Penjualan::select(DB::raw("DAYNAME(created_at)"))
-                    ->whereWeek(DB::raw("WEEK(created_at)"), date('W'))
-                    ->distinct();
-                    // dd($hari);
-        
-
-        // dd($bulan);
+                                ->groupBy('hari')
+                                ->orderBy('created_at', 'asc')
+                                ->get();
+        // dd($penjualan_perhari);
         $produk_kategori = DB::table('penjualan_details')
                             ->join('produks', 'penjualan_details.produk_id', '=', 'produks.id')
                             ->join('kategoris', 'produks.kategori_id', '=', 'kategoris.id')
@@ -88,9 +93,9 @@ class DashboardController extends Controller
             'total_produk',
             'total_transaksi',
             'mean_penjualan',
-            'bulan',
+            // 'bulan',
             'penjualan_perhari',
-            'hari',
+            // 'hari',
             'produk_kategori',
             'drilldown_produk'
 
