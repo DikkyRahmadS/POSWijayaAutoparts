@@ -198,15 +198,13 @@
                                 <!--begin::Amount-->
                                 <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
                                 <span
-                                    class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan) }}</span>
+                                    class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan[0]->mean) }}</span>
                                 <!--end::Amount-->
                             </div>
                             <!--end::Info-->
                             <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Minggu</span>
-
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">{{ date('M') }} {{ date('Y') }} </span>
-
+                            <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Hari</span>
+                            <span class="text-gray-400 pt-1 fw-bold fs-6">Minggu Ini</span>
                             <!--end::Subtitle-->
                         </div>
                         <!--end::Title-->
@@ -216,7 +214,7 @@
                     <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
                         <!--begin::Chart-->
 
-                        <div id="grafik-penjualan"></div>
+                        <div id="grafik-penjualan-mingguan"></div>
 
                         <!--end::Chart-->
                     </div>
@@ -233,7 +231,7 @@
                     <div class="card-header pt-5 pt-0">
                         <!--begin::Title-->
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder text-dark">Pendapatan</span>
+                            <span class="card-label fw-bolder text-dark">Total Penjualan</span>
                             <span class="text-gray-400 mt-1 fw-bold fs-6">Tahun {{ date('Y') }}</span>
                         </h3>
                         <!--end::Title-->
@@ -253,7 +251,7 @@
                         </div>
                         <!--end::Statistics-->
                         <!--begin::Chart-->
-                        <div id="grafik-pendapatan"></div>
+                        <div id="grafik-penjualan-tahunan"></div>
                         <!--end::Chart-->
                     </div>
                     <!--end::Card body-->
@@ -276,21 +274,46 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript">
-        var pendapatan = <?php echo json_encode($pendapatan); ?>;
-        var bulan = <?php echo json_encode($bulan); ?>;
-        Highcharts.chart('grafik-pendapatan', {
+        //mengubah simbol numerik chart
+        Highcharts.setOptions({
+            lang: {
+                numericSymbols: ['Rb', 'Jt', 'M'],
+                numericSymbolMagnitude: 1000
+            }
+        });
+        //untuk penjualan bulanan dalam tahun ini
+        var penjualan_perbulan = <?php 
+                $arr_items = (array) json_decode($pendapatan);
+                $rows = count($arr_items);
+                $arr_penjualan_perbulan = [];
+                for($i=0; $i<12; $i++){
+                    $isFound = false;
+                    for($j=0; $j<$rows; $j++){
+                        if($arr_items[$j]->bulan === $i){
+                            array_push($arr_penjualan_perbulan, $arr_items[$j]->pendapatan);
+                            $isFound = true;
+                            break;
+                        }
+                    }
+                    if(!$isFound){
+                        array_push($arr_penjualan_perbulan, 0);
+                    }
+                }
+                echo json_encode($arr_penjualan_perbulan);
+            ?>;
+        Highcharts.chart('grafik-penjualan-tahunan', {
             title: {
-                text: 'Grafik Pendapatan Bulanan'
+                text: 'Grafik Penjualan Dalam Setahun'
             },
             chart: {
                 type: 'spline'
             },
             xAxis: {
-                categories: bulan
+                categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
             },
             yAxis: {
                 title: {
-                    text: 'Nominal Pendapatan Bulanan'
+                    text: 'Nominal Penjualan Bulanan'
                 }
             },
             chart: {
@@ -302,28 +325,48 @@
                 }
             },
             series: [{
-                name: 'Nominal Pendapatan',
-                data: pendapatan
+                name: 'Nominal Penjualan',
+                data: penjualan_perbulan
             }]
         });
-
-
-        var penjualan_perhari = <?php echo json_encode($penjualan_perhari); ?>;
-        var hari = <?php echo json_encode($hari); ?>;
-        Highcharts.chart('grafik-penjualan', {
+        
+        //untuk grafik penjualan perhari dalam minggu ini
+        var penjualan_perhari = <?php 
+                $arr_data = (array) json_decode($penjualan_perhari);
+                $hari = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                $rows = count($arr_data);
+                $arr_penjualan_perhari = [];
+                for($i=0; $i<7; $i++){
+                    $isFound = false;
+                    for($j=0; $j<$rows; $j++){
+                        if($arr_data[$j]->hari === $hari[$i]){
+                            array_push($arr_penjualan_perhari, $arr_data[$j]->pendapatan);
+                            $isFound = true;
+                            break;
+                        }
+                    }
+                    if(!$isFound){
+                        array_push($arr_penjualan_perhari, 0);
+                    }
+                }
+                echo json_encode($arr_penjualan_perhari);
+            ?>;
+        Highcharts.chart('grafik-penjualan-mingguan', {
             title: {
                 text: 'Grafik Penjualan Minggu Ini'
             },
-            // subtitle : {
-            // text: <?php //echo date('D-M-Y')
-            ?>
-            // },
+            subtitle: {
+                text: '<?php echo date('d F Y') ?>'
+            },
+            chart: {
+                type: 'spline'
+            },
             xAxis: {
-                categories: hari
+                categories: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
             },
             yAxis: {
                 title: {
-                    text: 'Nominal Penjualan Mingguan'
+                    text: 'Nominal Penjualan Harian'
                 }
             },
             plotOptions: {
@@ -336,6 +379,8 @@
                 data: penjualan_perhari
             }]
         });
+
+        //grafik untuk produk terjual
         Highcharts.chart('grafik-produk', {
             chart: {
                 type: 'pie'
@@ -354,8 +399,7 @@
                     borderRadius: 5,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.name}: {point.y}',
-
+                        format: '{point.name}: {point.y}'
                     }
                 }
             },
@@ -369,7 +413,7 @@
                 data: [
                     <?php
                     $data = (array) json_decode($produk_kategori);
-                    for ($i = 0; $i < count($data); $i++) {
+                    for ($i = 0; $i<count($data); $i++) {
                         echo '{';
                         echo "name: '" . $data[$i]->name . "', ";
                         echo 'y: ' . $data[$i]->y . ', ';
@@ -383,12 +427,12 @@
                 series: [
                     <?php
                     $items = (array) json_decode($drilldown_produk);
-                    for ($i = 0; $i < count($data); $i++) {
+                    for ($i = 0; $i<count($data); $i++) {
                         echo '{';
                         echo "name: '" . $data[$i]->name . "', ";
                         echo "id: '" . $data[$i]->name . "', ";
                         echo 'data: [';
-                        for ($j = 0; $j < count($items); $j++) {
+                        for ($j = 0; $j<count($items); $j++) {
                             if ($items[$j]->nama_kategori === $data[$i]->name) {
                                 echo '[';
                                 echo "'" . $items[$j]->nama_produk . ' (ID: ' . $items[$j]->id . ")',";
