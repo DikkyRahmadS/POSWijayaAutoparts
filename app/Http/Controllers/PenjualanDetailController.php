@@ -16,15 +16,20 @@ class PenjualanDetailController extends Controller
      */
     public function index()
     {
-        $produks = Produk::all();
-        $kategoris = Kategori::all();
+        $keyword = request()->query('keyword');
+        $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
 
-
+        $datas = $datas->orderBy('id', 'desc')->paginate(3);
         // Cek apakah ada transaksi yang sedang berjalan
         if ($id_penjualan = session('id')) {
             $penjualan = Penjualan::find($id_penjualan);
 
-            return view("kasir.index", compact('produks', 'kategoris','penjualan','id_penjualan'));
+            return view("kasir.index", compact(
+                'datas',
+                'keyword',
+                'penjualan',
+                'id_penjualan'
+            ));
         } else {
             if (auth()->user()->role == 1) {
                 return redirect()->route('transaksi.baru');

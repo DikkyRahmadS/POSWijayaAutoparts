@@ -20,7 +20,7 @@
         <!--begin::Layout-->
         <div class="d-flex flex-column flex-xl-row">
             <!--begin::Content-->
-            <div class="d-flex flex-row-fluid me-xl-9 mb-10 mb-xl-0">
+            <div class="d-flex flex-row-fluid me-xl-8 mb-10 mb-xl-0">
 
                 <!--begin::Pos food-->
                 <div class="card card-flush card-p-0 bg-transparent border-0 ">
@@ -28,47 +28,33 @@
                     <div class="card-body">
                         <!--begin::Nav-->
                         <ul class="nav nav-pills d-flex  nav-pills-custom ">
-
-                            {{-- kategori --}}
-                            {{-- @foreach ($kategoris as $kategori)
-                                <li class="nav-item mb-3 me-0">
-                                    <!--begin::Nav link-->
-                                    <a class="nav-link nav-link-border-solid btn btn-outline btn-flex btn-active-color-primary flex-column flex-stack pt-9 pb-7 page-bg show active"
-                                        data-bs-toggle="pill" href="#kt_pos_food_content_1"
-                                        style="width: 138px;height: 180px">
-                                        <!--begin::Icon-->
-                                        <div class="nav-icon mb-3">
-                                            <!--begin::Food icon-->
-                                            <img src="/metronic8/demo1/assets/media/svg/food-icons/spaghetti.svg"
-                                                class="w-50px" alt="" />
-                                            <!--end::Food icon-->
-                                        </div>
-                                        <!--end::Icon-->
-
-                                        <!--begin::Info-->
-                                        <div class="">
-                                            <span
-                                                class="text-gray-800 fw-bold fs-2 d-block">{{ $kategori->nama_kategori }}</span>
-                                            <span class="text-gray-400 fw-semibold fs-7">8
-                                                Options</span>
-                                        </div>
-                                        <!--end::Info-->
-                                    </a>
-                                    <!--end::Nav link-->
-                                </li>
-                            @endforeach --}}
-
-                            {{-- end kategori --}}
-
-
+                            <li class="nav-item mb-3 me-0">
+                                <form action="{{ url('transaksi') }}" method="GET">
+                                    <div class="d-flex align-items-center position-relative my-1">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                                    height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                                    fill="black" />
+                                                <path
+                                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        <input type="search" class="form-control form-control-solid w-250px ps-14"
+                                            placeholder="Cari Produk" id="keyword" name="keyword"
+                                            value="{{ $keyword }}">
+                                    </div>
+                                </form>
+                            </li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Nav-->
-
                         <!--begin::Tab Content-->
                         <div class="tab-content">
-
-
                             <!--begin::Tap pane-->
 
                             <form class="form-produk">
@@ -80,13 +66,14 @@
                                     <!--begin::Wrapper-->
                                     <div class="d-flex flex-wrap d-grid gap-5 gap-xxl-9">
 
-                                        @foreach ($produks as $produk)
+                                        <?php $no = 1; ?>
+                                        @foreach ($datas as $key => $value)
                                             <!--begin::Card-->
                                             <div class="card card-flush flex-row-fluid p-6 pb-5 mw-100">
                                                 <!--begin::Body-->
                                                 <div class="card-body text-center">
                                                     <!--begin::Food img-->
-                                                    <img src="{{ Storage::url("$produk->image") }}"
+                                                    <img src="{{ Storage::url("$value->image") }}"
                                                         class="rounded-3 mb-4 w-150px h-150px w-xxl-200px h-xxl-200px"
                                                         alt="" />
                                                     <!--end::Food img-->
@@ -96,10 +83,10 @@
                                                         <!--begin::Title-->
                                                         <div class="text-center">
                                                             <span
-                                                                class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">{{ $produk->nama_produk }}</span>
+                                                                class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">{{ $value->nama_produk }}</span>
 
                                                             <span
-                                                                class="text-gray-400 fw-semibold d-block fs-6 mt-n1">{{ $produk->merk }}</span>
+                                                                class="text-gray-400 fw-semibold d-block fs-6 mt-n1">{{ $value->merk }}</span>
                                                         </div>
                                                         <!--end::Title-->
                                                     </div>
@@ -107,9 +94,9 @@
 
                                                     <!--begin::Total-->
                                                     <span class="text-success text-end fw-bold fs-1 ">Rp.
-                                                        {{ format_uang($produk->harga_jual) }}</span><br>
+                                                        {{ format_uang($value->harga_jual) }}</span><br>
                                                     <button class="btn btn-primary mt-5"
-                                                        onclick="pilihProduk('{{ $produk->id }}')"><i
+                                                        onclick="pilihProduk('{{ $value->id }}')"><i
                                                             class="fa fa-plus-circle"></i>Pilih Produk</button>
 
                                                     <!--end::Total-->
@@ -127,6 +114,7 @@
                 <!--end::Tab Content-->
             </div>
             <!--end: Card Body-->
+            <div class="ms-5">{{ $datas->links() }}</div>
         </div>
         <!--end::Pos food-->
     </div>
@@ -326,6 +314,7 @@
         });
 
         function pilihProduk(id) {
+            event.preventDefault();
             $('#produk_id').val(id);
             tambahProduk();
         }
@@ -343,19 +332,34 @@
         }
 
         function deleteData(url) {
-            if (confirm('Yakin ingin menghapus data terpilih?')) {
-                $.post(url, {
-                        '_token': $('[name=csrf-token]').attr('content'),
-                        '_method': 'delete'
-                    })
-                    .done((response) => {
-                        table.ajax.reload(() => loadForm($('#diskon').val()));
-                    })
-                    .fail((errors) => {
-                        alert('Tidak dapat menghapus data');
-                        return;
-                    });
-            }
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post(url, {
+                            '_token': $('[name=csrf-token]').attr('content'),
+                            '_method': 'delete'
+                        })
+                        .done((response) => {
+                            toastr.success('Data Berhasil Dihapus!', {
+                                fadeAway: 1000
+                            });
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
+                        })
+                        .fail((errors) => {
+                            toastr.error('Tidak Dapat Menghapus Data!', {
+                                fadeAway: 1000
+                            });
+                        });
+                }
+            })
         }
 
         function loadForm(diskon = 0, diterima = 0) {
@@ -370,7 +374,7 @@
                     $('.tampil-bayar').text('Bayar: Rp. ' + response.bayarrp);
                     $('.tampil-terbilang').text(response.terbilang);
 
-                    $('#kembali').val('Rp.' + response.kembalirp);
+                    $('#kembali').val('Rp. ' + response.kembalirp);
                     if ($('#diterima').val() != 0) {
                         $('.tampil-bayar').text('Kembali: Rp. ' + response.kembalirp);
                         $('.tampil-terbilang').text(response.kembali_terbilang);
