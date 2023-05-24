@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Supplier;
+use App\Models\Penjualan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Models\PembelianDetail;
+use App\Models\PenjualanDetail;
+use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class LaporanController extends Controller
 {
+    
     public function index()
     {
         return view("laporan.index");
@@ -44,6 +50,40 @@ class LaporanController extends Controller
         $pdf->setPaper("A4", 'potrait');
         // return $pdf->download('laporan-supplier-pdf');
         return $pdf->stream('Laporan-supplier-'.'.pdf');
+    }
+
+    public function cetak_pdf_penjualan(Request $request)
+    {
+
+
+        $penjualansDetail = [];
+        foreach ($request->input('getFilteredPenjualans') as $penjualanJson) {
+            $penjualansDetail[] = json_decode($penjualanJson);
+        }
+
+        $pdf = Pdf::loadview('laporan.index_pdf_penjualan', ['penjualansDetail' => $penjualansDetail]);
+        $pdf->setPaper("A4", 'potrait');
+        // return $pdf->download('laporan-supplier-pdf');
+        return $pdf->stream('Laporan-penjualan-'.'.pdf');
+    }
+
+    public function getFilteredPenjualans()
+    {
+
+            $penjualansDetail = PenjualanDetail::query()
+            ->with("produk","penjualan")
+            ->orderBy('id', 'desc')
+            ->when(request()->tanggal_awal && request()->tanggal_akhir, function ($query) {
+                $query->whereBetween(DB::raw('DATE(created_at)'), [request()->tanggal_awal, request()->tanggal_akhir]);
+            })
+            ->paginate(10);
+            $penjualansDetail->getCollection()->transform(function ($item) {
+                $item->created_at = Carbon::parse($item->created_at)->toDateTimeString();
+                return $item;
+            });
+            
+        return $penjualansDetail;
+
     }
 
     public function getFilteredProduks()
@@ -81,6 +121,9 @@ class LaporanController extends Controller
             ->paginate(10);
     }
 
+    
+    
+
     public function produk()
     {
         $produks = $this->getFilteredProduks();
@@ -91,5 +134,15 @@ class LaporanController extends Controller
     {
         $pembeliansDetail = $this->getFilteredSuppliers();
         return view("laporan.index_supplier", compact("pembeliansDetail"));
+    }
+
+    public function penjualan()
+    {
+        
+        $penjualansDetail = $this->getFilteredPenjualans();
+        return view("laporan.index_penjualan", compact("penjualansDetail"));
+
+            
+
     }
 }
