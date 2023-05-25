@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('menu', 'Menu')
+@section('menu', 'Transaksi')
 @section('title', 'Detail Pembelian Produk')
 
 @push('css')
@@ -141,7 +141,7 @@
 
         $(function() {
             $('#kt_body').attr('data-kt-aside-minimize', 'on');
-            
+
             table = $('#detail_pembelian').DataTable({
                     responsive: true,
                     processing: true,

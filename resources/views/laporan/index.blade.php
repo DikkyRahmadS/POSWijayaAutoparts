@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('menu', 'Menu')
-@section('title', 'Laporan')
+@section('title', 'Daftar Laporan')
 @section('content')
     <div class="card card-flush">
         <div class="card-body pt-10">

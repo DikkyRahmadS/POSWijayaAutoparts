@@ -1,7 +1,15 @@
 @extends('layouts.master')
-@section('menu', 'Menu')
+@section('menu', 'Transaksi')
 @section('title', 'Daftar Riwayat Penjualan')
 @section('content')
+    @push('css')
+        <style>
+            .btn-delete {
+                margin-left: 5px;
+                /* Adjust the margin value as needed */
+            }
+        </style>
+    @endpush
     <div class="card card-flush">
         <div class="card-body pt-10">
             <!--begin::Table-->

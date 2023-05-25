@@ -19,7 +19,7 @@ class PenjualanDetailController extends Controller
         $keyword = request()->query('keyword');
         $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
 
-        $datas = $datas->orderBy('id', 'desc')->paginate(3);
+        $datas = $datas->orderBy('id', 'desc')->where('stok', '>', 0)->paginate(3);
         // Cek apakah ada transaksi yang sedang berjalan
         if ($id_penjualan = session('id')) {
             $penjualan = Penjualan::find($id_penjualan);

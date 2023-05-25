@@ -1,24 +1,24 @@
 @extends('layouts.master')
-@section('laporan', 'Laporan')
-@section('title', 'Laporan')
+@section('menu', 'Daftar Laporan')
+@section('title', 'Laporan Penjualan')
 @section('content')
 
-<div class="card card-flush">
+    <div class="card card-flush">
         <div class="card-body pt-10">
             <form action="/laporan/index_penjualan" method="GET">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <label for="" class="form-label">Tanggal Awal</label>
-                        <input type="date" class="form-control" name="tanggal_awal" value="{{ old('tanggal_awal')}}">
+                        <input type="date" class="form-control" name="tanggal_awal" value="{{ old('tanggal_awal') }}">
                     </div>
                     <div class="col-sm-3">
                         <label for="" class="form-label">Tanggal Akhir</label>
-                        <input type="date" class="form-control" name="tanggal_akhir" value="{{ old('tanggal_akhir')}}">
+                        <input type="date" class="form-control" name="tanggal_akhir" value="{{ old('tanggal_akhir') }}">
                     </div>
 
                     <div class="col-sm-3 mt-8">
-                        <button type="submit" name= "search" class="btn btn-primary">Search</button>
+                        <button type="submit" name="search" class="btn btn-primary">Search</button>
                         <!-- <button type="submit" class="btn btn-primary" name="exportPDF" a href="/laporan/cetak_pdf_penjualan">Export to PDF</button> -->
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                 @endforeach
                 <button type="submit" class="btn btn-dark">Export to PDF</button>
             </form>
-            
-                
+
+
 
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="penjualantable">
                 <thead>

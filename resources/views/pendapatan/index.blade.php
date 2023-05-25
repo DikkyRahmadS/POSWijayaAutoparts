@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('menu', 'Menu')
+@section('menu', 'Daftar Laporan')
 @section('title', 'Laporan Pendapatan')
 @push('css')
     <link rel="stylesheet"
@@ -16,7 +16,7 @@
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
             <!--begin::Card title-->
             <div class="card-title">
-                
+
                 <form class="" action="{{ route('pendapatan.index') }}" method="get" {{--enctype="multipart/form-data"--}} data-tonggle="validator">
                     @csrf
                     {{-- @method('get') --}}
@@ -26,16 +26,16 @@
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Tanggal Awal</span>
                             </label>
-                            <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control" 
+                            <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control"
                                 value="{{ request('tanggal_awal') }}" required autofocus>
                         </div>
                         <div class="col">
                             <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                                 <span>Tanggal Akhir</span>
                             </label>
-                            <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" 
+                            <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control"
                                 value="{{ request('tanggal_akhir') ?? date('Y-m-d') }}" required>
-                        </div> 
+                        </div>
                         <div class="col mt-8">
                             <button type="submit"  class="btn btn-primary">
                                 <span class="indicator-label">Search</span>
@@ -43,16 +43,16 @@
                         </div>
                         <div class="col mt-8 ">
                             <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark" style="width:140px">
-                                <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF 
+                                <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF
                             </a>
                         </div>
                     </div>
                     <!--end::Input group-->
                     <!--begin::Actions-->
-                    
+
                     <!--end::Actions-->
                 </form>
-                
+
             </div>
             <!--end::Card title-->
         </div>

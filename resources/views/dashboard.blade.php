@@ -3,18 +3,18 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div id="kt_content_container" class="container-xxl">
-        <!--begin::Row-->
-        <div class="row gy-5 g-xl-8 ">
-            <!--begin::Col-->
-            <div class="col-xl-12 mb-5 ">
-                <!--begin::Mixed Widget 2-->
-                @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 1)
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Row-->
+            <div class="row gy-5 g-xl-8 ">
+                <!--begin::Col-->
+                <div class="col-xl-12 mb-5 ">
+                    <!--begin::Mixed Widget 2-->
                     <div class="card card-xl-stretch">
                         <!--begin::Header-->
                         <div class="card-header border-0 bg-danger py-5">
                             <h1 class="card-title align-items-start flex-column text-white pt-15">
-                                <span class="fw-bolder fs-2x mb-3">Hello, {{ Auth::user()->name }}</span>
+                                <span class="fw-bolder fs-2x mb-3">Selamat Datang, {{ Auth::user()->name }}</span>
                             </h1>
                         </div>
                         <!--end::Header-->
@@ -146,123 +146,161 @@
                         <!--end::Body-->
                     </div>
                     <!--end::Mixed Widget 2-->
-                @endif
-            </div>
-            <!--end::Col-->
-            <!--begin::Col-->
-            <!--end::Col-->
-        </div>
-
-        <div class="row g-5 g-xl-10 mb-xl-10">
-            <div class="col-lg-6 mb-5 mb-xl-0">
-                <!--begin::Card widget 4-->
-                <div class="card card-flush overflow-hidden h-md-100">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5">
-                        <!--begin::Title-->
-                        <div class="card-title d-flex flex-column">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Amount-->
-                                <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $total_produk }}</span>
-                                <!--end::Amount-->
-                            </div>
-                            <!--end::Info-->
-                            <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">Produk Terjual</span>
-                            <!--end::Subtitle-->
-                        </div>
-                        <!--end::Title-->
-                    </div>
-                    <!--end::Header-->
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
-                        <!--begin::Chart-->
-                        <div id="grafik-produk"></div>
-                        <!--end::Chart-->
-                    </div>
-                    <!--end::Card body-->
                 </div>
-                <!--end::Card widget 4-->
+                <!--end::Col-->
+                <!--begin::Col-->
+                <!--end::Col-->
             </div>
 
-            <div class="col-lg-6 mb-5 mb-xl-0">
-                <!--begin::Card widget 6-->
-                <div class="card card-flush overflow-hidden h-md-100">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5">
-                        <!--begin::Title-->
-                        <div class="card-title d-flex flex-column">
-                            <!--begin::Info-->
-                            <div class="d-flex align-items-center">
-                                <!--begin::Amount-->
-                                <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
-                                <span
-                                    class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan[0]->mean) }}</span>
-                                <!--end::Amount-->
+            <div class="row g-5 g-xl-10 mb-xl-10">
+                <div class="col-lg-6 mb-5 mb-xl-0">
+                    <!--begin::Card widget 4-->
+                    <div class="card card-flush overflow-hidden h-md-100">
+                        <!--begin::Header-->
+                        <div class="card-header pt-5">
+                            <!--begin::Title-->
+                            <div class="card-title d-flex flex-column">
+                                <!--begin::Info-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Amount-->
+                                    <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $total_produk }}</span>
+                                    <!--end::Amount-->
+                                </div>
+                                <!--end::Info-->
+                                <!--begin::Subtitle-->
+                                <span class="text-gray-400 pt-1 fw-bold fs-6">Produk Terjual</span>
+                                <!--end::Subtitle-->
                             </div>
-                            <!--end::Info-->
-                            <!--begin::Subtitle-->
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Hari</span>
-                            <span class="text-gray-400 pt-1 fw-bold fs-6">Minggu Ini</span>
-                            <!--end::Subtitle-->
+                            <!--end::Title-->
                         </div>
-                        <!--end::Title-->
+                        <!--end::Header-->
+                        <!--begin::Card body-->
+                        <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
+                            <!--begin::Chart-->
+                            <div id="grafik-produk"></div>
+                            <!--end::Chart-->
+                        </div>
+                        <!--end::Card body-->
                     </div>
-                    <!--end::Header-->
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
-                        <!--begin::Chart-->
-
-                        <div id="grafik-penjualan-mingguan"></div>
-
-                        <!--end::Chart-->
-                    </div>
-                    <!--end::Card body-->
+                    <!--end::Card widget 4-->
                 </div>
-                <!--end::Card widget 6-->
-            </div>
 
-            <!--begin::Col-->
-            <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
-                <!--begin::Chart widget 3-->
-                <div class="card card-flush overflow-hidden h-md-100">
-                    <!--begin::Header-->
-                    <div class="card-header pt-5 pt-0">
-                        <!--begin::Title-->
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder text-dark">Total Penjualan</span>
-                            <span class="text-gray-400 mt-1 fw-bold fs-6">Tahun {{ date('Y') }}</span>
-                        </h3>
-                        <!--end::Title-->
+                <div class="col-lg-6 mb-5 mb-xl-0">
+                    <!--begin::Card widget 6-->
+                    <div class="card card-flush overflow-hidden h-md-100">
+                        <!--begin::Header-->
+                        <div class="card-header pt-5">
+                            <!--begin::Title-->
+                            <div class="card-title d-flex flex-column">
+                                <!--begin::Info-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Amount-->
+                                    <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
+                                    <span
+                                        class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ format_uang($mean_penjualan[0]->mean) }}</span>
+                                    <!--end::Amount-->
+                                </div>
+                                <!--end::Info-->
+                                <!--begin::Subtitle-->
+                                <span class="text-gray-400 pt-1 fw-bold fs-6">Rata-Rata Penjualan Tiap Hari</span>
+                                <span class="text-gray-400 pt-1 fw-bold fs-6">Minggu Ini</span>
+                                <!--end::Subtitle-->
+                            </div>
+                            <!--end::Title-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Card body-->
+                        <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
+                            <!--begin::Chart-->
+
+                            <div id="grafik-penjualan-mingguan"></div>
+
+                            <!--end::Chart-->
+                        </div>
+                        <!--end::Card body-->
                     </div>
-                    <!--end::Header-->
-                    <!--begin::Card body-->
-                    <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
-                        <!--begin::Statistics-->
-                        <div class="px-9 mb-5">
+                    <!--end::Card widget 6-->
+                </div>
+
+                <!--begin::Col-->
+                <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
+                    <!--begin::Chart widget 3-->
+                    <div class="card card-flush overflow-hidden h-md-100">
+                        <!--begin::Header-->
+                        <div class="card-header pt-5 pt-0">
+                            <!--begin::Title-->
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label fw-bolder text-dark">Total Penjualan</span>
+                                <span class="text-gray-400 mt-1 fw-bold fs-6">Tahun {{ date('Y') }}</span>
+                            </h3>
+                            <!--end::Title-->
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Card body-->
+                        <div class="card-body d-flex justify-content-between flex-column pb-1 px-5">
                             <!--begin::Statistics-->
-                            <div class="d-flex mb-2">
-                                <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
-                                <span
-                                    class="fs-2hx fw-bolder text-gray-800 me-2 lh-1 ls-n2">{{ format_uang($total_pendapatan) }}</span>
+                            <div class="px-9 mb-5">
+                                <!--begin::Statistics-->
+                                <div class="d-flex mb-2">
+                                    <span class="fs-4 fw-bold text-gray-400 me-1">Rp</span>
+                                    <span
+                                        class="fs-2hx fw-bolder text-gray-800 me-2 lh-1 ls-n2">{{ format_uang($total_pendapatan) }}</span>
+                                </div>
+                                <!--end::Statistics-->
                             </div>
                             <!--end::Statistics-->
+                            <!--begin::Chart-->
+                            <div id="grafik-penjualan-tahunan"></div>
+                            <!--end::Chart-->
                         </div>
-                        <!--end::Statistics-->
-                        <!--begin::Chart-->
-                        <div id="grafik-penjualan-tahunan"></div>
-                        <!--end::Chart-->
+                        <!--end::Card body-->
                     </div>
-                    <!--end::Card body-->
+                    <!--end::Chart widget 3-->
                 </div>
-                <!--end::Chart widget 3-->
+                <!--end::Col-->
             </div>
-            <!--end::Col-->
-        </div>
-        <!--end::Modals-->
+            <!--end::Modals-->
 
-    </div>
+        </div>
+    @endif
+
+    @if (auth()->user()->role == 0)
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Row-->
+            <div class="row gy-5 g-xl-8 ">
+                <!--begin::Col-->
+                <div class="col-xl-12 mb-5 ">
+                    <!--begin::Mixed Widget 2-->
+                    <div class="card card-xl-stretch">
+                        <!--begin::Header-->
+                        <div class="card-header border-0 bg-danger py-5">
+                            <h1 class="card-title align-items-start flex-column text-white pt-15">
+                                <span class="fw-bolder fs-2x mb-3">Selamat Datang, {{ Auth::user()->name }}</span>
+                                <span class="fw-bolder fs-2x mb-3">Anda login sebagai KASIR</span>
+                                <a href="{{ route('transaksi.baru') }}" class="btn btn-success btn-lg">Transaksi Baru</a>
+                                <br>
+                            </h1>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body p-0 pb-10">
+                            <!--begin::Chart-->
+                            <div class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 50px">
+                            </div>
+                            <!--end::Chart-->
+                            <!--begin::Stats-->
+                            <!--end::Stats-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Mixed Widget 2-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <!--end::Col-->
+            </div>
+        </div>
+    @endif
 
 @endsection
 
@@ -282,25 +320,25 @@
             }
         });
         //untuk penjualan bulanan dalam tahun ini
-        var penjualan_perbulan = <?php 
-                $arr_items = (array) json_decode($pendapatan);
-                $rows = count($arr_items);
-                $arr_penjualan_perbulan = [];
-                for($i=0; $i<12; $i++){
-                    $isFound = false;
-                    for($j=0; $j<$rows; $j++){
-                        if($arr_items[$j]->bulan === $i){
-                            array_push($arr_penjualan_perbulan, $arr_items[$j]->pendapatan);
-                            $isFound = true;
-                            break;
-                        }
-                    }
-                    if(!$isFound){
-                        array_push($arr_penjualan_perbulan, 0);
-                    }
+        var penjualan_perbulan = <?php
+        $arr_items = (array) json_decode($pendapatan);
+        $rows = count($arr_items);
+        $arr_penjualan_perbulan = [];
+        for ($i = 0; $i < 12; $i++) {
+            $isFound = false;
+            for ($j = 0; $j < $rows; $j++) {
+                if ($arr_items[$j]->bulan === $i) {
+                    array_push($arr_penjualan_perbulan, $arr_items[$j]->pendapatan);
+                    $isFound = true;
+                    break;
                 }
-                echo json_encode($arr_penjualan_perbulan);
-            ?>;
+            }
+            if (!$isFound) {
+                array_push($arr_penjualan_perbulan, 0);
+            }
+        }
+        echo json_encode($arr_penjualan_perbulan);
+        ?>;
         Highcharts.chart('grafik-penjualan-tahunan', {
             title: {
                 text: 'Grafik Penjualan Dalam Setahun'
@@ -309,7 +347,9 @@
                 type: 'spline'
             },
             xAxis: {
-                categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+                categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'
+                ]
             },
             yAxis: {
                 title: {
@@ -329,34 +369,34 @@
                 data: penjualan_perbulan
             }]
         });
-        
+
         //untuk grafik penjualan perhari dalam minggu ini
-        var penjualan_perhari = <?php 
-                $arr_data = (array) json_decode($penjualan_perhari);
-                $hari = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                $rows = count($arr_data);
-                $arr_penjualan_perhari = [];
-                for($i=0; $i<7; $i++){
-                    $isFound = false;
-                    for($j=0; $j<$rows; $j++){
-                        if($arr_data[$j]->hari === $hari[$i]){
-                            array_push($arr_penjualan_perhari, $arr_data[$j]->pendapatan);
-                            $isFound = true;
-                            break;
-                        }
-                    }
-                    if(!$isFound){
-                        array_push($arr_penjualan_perhari, 0);
-                    }
+        var penjualan_perhari = <?php
+        $arr_data = (array) json_decode($penjualan_perhari);
+        $hari = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $rows = count($arr_data);
+        $arr_penjualan_perhari = [];
+        for ($i = 0; $i < 7; $i++) {
+            $isFound = false;
+            for ($j = 0; $j < $rows; $j++) {
+                if ($arr_data[$j]->hari === $hari[$i]) {
+                    array_push($arr_penjualan_perhari, $arr_data[$j]->pendapatan);
+                    $isFound = true;
+                    break;
                 }
-                echo json_encode($arr_penjualan_perhari);
-            ?>;
+            }
+            if (!$isFound) {
+                array_push($arr_penjualan_perhari, 0);
+            }
+        }
+        echo json_encode($arr_penjualan_perhari);
+        ?>;
         Highcharts.chart('grafik-penjualan-mingguan', {
             title: {
                 text: 'Grafik Penjualan Minggu Ini'
             },
             subtitle: {
-                text: '<?php echo date('d F Y') ?>'
+                text: '<?php echo date('d F Y'); ?>'
             },
             chart: {
                 type: 'spline'
@@ -413,7 +453,7 @@
                 data: [
                     <?php
                     $data = (array) json_decode($produk_kategori);
-                    for ($i = 0; $i<count($data); $i++) {
+                    for ($i = 0; $i < count($data); $i++) {
                         echo '{';
                         echo "name: '" . $data[$i]->name . "', ";
                         echo 'y: ' . $data[$i]->y . ', ';
@@ -427,12 +467,12 @@
                 series: [
                     <?php
                     $items = (array) json_decode($drilldown_produk);
-                    for ($i = 0; $i<count($data); $i++) {
+                    for ($i = 0; $i < count($data); $i++) {
                         echo '{';
                         echo "name: '" . $data[$i]->name . "', ";
                         echo "id: '" . $data[$i]->name . "', ";
                         echo 'data: [';
-                        for ($j = 0; $j<count($items); $j++) {
+                        for ($j = 0; $j < count($items); $j++) {
                             if ($items[$j]->nama_kategori === $data[$i]->name) {
                                 echo '[';
                                 echo "'" . $items[$j]->nama_produk . ' (ID: ' . $items[$j]->id . ")',";

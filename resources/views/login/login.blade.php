@@ -2,6 +2,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="/Admin/dist/assets/media/logos/favicon.ico" />
     <title>POS Wijaya Autoparts</title>
     <link rel="stylesheet" href="/Login/style.css">
 </head>

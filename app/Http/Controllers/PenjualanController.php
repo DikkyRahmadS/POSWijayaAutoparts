@@ -43,12 +43,17 @@ class PenjualanController extends Controller
                 return $penjualan->user->name ?? '';
             })
             ->addColumn('aksi', function ($penjualan) {
-                return '
-                <div class="text-end">
-                    <button onclick="showDetail(`' . route('penjualan.show', $penjualan->id) . '`)" class="btn btn-xs btn-bg-light"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`' . route('penjualan.destroy', $penjualan->id) . '`)" class="btn btn-xs btn-bg-light"><i class="fa fa-trash"></i></button>
-                </div>
-                ';
+
+                $button = '<div class="text-end">
+                    <button onclick="showDetail(`' . route('penjualan.show', $penjualan->id) . '`)" class="btn btn-xs btn-bg-light"><i class="fa fa-eye"></i></button>';
+
+                if (auth()->user()->role == 1) {
+                    $button .= '<button onclick="deleteData(`' . route('penjualan.destroy', $penjualan->id) . '`)" class="btn btn-xs btn-bg-light btn-delete"><i class="fa fa-trash"></i></button>';
+                }
+
+                $button .= '</div>';
+
+                return $button;
             })
             ->rawColumns(['aksi'])
             ->make(true);
