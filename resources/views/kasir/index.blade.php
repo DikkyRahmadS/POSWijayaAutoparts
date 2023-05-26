@@ -7,6 +7,10 @@
             display: none;
         }
 
+        .table-penjualan tbody td:last-child {
+            display: none;
+        }
+
         .no-border {
             border: 0;
             box-shadow: none;
@@ -87,6 +91,10 @@
 
                                                             <span
                                                                 class="text-gray-400 fw-semibold d-block fs-6 mt-n1">{{ $value->merk }}</span>
+
+                                                            <span class="text-gray-400 fw-semibold d-block fs-6 mt-2">Stok
+                                                                : {{ $value->stok }}</span>
+
                                                         </div>
                                                         <!--end::Title-->
                                                     </div>
@@ -141,6 +149,7 @@
                         <thead>
                             <tr>
                                 <th class="w-100px"></th>
+                                <th class="w-60px"></th>
                                 <th class="w-60px"></th>
                                 <th class="w-110px"></th>
                                 <th class="w-30px"></th>
@@ -247,6 +256,9 @@
                             searchable: false,
                             sortable: false
                         },
+                        {
+                            data: 'stok'
+                        },
                     ],
                     dom: 'Brt',
                     bSort: false,
@@ -262,12 +274,31 @@
             $(document).on('input', '.quantity', function() {
                 let id = $(this).data('id');
                 let jumlah = parseInt($(this).val());
+                var stokElements = document.getElementsByClassName("stok");
 
+                // Mendapatkan nilai variabel "stok" dari setiap elemen
+                var stokArray = Array.from(stokElements).map(function(element) {
+                    return element.textContent;
+                });
+
+                // Menampilkan nilai variabel "stok"
+                console.log(stokArray);
+                let row = $(this).closest('tr');
+                let rowIndex = row.index();
+                console.log('Baris ke-' + (rowIndex + 1));
                 if (jumlah < 1) {
                     $(this).val(1);
                     alert('Jumlah tidak boleh kurang dari 1');
                     return;
                 }
+
+
+                if (jumlah > stokArray) {
+                    $(this).val(stokArray);
+                    alert('Jumlah tidak boleh lebih dari persediaan stok');
+                    return;
+                }
+
                 if (jumlah > 10000) {
                     $(this).val(10000);
                     alert('Jumlah tidak boleh lebih dari 10000');

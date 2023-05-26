@@ -19,7 +19,7 @@ class PenjualanDetailController extends Controller
         $keyword = request()->query('keyword');
         $datas = Produk::where('nama_produk', 'Like', '%' . $keyword . '%');
 
-        $datas = $datas->orderBy('id', 'desc')->where('stok', '>', 0)->paginate(3);
+        $datas = $datas->orderBy('id', 'desc')->where('stok', '>', 0)->paginate(21);
         // Cek apakah ada transaksi yang sedang berjalan
         if ($id_penjualan = session('id')) {
             $penjualan = Penjualan::find($id_penjualan);
@@ -51,19 +51,22 @@ class PenjualanDetailController extends Controller
 
         foreach ($detail as $item) {
             $row = array();
+            $stok = $item->produk->stok;
             $row['nama_produk'] = '<div class="d-flex align-items-center">
                                     <img src=" ' . Storage::url($item->produk->image) . '"  class="w-50px h-50px rounded-3 me-3" alt="" />
                                     <span class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-6 me-1">' . $item->produk['nama_produk'] . '</span>';
-            $row['jumlah']      = '<div class="col-xs-2"> <input type="number" class="form-control input-sm quantity" data-id="' . $item->id . '" value="' . $item->jumlah . '"></div>';
+            $row['jumlah']      = '<div class="col-xs-2"> <input type="number" max="' . $stok . '" class="form-control input-sm quantity" data-id="' . $item->id . '" value="' . $item->jumlah . '"></div>';
             $row['subtotal']    = '<span class="fw-bold text-primary fs-3" >Rp. ' . format_uang($item->subtotal) . '</span>';
             $row['aksi']        = '<div class="btn-group ">
                                     <button onclick="deleteData(`' . route('transaksi.destroy', $item->id) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                                 </div>';
+            $row['stok']      = '<div class="stok hide">' . $stok . '</div>';
             $data[] = $row;
 
             $total += $item->harga_jual * $item->jumlah;
             $total_item += $item->jumlah;
         }
+
         $data[] = [
             'nama_produk' => '
                 <div class="total hide">' . $total . '</div>
@@ -71,12 +74,13 @@ class PenjualanDetailController extends Controller
             'jumlah'      => '',
             'subtotal'    => '',
             'aksi'        => '',
+            'stok'        => '',
         ];
 
         return datatables()
             ->of($data)
             ->addIndexColumn()
-            ->rawColumns(['aksi', 'nama_produk', 'jumlah', 'subtotal'])
+            ->rawColumns(['aksi', 'nama_produk', 'jumlah', 'subtotal', 'stok'])
             ->make(true);
     }
 

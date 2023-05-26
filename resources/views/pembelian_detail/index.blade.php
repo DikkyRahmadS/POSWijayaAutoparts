@@ -79,7 +79,7 @@
                                         <th width="5%">No</th>
                                         <th>Kode</th>
                                         <th>Nama</th>
-                                        <th width="15%">Harga</th>
+                                        <th width="15%">Harga Beli</th>
                                         <th width="10%">Jumlah</th>
                                         <th>Subtotal</th>
                                         <th><i class="fa fa-cog"></i></th>

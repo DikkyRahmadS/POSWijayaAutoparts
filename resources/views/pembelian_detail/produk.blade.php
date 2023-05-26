@@ -1,6 +1,6 @@
 <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog  mw-650px">
+    <div class="modal-dialog  mw-800px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -32,7 +32,7 @@
                             <th>Kode Produk</th>
                             <th>Nama Produk</th>
                             <th>Harga Jual</th>
-                            <th><i class="fa fa-cog"></i></th>
+                            <th width="10%"><i class="fa fa-cog"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,8 +43,8 @@
                                     <div class="badge badge-light-success">{{ $item->kode_produk }}</div>
                                 </td>
                                 <td>{{ $item->nama_produk }}</td>
-                                <td>{{ $item->harga_jual }}</td>
-                                <td>
+                                <td>Rp. {{ format_uang($item->harga_jual) }}</td>
+                                <td width="10%">
                                     <a href="#" class="btn btn-primary btn-xs btn-flat"
                                         onclick="pilihProduk('{{ $item->id }}', '{{ $item->kode_produk }}')">
                                         <i class="fa fa-check-circle"></i>

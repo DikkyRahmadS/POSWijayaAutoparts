@@ -137,67 +137,70 @@
     <script>
         let table;
         $(function() {
-            table = $('#produktable').DataTable({
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                autoWidth: false,
-                ajax: {
-                    url: '{{ route('produk.data') }}',
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        searchable: false,
-                        sortable: false
+            $('#kt_body').attr('data-kt-aside-minimize', 'on');
+            $(function() {
+                table = $('#produktable').DataTable({
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    autoWidth: false,
+                    ajax: {
+                        url: '{{ route('produk.data') }}',
                     },
-                    {
-                        data: 'kode_produk'
-                    },
-                    {
-                        data: 'nama_produk'
-                    },
-                    {
-                        data: 'nama_kategori'
-                    },
-                    {
-                        data: 'berat'
-                    },
-                    {
-                        data: 'harga_jual'
-                    },
-                    {
-                        data: 'stok'
-                    },
-                    {
-                        data: 'aksi',
-                        searchable: false,
-                        sortable: false
-                    },
-                ]
-            });
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            searchable: false,
+                            sortable: false
+                        },
+                        {
+                            data: 'kode_produk'
+                        },
+                        {
+                            data: 'nama_produk'
+                        },
+                        {
+                            data: 'nama_kategori'
+                        },
+                        {
+                            data: 'berat'
+                        },
+                        {
+                            data: 'harga_jual'
+                        },
+                        {
+                            data: 'stok'
+                        },
+                        {
+                            data: 'aksi',
+                            searchable: false,
+                            sortable: false
+                        },
+                    ]
+                });
 
-            $('#modal-produk').validator().on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                        url: $('#modal-produk form').attr('action'),
-                        type: $('#modal-produk form').attr('method'),
-                        data: new FormData($('#modal-produk form')[0]),
-                        async: false,
-                        processData: false,
-                        contentType: false
-                    })
-                    .done(response => {
-                        $('#modal-produk').modal('hide');
-                        toastr.success('Data Berhasil Disimpan!', {
-                            fadeAway: 1000
+                $('#modal-produk').validator().on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                            url: $('#modal-produk form').attr('action'),
+                            type: $('#modal-produk form').attr('method'),
+                            data: new FormData($('#modal-produk form')[0]),
+                            async: false,
+                            processData: false,
+                            contentType: false
+                        })
+                        .done(response => {
+                            $('#modal-produk').modal('hide');
+                            toastr.success('Data Berhasil Disimpan!', {
+                                fadeAway: 1000
+                            });
+                            table.ajax.reload();
+                        })
+                        .fail(errors => {
+                            toastr.error('Data Gagal Disimpan!', {
+                                fadeAway: 1000
+                            });
                         });
-                        table.ajax.reload();
-                    })
-                    .fail(errors => {
-                        toastr.error('Data Gagal Disimpan!', {
-                            fadeAway: 1000
-                        });
-                    });
+                });
             });
         });
 

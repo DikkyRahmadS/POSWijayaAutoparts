@@ -1,5 +1,5 @@
 <base href="">
-<title>Point Of Sales</title>
+<title>POS Wijaya Autoparts</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta charset="utf-8" />
 <meta name="description"

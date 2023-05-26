@@ -163,7 +163,7 @@
                                 <!--begin::Info-->
                                 <div class="d-flex align-items-center">
                                     <!--begin::Amount-->
-                                    <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $total_produk }}</span>
+                                    <span class="fs-2hx fw-bolder text-dark me-2 lh-1 ls-n2">{{ $total_produk[0] }}</span>
                                     <!--end::Amount-->
                                 </div>
                                 <!--end::Info-->
@@ -223,7 +223,7 @@
                 </div>
 
                 <!--begin::Col-->
-                <div class="col-lg-12 col-xl-12 col-xxl-6 mb-5 mb-xl-0">
+                <div class="col-lg-12 col-xl-12 mb-5 mb-xl-0">
                     <!--begin::Chart widget 3-->
                     <div class="card card-flush overflow-hidden h-md-100">
                         <!--begin::Header-->
@@ -315,8 +315,8 @@
         //mengubah simbol numerik chart
         Highcharts.setOptions({
             lang: {
-                numericSymbols: ['Rb', 'Jt', 'M'],
-                numericSymbolMagnitude: 1000
+                numericSymbols: ['Jt'],
+                numericSymbolMagnitude: 1000000
             }
         });
         //untuk penjualan bulanan dalam tahun ini
