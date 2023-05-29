@@ -7,17 +7,14 @@
 @endpush
 
 @section('content')
-    <h4>
-        Tanggal : {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
-    </h4>
-    <br>
     <div class="card card-flush">
         <!--begin::Card header-->
-        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+        <div class="card-header align-items-center pt-5 gap-2 gap-md-5">
             <!--begin::Card title-->
             <div class="card-title">
 
-                <form class="" action="{{ route('pendapatan.index') }}" method="get" {{--enctype="multipart/form-data"--}} data-tonggle="validator">
+                <form class="" action="{{ route('pendapatan.index') }}" method="get" {{-- enctype="multipart/form-data" --}}
+                    data-tonggle="validator">
                     @csrf
                     {{-- @method('get') --}}
                     <!--begin::Input group-->
@@ -37,19 +34,20 @@
                                 value="{{ request('tanggal_akhir') ?? date('Y-m-d') }}" required>
                         </div>
                         <div class="col mt-8">
-                            <button type="submit"  class="btn btn-primary">
-                                <span class="indicator-label">Search</span>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label" style="width:100px;"><i class="fa fa-search"
+                                        aria-hidden="true"></i> Cari</span>
                             </button>
                         </div>
-                        <div class="col mt-8 ">
-                            <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank" class="btn btn-dark" style="width:140px">
+                        <div class="col mt-8">
+                            <a href="{{ route('laporan.export_pdf', [$tanggalAwal, $tanggalAkhir]) }}" target="_blank"
+                                class="btn btn-dark" style="width:140px">
                                 <i class="bi bi-file-pdf" aria-hidden="true"></i> Export PDF
                             </a>
                         </div>
                     </div>
                     <!--end::Input group-->
                     <!--begin::Actions-->
-
                     <!--end::Actions-->
                 </form>
 
@@ -76,16 +74,12 @@
                 <!--begin::Table body-->
                 <!--end::Table body-->
             </table>
-            <!--end::Table-->
-            <a href="/laporan"><button class="btn btn-primary">Kembali</button></a>
         </div>
         <!--end::Table container-->
     </div>
-    @includeIf('pendapatan.form')
 @endsection
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     </script>
     <script>
         let table;
@@ -132,5 +126,21 @@
         function updatePeriode() {
             $('#modal-form').modal('show');
         }
+
+        // Mendapatkan referensi ke elemen input tanggal_awal dan tanggal_akhir
+        const tanggalAwalInput = document.getElementById('tanggal_awal');
+        const tanggalAkhirInput = document.getElementById('tanggal_akhir');
+
+        // Menambahkan event listener pada tanggal_awal saat nilai berubah
+        tanggalAwalInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const minDate = selectedDate.toISOString().split('T')[0];
+            tanggalAkhirInput.min = minDate;
+        });
+
+        const today = new Date();
+        const maxDate = today.toISOString().split('T')[0];
+        tanggalAwalInput.max = maxDate;
+        tanggalAkhirInput.max = maxDate;
     </script>
 @endpush

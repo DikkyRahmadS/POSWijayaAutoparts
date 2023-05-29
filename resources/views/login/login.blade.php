@@ -17,7 +17,7 @@
                 <input type="text" id="email" name="email" class="@error('email') is-invalid @enderror"
                     autofocus required>
                 <span></span>
-                <label>Username</label>
+                <label>Email</label>
                 @if ($errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
                 @endif

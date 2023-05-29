@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('menu', 'Transaksi')
+@section('menu', 'Kelola Pembelian')
 @section('title', 'Daftar Supplier')
 @section('content')
 

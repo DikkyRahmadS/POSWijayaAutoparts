@@ -41,16 +41,11 @@
                                 </ul>
                             </div>
                             <!--begin::Toolbar wrapper-->
-                            <div class="d-flex align-items-stretch flex-shrink-0">
+                            <div class="d-flex align-items-stretch flex-shrink-0 ">
                                 <!--begin::User menu-->
-                                {{-- <div class="d-flex align-items-center ms-1 ms-lg-3">
-                                    <!--begin::Theme mode docs-->
-                                    <a class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
-                                        href="../../demo1/dist/documentation/getting-started/dark-mode.html">
-                                        <i class="fa fa-bell fs-2"></i>
-                                    </a>
-                                    <!--end::Theme mode docs-->
-                                </div> --}}
+                                <div class="d-flex align-items-center me-8 mt-3 ms-lg-3">
+                                    <h3 id="tanggalwaktu"></h3>
+                                </div>
                                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                     <!--begin::Menu wrapper-->
                                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
@@ -110,3 +105,21 @@
                         </div>
                         <!--end::Wrapper-->
                     </div>
+
+                    @push('scripts')
+                        <script>
+                            var tw = new Date();
+                            if (tw.getTimezoneOffset() == 0)(a = tw.getTime() + (7 * 60 * 60 * 1000))
+                            else(a = tw.getTime());
+                            tw.setTime(a);
+                            var tahun = tw.getFullYear();
+                            var hari = tw.getDay();
+                            var bulan = tw.getMonth();
+                            var tanggal = tw.getDate();
+                            var hariarray = new Array("Minggu,", "Senin,", "Selasa,", "Rabu,", "Kamis,", "Jum'at,", "Sabtu,");
+                            var bulanarray = new Array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
+                                "Oktober", "Nopember", "Desember");
+                            document.getElementById("tanggalwaktu").innerHTML = hariarray[hari] + " " + tanggal + " " + bulanarray[bulan] +
+                                " " + tahun;
+                        </script>
+                    @endpush

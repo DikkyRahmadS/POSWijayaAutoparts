@@ -149,10 +149,9 @@
                         <thead>
                             <tr>
                                 <th class="w-100px"></th>
-                                <th class="w-60px"></th>
-                                <th class="w-60px"></th>
+                                <th class="w-70px"></th>
                                 <th class="w-110px"></th>
-                                <th class="w-30px"></th>
+                                <th class="w-10px"></th>
                             </tr>
                         </thead>
                     </table>
@@ -291,14 +290,12 @@
                     alert('Jumlah tidak boleh kurang dari 1');
                     return;
                 }
-
-
-                if (jumlah > stokArray) {
-                    $(this).val(stokArray);
+                if (jumlah > stokArray[rowIndex]) {
+                    $(this).val(stokArray[rowIndex]);
                     alert('Jumlah tidak boleh lebih dari persediaan stok');
                     return;
                 }
-
+                console.log(stokArray[rowIndex]);
                 if (jumlah > 10000) {
                     $(this).val(10000);
                     alert('Jumlah tidak boleh lebih dari 10000');

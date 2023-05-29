@@ -6,7 +6,7 @@ use App\Models\Pendapatan;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PendapatanController extends Controller
 {
@@ -77,7 +77,7 @@ class PendapatanController extends Controller
         $data = $this->getData($awal, $akhir);
         $pdf  = PDF::loadView('pendapatan.pdf', compact('awal', 'akhir', 'data'));
         $pdf->setPaper('a4', 'potrait');
-        
-        return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
+
+        return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
     }
 }

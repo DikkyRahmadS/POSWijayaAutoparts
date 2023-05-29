@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 class LaporanController extends Controller
 {
-    
+
     public function index()
     {
         return view("laporan.index");
@@ -33,8 +33,7 @@ class LaporanController extends Controller
         $pdf = Pdf::loadview('laporan.index_pdf_produk', ['produks' => $produks]);
         $pdf->setPaper("A4", 'potrait');
         // return $pdf->download('laporan-produk-pdf');
-        return $pdf->stream('Laporan-produk-'.'.pdf');
-
+        return $pdf->stream('Laporan-produk-' . '.pdf');
     }
 
     public function cetak_pdf_supplier(Request $request)
@@ -49,7 +48,7 @@ class LaporanController extends Controller
         $pdf = Pdf::loadview('laporan.index_pdf_supplier', ['pembeliansDetail' => $pembeliansDetail]);
         $pdf->setPaper("A4", 'potrait');
         // return $pdf->download('laporan-supplier-pdf');
-        return $pdf->stream('Laporan-supplier-'.'.pdf');
+        return $pdf->stream('Laporan-supplier-' . '.pdf');
     }
 
     public function cetak_pdf_penjualan(Request $request)
@@ -64,26 +63,25 @@ class LaporanController extends Controller
         $pdf = Pdf::loadview('laporan.index_pdf_penjualan', ['penjualansDetail' => $penjualansDetail]);
         $pdf->setPaper("A4", 'potrait');
         // return $pdf->download('laporan-supplier-pdf');
-        return $pdf->stream('Laporan-penjualan-'.'.pdf');
+        return $pdf->stream('Laporan-penjualan-' . '.pdf');
     }
 
     public function getFilteredPenjualans()
     {
 
-            $penjualansDetail = PenjualanDetail::query()
-            ->with("produk","penjualan")
-            ->orderBy('id', 'desc')
+        $penjualansDetail = PenjualanDetail::query()
+            ->with("produk", "penjualan")
+            ->orderBy('id', 'asc')
             ->when(request()->tanggal_awal && request()->tanggal_akhir, function ($query) {
                 $query->whereBetween(DB::raw('DATE(created_at)'), [request()->tanggal_awal, request()->tanggal_akhir]);
             })
             ->paginate(10);
-            $penjualansDetail->getCollection()->transform(function ($item) {
-                $item->created_at = Carbon::parse($item->created_at)->toDateTimeString();
-                return $item;
-            });
-            
-        return $penjualansDetail;
+        $penjualansDetail->getCollection()->transform(function ($item) {
+            $item->created_at = Carbon::parse($item->created_at)->toDateTimeString();
+            return $item;
+        });
 
+        return $penjualansDetail;
     }
 
     public function getFilteredProduks()
@@ -121,8 +119,8 @@ class LaporanController extends Controller
             ->paginate(10);
     }
 
-    
-    
+
+
 
     public function produk()
     {
@@ -138,11 +136,7 @@ class LaporanController extends Controller
 
     public function penjualan()
     {
-        
         $penjualansDetail = $this->getFilteredPenjualans();
         return view("laporan.index_penjualan", compact("penjualansDetail"));
-
-            
-
     }
 }
