@@ -38,7 +38,7 @@ class DashboardController extends Controller
             ->pluck('sum');
         $mean_penjualan = DB::table('penjualans')
             ->select(DB::raw("CAST(SUM(bayar)/7 AS INT) AS mean"))
-            ->where(DB::raw("WEEK(created_at)"), date('W'))
+            ->where(DB::raw("WEEK(created_at)"), "=", DB::raw("WEEK(NOW())"))
             ->whereYear('created_at', date('Y'))
             ->get();
         $penjualan_perhari = DB::table('penjualans')
