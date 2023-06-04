@@ -38,13 +38,13 @@ class DashboardController extends Controller
             ->pluck('sum');
         $mean_penjualan = DB::table('penjualans')
             ->select(DB::raw("CAST(SUM(bayar)/7 AS INT) AS mean"))
-            ->where(DB::raw("WEEK(created_at)"), date('W'))
+            ->where(DB::raw("WEEK(created_at)"), "=", DB::raw("WEEK(NOW())"))
             ->whereYear('created_at', date('Y'))
             ->get();
         $penjualan_perhari = DB::table('penjualans')
             ->select(DB::raw("DAYNAME(created_at) as hari"), DB::raw("CAST(SUM(bayar) AS int) as pendapatan"))
-            ->whereYear('created_at', date('Y'))
-            ->where(DB::raw("WEEK(created_at)"), date('W'))
+            ->where(DB::raw("YEAR(created_at)"), "=", DB::raw("YEAR(NOW())"))
+            ->where(DB::raw("WEEK(created_at)"), "=", DB::raw("WEEK(NOW())"))
             ->groupBy('hari')
             ->orderBy('created_at', 'asc')
             ->get();

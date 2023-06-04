@@ -324,7 +324,7 @@
         $arr_items = (array) json_decode($pendapatan);
         $rows = count($arr_items);
         $arr_penjualan_perbulan = [];
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 1; $i <= 12; $i++) {
             $isFound = false;
             for ($j = 0; $j < $rows; $j++) {
                 if ($arr_items[$j]->bulan === $i) {
@@ -363,6 +363,11 @@
                 series: {
                     allowPointSelect: true
                 }
+            },
+            tooltip: {
+                borderWidth: 2,
+                headerFormat: '<b>{point.x}</b></br>',
+                valuePrefix: 'Rp '
             },
             series: [{
                 name: 'Nominal Penjualan',
@@ -414,6 +419,11 @@
                     allowPointSelect: true
                 }
             },
+            tooltip: {
+                borderWidth: 2,
+                headerFormat: '<b>{point.x}</b></br>',
+                valuePrefix: 'Rp '
+            },
             series: [{
                 name: 'Nominal Penjualan',
                 data: penjualan_perhari
@@ -444,6 +454,7 @@
                 }
             },
             tooltip: {
+                borderWidth: 2,
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
                 pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> pcs<br/>'
             },
