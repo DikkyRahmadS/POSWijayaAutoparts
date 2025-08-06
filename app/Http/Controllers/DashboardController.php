@@ -24,29 +24,29 @@ class DashboardController extends Controller
         $supplier = Supplier::count();
         $user = User::count();
         $pendapatan = DB::table('penjualans')
-            ->select(DB::raw("MONTH(created_at) as bulan"), DB::raw("CAST(SUM(bayar) AS int) as pendapatan"))
+            ->select(DB::raw("MONTH(created_at) as bulan"), DB::raw("CAST(SUM(bayar) AS UNSIGNED) as pendapatan"))
             ->whereYear('created_at', date('Y'))
             ->groupBy('bulan')
             ->orderBy('bulan', 'asc')
             ->get();
-        $total_pendapatan = Penjualan::select(DB::raw("CAST(SUM(bayar) AS INT) as total_pendapatan"))
+        $total_pendapatan = Penjualan::select(DB::raw("CAST(SUM(bayar) AS UNSIGNED) as total_pendapatan"))
             ->whereYear('created_at', date('Y'))
             ->pluck('total_pendapatan')
-            ->sum();
+            ->sum(); // This line is fine, only the CAST needs fixing above
         $total_produk = DB::table('penjualan_details')
             ->select(DB::raw("SUM(penjualan_details.jumlah) as sum"))
             ->pluck('sum');
         $mean_penjualan = DB::table('penjualans')
-            ->select(DB::raw("CAST(SUM(bayar)/7 AS INT) AS mean"))
+            ->select(DB::raw("CAST(SUM(bayar)/7 AS UNSIGNED) AS mean"))
             ->where(DB::raw("WEEK(created_at)"), "=", DB::raw("WEEK(NOW())"))
             ->whereYear('created_at', date('Y'))
             ->get();
         $penjualan_perhari = DB::table('penjualans')
-            ->select(DB::raw("DAYNAME(created_at) as hari"), DB::raw("CAST(SUM(bayar) AS int) as pendapatan"))
+            ->select(DB::raw("DAYNAME(created_at) as hari"), DB::raw("CAST(SUM(bayar) AS UNSIGNED) as pendapatan"))
             ->where(DB::raw("YEAR(created_at)"), "=", DB::raw("YEAR(NOW())"))
             ->where(DB::raw("WEEK(created_at)"), "=", DB::raw("WEEK(NOW())"))
             ->groupBy('hari')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('hari', 'asc')
             ->get();
         // dd($penjualan_perhari);
         $produk_kategori = DB::table('penjualan_details')
@@ -58,7 +58,7 @@ class DashboardController extends Controller
         $drilldown_produk = DB::table('penjualan_details')
             ->join('produks', 'penjualan_details.produk_id', '=', 'produks.id')
             ->join('kategoris', 'produks.kategori_id', '=', 'kategoris.id')
-            ->select(DB::raw("kategoris.nama_kategori as nama_kategori"), DB::raw("CAST(SUM(penjualan_details.jumlah) as INT) as y"), DB::raw("produks.id as id"), DB::raw("produks.nama_produk as nama_produk"))
+            ->select(DB::raw("kategoris.nama_kategori as nama_kategori"), DB::raw("CAST(SUM(penjualan_details.jumlah) AS UNSIGNED) as y"), DB::raw("produks.id as id"), DB::raw("produks.nama_produk as nama_produk"))
             ->groupBy('nama_kategori', 'id', 'nama_produk')
             ->get();
         // dd($drilldown_produk);

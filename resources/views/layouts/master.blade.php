@@ -42,7 +42,6 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                     <!--begin::Toolbar-->
-
                     <!--end::Toolbar-->
                     <!--begin::Post-->
                     <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -72,5 +71,6 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Javascript-->
 </body>
 <!--end::Body-->
+
 
 </html>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('menu', 'Transaksi')
-@section('title', 'Daftar Produk')
+@section('title', 'Penjualan')
 @push('css')
     <style>
         .table-penjualan tbody tr:last-child {
