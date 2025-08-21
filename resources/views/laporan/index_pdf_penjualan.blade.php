@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +41,7 @@
 </head>
 
 <body>
-    <h1>Laporan Penjualan Wijaya Autopart</h1>
+    <h1>Laporan Penjualan CV Barokah Jaya</h1>
     <table>
         <thead>
             <tr>
@@ -54,7 +53,6 @@
                 <th class=>Total Harga </th>
                 <th class=>Diskon</th>
                 <th class=>Bayar</th>
-                <th class=></th>
             </tr>
         </thead>
         @php
@@ -63,16 +61,16 @@
         <tbody>
 
             @foreach ($penjualansDetail as $penjualanDetail)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{ date('d M Y', strtotime($penjualanDetail->created_at)) }}</td>
-                            <td>{{ $penjualanDetail->penjualan_id }}</td>
-                            <td>{{ $penjualanDetail->produk->nama_produk }}</td>
-                            <td>{{ $penjualanDetail->jumlah }}</td>
-                            <td>{{ $penjualanDetail->subtotal }}</td>
-                            <td>{{ $penjualanDetail->penjualan->diskon }}</td>
-                            <td>{{ $penjualanDetail->penjualan->diterima }}</td>
-                        </tr>
+                <tr>
+                    <td>{{ $i++ }}</td>
+                    <td>{{ date('d M Y', strtotime($penjualanDetail->created_at)) }}</td>
+                    <td>{{ $penjualanDetail->penjualan_id }}</td>
+                    <td>{{ $penjualanDetail->produk->nama_produk }}</td>
+                    <td>{{ $penjualanDetail->jumlah }}</td>
+                    <td>{{ $penjualanDetail->subtotal }}</td>
+                    <td>{{ $penjualanDetail->penjualan->diskon }}</td>
+                    <td>{{ $penjualanDetail->penjualan->diterima }}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>

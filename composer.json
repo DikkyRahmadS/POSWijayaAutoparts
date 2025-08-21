@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "laravelcollective/html": "^6.4",
+        "milon/barcode": "^12.0",
         "realrashid/sweet-alert": "^7.0",
         "yajra/laravel-datatables-oracle": "^10.4"
     },

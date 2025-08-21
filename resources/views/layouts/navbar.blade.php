@@ -21,9 +21,9 @@
                         <!--end::Aside mobile toggle-->
                         <!--begin::Mobile logo-->
                         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                            <a href="../../demo1/dist/index.html" class="d-lg-none">
+                            {{-- <a href="../../demo1/dist/index.html" class="d-lg-none">
                                 <img alt="Logo" src="/admin/dist/assets/media/logos/logo-2.svg" class="h-30px" />
-                            </a>
+                            </a> --}}
                         </div>
                         <!--end::Mobile logo-->
                         <!--begin::Wrapper-->
@@ -51,7 +51,8 @@
                                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
                                         data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                                         data-kt-menu-placement="bottom-end">
-                                        <img src="/storage/{{ Auth::user()->image }}" alt="user" />
+                                        <img src="{{ Auth::user()->image ? '/storage/' . Auth::user()->image : '/admin/dist/assets/media/avatars/blank.png' }}"
+                                            alt="user" />
                                     </div>
                                     <!--begin::User account menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -61,7 +62,8 @@
                                             <div class="menu-content d-flex align-items-center px-3">
                                                 <!--begin::Avatar-->
                                                 <div class="symbol symbol-50px me-5">
-                                                    <img alt="Logo" src="/storage/{{ Auth::user()->image }}" />
+                                                    <img alt="Logo"
+                                                        src="{{ Auth::user()->image ? '/storage/' . Auth::user()->image : '/admin/dist/assets/media/avatars/blank.png' }}" />
 
                                                 </div>
                                                 <!--end::Avatar-->

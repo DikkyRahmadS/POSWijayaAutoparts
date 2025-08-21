@@ -99,16 +99,34 @@ class PenjualanDetailController extends Controller
     {
         $produk = Produk::where('id', $request->produk_id)->first();
         if (!$produk) {
-            return response()->json('Data gagal disimpan', 400);
+            return response()->json(['message' => 'Data gagal disimpan'], 400);
         }
 
-        $detail = new PenjualanDetail();
-        $detail->penjualan_id = $request->penjualan_id;
-        $detail->produk_id = $produk->id;
-        $detail->harga_jual = $produk->harga_jual;
-        $detail->jumlah = 1;
-        $detail->subtotal = $produk->harga_jual;
-        $detail->save();
+        // Cek apakah produk sudah ada di keranjang
+        $detail = PenjualanDetail::where('penjualan_id', $request->penjualan_id)
+            ->where('produk_id', $produk->id)
+            ->first();
+
+        if ($detail) {
+            $jumlah_baru = $detail->jumlah + 1;
+            if ($jumlah_baru > $produk->stok) {
+                return response()->json(['message' => 'Stok tidak mencukupi!'], 422);
+            }
+            $detail->jumlah = $jumlah_baru;
+            $detail->subtotal = $jumlah_baru * $produk->harga_jual;
+            $detail->save();
+        } else {
+            if ($produk->stok < 1) {
+                return response()->json(['message' => 'Stok tidak mencukupi!'], 422);
+            }
+            $detail = new PenjualanDetail();
+            $detail->penjualan_id = $request->penjualan_id;
+            $detail->produk_id = $produk->id;
+            $detail->harga_jual = $produk->harga_jual;
+            $detail->jumlah = 1;
+            $detail->subtotal = $produk->harga_jual;
+            $detail->save();
+        }
 
         return response()->json('Data berhasil disimpan', 200);
     }

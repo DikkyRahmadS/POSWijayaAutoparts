@@ -26,8 +26,16 @@ class LaporanController extends Controller
     {
 
         $produks = [];
-        foreach ($request->input('getFilteredProduks') as $produkJson) {
+        $filtered = $request->input('getFilteredProduks');
+        if (empty($filtered) || count($filtered) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
+        }
+        foreach ($filtered as $produkJson) {
             $produks[] = json_decode($produkJson);
+        }
+
+        if (count($produks) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
         }
 
         $pdf = Pdf::loadview('laporan.index_pdf_produk', ['produks' => $produks]);
@@ -41,8 +49,16 @@ class LaporanController extends Controller
 
 
         $pembeliansDetail = [];
-        foreach ($request->input('getFilteredSupplier') as $supplierJson) {
+        $filtered = $request->input('getFilteredSupplier');
+        if (empty($filtered) || count($filtered) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
+        }
+        foreach ($filtered as $supplierJson) {
             $pembeliansDetail[] = json_decode($supplierJson);
+        }
+
+        if (count($pembeliansDetail) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
         }
 
         $pdf = Pdf::loadview('laporan.index_pdf_supplier', ['pembeliansDetail' => $pembeliansDetail]);
@@ -56,8 +72,16 @@ class LaporanController extends Controller
 
 
         $penjualansDetail = [];
-        foreach ($request->input('getFilteredPenjualans') as $penjualanJson) {
+        $filtered = $request->input('getFilteredPenjualans');
+        if (empty($filtered) || count($filtered) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
+        }
+        foreach ($filtered as $penjualanJson) {
             $penjualansDetail[] = json_decode($penjualanJson);
+        }
+
+        if (count($penjualansDetail) == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data untuk diekspor!');
         }
 
         $pdf = Pdf::loadview('laporan.index_pdf_penjualan', ['penjualansDetail' => $penjualansDetail]);

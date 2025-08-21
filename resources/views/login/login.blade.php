@@ -2,15 +2,15 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="/Admin/dist/assets/media/logos/favicon.ico" />
-    <title>POS Wijaya Autoparts</title>
+    <link rel="shortcut icon" href="/admin/dist/assets/media/logos/logo.png" />
+    <title>CV Barokah Jaya</title>
     <link rel="stylesheet" href="/Login/style.css">
 </head>
 
 <body>
 
     <div class="center">
-        <div class="gambar"><img src="/Login/IMG_CROP_20210501_13472663-removebg-preview.png"></div>
+        <div class="gambar"><img src="/admin/dist/assets/media/logos/logo.png"></div>
         <form method="POST" action="{{ route('postlogin') }}">
             @csrf
             <div class="txt_field">

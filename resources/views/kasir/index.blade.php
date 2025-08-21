@@ -35,26 +35,26 @@
                             <li class="nav-item mb-3 me-0">
                                 <form action="{{ url('transaksi') }}" method="GET">
                                     <div class="d-flex align-items-center position-relative my-1">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                         <span class="svg-icon svg-icon-1 position-absolute ms-4">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                    height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                    fill="black" />
+                                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"
+                                                    rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
                                                 <path
                                                     d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
                                                     fill="black" />
                                             </svg>
                                         </span>
-                                        <!--end::Svg Icon-->
                                         <input type="search" class="form-control form-control-solid w-250px ps-14"
                                             placeholder="Cari Produk" id="keyword" name="keyword"
                                             value="{{ $keyword }}">
                                     </div>
                                 </form>
                             </li>
-                            <!--end::Item-->
+                            <li class="nav-item mb-3 ms-3">
+                                <button type="button" class="btn btn-success" id="btn-scan-barcode"><i
+                                        class="fa fa-camera"></i> Scan Barcode</button>
+                            </li>
                         </ul>
                         <!--end::Nav-->
                         <!--begin::Tab Content-->
@@ -88,9 +88,6 @@
                                                         <div class="text-center">
                                                             <span
                                                                 class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">{{ $value->nama_produk }}</span>
-
-                                                            <span
-                                                                class="text-gray-400 fw-semibold d-block fs-6 mt-n1">{{ $value->merk }}</span>
 
                                                             <span class="text-gray-400 fw-semibold d-block fs-6 mt-2">Stok
                                                                 : {{ $value->stok }}</span>
@@ -223,9 +220,26 @@
     <!--end::Layout-->
     </div>
     <!--end::Content container-->
+
+    <!-- Modal Scan Barcode -->
+    <div class="modal fade" id="modal-scan-barcode" tabindex="-1" aria-labelledby="scanBarcodeLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scanBarcodeLabel">Scan Barcode Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="reader" style="width:100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script>
         let table;
 
@@ -347,17 +361,99 @@
             tambahProduk();
         }
 
-
+        // Fungsi untuk menambah produk ke keranjang
         function tambahProduk() {
-            $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
-                .done(response => {
+            var produk_id = $('#produk_id').val();
+            var penjualan_id = $('input[name=penjualan_id]').val();
+            if (!produk_id) {
+                toastr.error('Produk tidak ditemukan!');
+                return;
+            }
+            $.ajax({
+                url: '{{ route('transaksi.store') }}',
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    produk_id: produk_id,
+                    penjualan_id: penjualan_id
+                },
+                success: function(response) {
                     table.ajax.reload(() => loadForm($('#diskon').val()));
-                })
-                .fail(errors => {
-                    alert('Tidak dapat menyimpan data');
-                    return;
-                });
+                    toastr.success('Produk berhasil ditambahkan ke keranjang!');
+                },
+                error: function(xhr) {
+                    let msg = 'Gagal menambah produk ke keranjang!';
+                    if (xhr.responseJSON && xhr.responseJSON.message) msg = xhr.responseJSON.message;
+                    toastr.error(msg);
+                }
+            });
         }
+
+        // Barcode scanner kamera
+        let html5QrcodeScanner;
+        let isScanning = false;
+        $('#btn-scan-barcode').on('click', function() {
+            $('#modal-scan-barcode').modal('show');
+            setTimeout(() => {
+                if (!html5QrcodeScanner) {
+                    html5QrcodeScanner = new Html5Qrcode("reader");
+                }
+                isScanning = true;
+                html5QrcodeScanner.start({
+                        facingMode: "environment"
+                    }, {
+                        fps: 10,
+                        qrbox: 250
+                    },
+                    (decodedText, decodedResult) => {
+                        if (!isScanning) return;
+                        isScanning = false;
+                        // Callback sukses scan barcode
+                        // Cari produk berdasarkan barcode
+                        $.get('/produk/barcode/' + decodedText, function(res) {
+                            if (res && res.success && res.id) {
+                                $('#produk_id').val(res.id);
+                                tambahProduk();
+                                html5QrcodeScanner.stop().then(() => {
+                                    $('#modal-scan-barcode').modal('hide');
+                                }).catch(() => {
+                                    $('#modal-scan-barcode').modal('hide');
+                                });
+                            } else {
+                                toastr.error(res && res.message ? res.message :
+                                    'Produk dengan barcode tersebut tidak ditemukan!');
+                                html5QrcodeScanner.stop().then(() => {
+                                    $('#modal-scan-barcode').modal('hide');
+                                }).catch(() => {
+                                    $('#modal-scan-barcode').modal('hide');
+                                });
+                            }
+                        }).fail(function(xhr) {
+                            let msg = 'Gagal mencari produk!';
+                            if (xhr.responseJSON && xhr.responseJSON.message) msg = xhr
+                                .responseJSON.message;
+                            toastr.error(msg);
+                            html5QrcodeScanner.stop().then(() => {
+                                $('#modal-scan-barcode').modal('hide');
+                            }).catch(() => {
+                                $('#modal-scan-barcode').modal('hide');
+                            });
+                        });
+                    },
+                    (errorMessage) => {
+                        // ignore scan errors
+                    }
+                );
+            }, 500);
+        });
+
+        // Stop kamera saat modal ditutup
+        $('#modal-scan-barcode').on('hidden.bs.modal', function() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().catch(() => {});
+            }
+            isScanning = false;
+        });
 
         function deleteData(url) {
             Swal.fire({

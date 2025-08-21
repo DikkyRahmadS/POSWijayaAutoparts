@@ -27,8 +27,9 @@ class PenggunaController extends Controller
             ->of($user)
             ->addIndexColumn()
             ->addColumn('name', function ($user) {
+                $imgUrl = $user->image ? Storage::url($user->image) : asset('admin/dist/assets/media/avatars/blank.png');
                 return  ' <div class="symbol symbol-45px me-5 ml-1">
-                                    <img src=" ' . Storage::url($user->image) . '" alt="" />
+                                    <img src="' . $imgUrl . '" alt="" />
                                 </div>' . $user->name;
             })
             ->addColumn('role', function ($user) {

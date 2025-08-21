@@ -9,45 +9,45 @@
 
     <?php
     $style = '
-                    <style>
-                        * {
-                            font-family: "consolas", sans-serif;
-                        }
-                        p {
-                            display: block;
-                            margin: 3px;
-                            font-size: 10pt;
-                        }
-                        table td {
-                            font-size: 9pt;
-                        }
-                        .text-center {
-                            text-align: center;
-                        }
-                        .text-right {
-                            text-align: right;
-                        }
+                                <style>
+                                    * {
+                                        font-family: "consolas", sans-serif;
+                                    }
+                                    p {
+                                        display: block;
+                                        margin: 3px;
+                                        font-size: 10pt;
+                                    }
+                                    table td {
+                                        font-size: 9pt;
+                                    }
+                                    .text-center {
+                                        text-align: center;
+                                    }
+                                    .text-right {
+                                        text-align: right;
+                                    }
 
-                        @media print {
-                            @page {
-                                margin: 0;
-                                size: 75mm
-                    ';
+                                    @media print {
+                                        @page {
+                                            margin: 0;
+                                            size: 75mm
+                                ';
     ?>
     <?php
     $style .= !empty($_COOKIE['innerHeight']) ? $_COOKIE['innerHeight'] . 'mm; }' : '}';
     ?>
     <?php
     $style .= '
-                            html, body {
-                                width: 70mm;
-                            }
-                            .btn-print {
-                                display: none;
-                            }
-                        }
-                    </style>
-                    ';
+                                        html, body {
+                                            width: 70mm;
+                                        }
+                                        .btn-print {
+                                            display: none;
+                                        }
+                                    }
+                                </style>
+                                ';
     ?>
 
     {!! $style !!}
@@ -56,8 +56,8 @@
 <body onload="window.print()">
     <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
     <div class="text-center">
-        <h3 style="margin-bottom: 5px;">Wijaya Dinamo</h3>
-        <p>Jl. Cempaka Desa No.122 Kabupaten Malang</p>
+        <h3 style="margin-bottom: 5px;">CV Barokah Jaya</h3>
+        <p>Dusun Banci, Desa Kemantren, Kec. Gedeg, Kabupaten Mojokerto, Jawa Timur 61351.</p>
     </div>
     <br>
     <div>

@@ -81,6 +81,13 @@
     </div>
     </div>
 @endsection
+@if (session('error'))
+    <script>
+        window.onload = function() {
+            toastr.error("{{ session('error') }}");
+        }
+    </script>
+@endif
 @push('scripts')
     <script>
         // Mendapatkan referensi ke elemen input tanggal_awal dan tanggal_akhir

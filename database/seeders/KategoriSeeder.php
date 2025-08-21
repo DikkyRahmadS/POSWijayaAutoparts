@@ -15,96 +15,14 @@ class KategoriSeeder extends Seeder
     {
         //
         $datas = [
-            [
-                "nama_kategori" => "Bahan Dinamo Stater",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Mangkokan",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Piston Switch",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Oil Seal",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Cover Alt",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Cover Str",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "SIKU",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Solonoid/SS",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Holder",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Kolektor",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Bantalan",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Carbon Brush Alt/ Kol Besar Alt",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Dinamo Stater",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Bahan Dinamo Alternator",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Pulley",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Ic",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Bendix",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ],
-            [
-                "nama_kategori" => "Rectifier/Silikon",
-                "created_at" => date('Y-m-d H:i:s', time()),
-                "updated_at" => date('Y-m-d H:i:s', time()),
-            ]
+            ["nama_kategori" => "Karpet Sapi", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Vulkanisir", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Outsol Simplex", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Vulkanisir Panas", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Vulkanisir Dingin", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Karpet Bak", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Rubber Sheet", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())],
+            ["nama_kategori" => "Sol Sandal Gunung", "created_at" => date('Y-m-d H:i:s', time()), "updated_at" => date('Y-m-d H:i:s', time())]
         ];
         Kategori::insert($datas);
     }

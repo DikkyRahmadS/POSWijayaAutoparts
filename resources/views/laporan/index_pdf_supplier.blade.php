@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    <h1>Laporan Supplier Wijaya Autopart</h1>
+    <h1>Laporan Supplier CV Barokah Jaya</h1>
     <table>
         <thead>
             <tr>

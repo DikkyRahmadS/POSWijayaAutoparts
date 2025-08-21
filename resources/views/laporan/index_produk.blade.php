@@ -51,7 +51,7 @@
                     <th class="min-w-70px">Kode Produk</th>
                     <th class="min-w-70px">Nama Produk</th>
                     <th class="min-w-70px pe-2 ">Kategori </th>
-                    <th class="min-w-70px pe-2 ">Berat </th>
+                    <th class="min-w-70px pe-2 ">ukuran </th>
                     <th class="min-w-10px">Harga Jual</th>
                     <th class="min-w-70px">Stok</th>
                     <th class="min-w-70px text-end"></th>
@@ -67,7 +67,7 @@
                         <td>{{ $produk->kode_produk }}</td>
                         <td>{{ $produk->nama_produk }}</td>
                         <td>{{ $produk->kategori->nama_kategori }}</td>
-                        <td>{{ $produk->berat }} g</td>
+                        <td>{{ $produk->ukuran }} g</td>
                         <td>Rp. {{ format_uang($produk->harga_jual) }}</td>
                         <td>{{ $produk->stok }}</td>
                     </tr>
@@ -78,3 +78,10 @@
     </div>
     </div>
 @endsection
+@if (session('error'))
+    <script>
+        window.onload = function() {
+            toastr.error("{{ session('error') }}");
+        }
+    </script>
+@endif

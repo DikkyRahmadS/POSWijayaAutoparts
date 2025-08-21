@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    <h1>Laporan Produk Wijaya Autopart</h1>
+    <h1>Laporan Produk CV Barokah Jaya</h1>
     <table>
         <thead>
             <tr>
@@ -49,10 +49,9 @@
                 <th>Kode Produk</th>
                 <th>Nama Produk</th>
                 <th>Kategori </th>
-                <th>Berat </th>
+                <th>Ukuran</th>
                 <th>Harga Jual</th>
                 <th>Stok</th>
-                <th></th>
             </tr>
         </thead>
         @php
@@ -65,7 +64,7 @@
                     <td>{{ $produk->kode_produk }}</td>
                     <td>{{ $produk->nama_produk }}</td>
                     <td>{{ $produk->kategori->nama_kategori }}</td>
-                    <td>{{ $produk->berat }} g</td>
+                    <td>{{ $produk->ukuran }} g</td>
                     <td>Rp. {{ format_uang($produk->harga_jual) }}</td>
                     <td>{{ $produk->stok }}</td>
                 </tr>

@@ -34,7 +34,7 @@ body{
     transform: translate(-50%, -50%);
     width: 450px;
     height: 400px;
-    background: white;
+    background: rgba(240, 238, 238, 0.918);
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
@@ -141,4 +141,3 @@ input[type="submit"]:hover{
 .keluar a:hover{
     text-decoration: underline;
 }
-  

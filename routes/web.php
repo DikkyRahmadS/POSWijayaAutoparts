@@ -1,4 +1,7 @@
+
 <?php
+
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
@@ -28,7 +31,7 @@ use App\Http\Controllers\LaporanController;
 
 
 
-route::get('/masuk', [LoginController::class, 'halamanlogin'])->name('login');
+route::get('/', [LoginController::class, 'halamanlogin'])->name('login');
 route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('preventBackHistory');
 route::post('/postlogin', [LoginController::class, 'postlogin'])->name('postlogin');
 
@@ -48,6 +51,8 @@ Route::group(
 
                 Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
                 Route::resource('produk', ProdukController::class);
+                // Route barcode produk (scan)
+                Route::get('/produk/barcode/{barcode}', [ProdukController::class, 'findByBarcode']);
 
                 Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
                 Route::resource('supplier', SupplierController::class);
